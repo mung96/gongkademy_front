@@ -1,0 +1,10 @@
+{
+  "endOfLine": "auto",
+  "singleQuote": true,
+  "tabWidth": 2,
+  "printWidth": 120,
+  "semi": true,
+  "importOrder": [],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
