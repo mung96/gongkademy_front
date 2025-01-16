@@ -4,7 +4,11 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        pretendard: ['var(--font-pretendard)']
+      }
+    },
     colors: {
       primary: {
         50: '#F0F9FF',
