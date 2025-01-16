@@ -9,6 +9,10 @@ module.exports = {
         pretendard: ['var(--font-pretendard)']
       }
     },
+    screens: {
+      'tablet': '768px',
+      'desktop': '1280px'
+    },
     colors: {
       primary: {
         50: '#F0F9FF',
