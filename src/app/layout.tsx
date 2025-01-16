@@ -11,7 +11,6 @@ const pretendard = localFont({
 export default function RootLayout({ children }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log(pretendard);
   return (
     <html lang="ko" className={`${pretendard.variable} font-pretendard`}>
     <body>
