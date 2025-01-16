@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <div>
+    <p className={' title1'}>
       인덱스페이지
-    </div>
+    </p>
   );
 }
