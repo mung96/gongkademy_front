@@ -1,9 +1,10 @@
 'use client';
 
 import Button from '@/components/Button';
+import PencilIcon from '@/app/assets/svg/PencilIcon.svg';
 
 export default function Home() {
   return (
-    <Button onClick={() => console.log('1')} variant={'outlined'} disabled={true}>버튼</Button>
+    <Button icon={<PencilIcon />} onClick={() => console.log('클릭')} variant='outlined' >글쓰기</Button>
   );
 }
