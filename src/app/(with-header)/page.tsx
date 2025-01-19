@@ -1,7 +1,9 @@
+'use client';
+
+import Button from '@/components/Button';
+
 export default function Home() {
   return (
-    <p className={' title1'}>
-      인덱스페이지
-    </p>
+    <Button onClick={() => console.log('1')} variant={'outlined'} disabled={true}>버튼</Button>
   );
 }
