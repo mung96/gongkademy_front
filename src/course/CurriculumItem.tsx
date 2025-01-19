@@ -41,7 +41,7 @@ type Props = {
 
 export default function CurriculumItem({ title, runTime, status }: Props) {
   return (
-    <li className="flex items-center justify-between h-[58px] px-4 rounded-lg">
+    <li className="flex items-center justify-between h-[58px] px-4 rounded-lg min-w-[500px]">
       <p className="text-neutral-gray-950 subtitle2 tablet:subtitle3">{title}</p>
       <div className="flex items-center gap-4">
         <p className={twMerge('body1', statusStyles({ status }))}>{getStatusLabel(status)}</p>
