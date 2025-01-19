@@ -1,17 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}'
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       fontFamily: {
-        pretendard: ['var(--font-pretendard)']
-      }
+        pretendard: ['var(--font-pretendard)'],
+      },
     },
     screens: {
-      'tablet': '768px',
-      'desktop': '1280px'
+      tablet: '768px',
+      desktop: '1280px',
     },
     colors: {
       primary: {
@@ -25,7 +23,7 @@ module.exports = {
         700: '#0379BA',
         800: '#086A9E',
         900: '#0F5B87',
-        950: '#0B4063'
+        950: '#0B4063',
       },
       secondary: {
         50: '#FFF5ED',
@@ -38,7 +36,7 @@ module.exports = {
         700: '#C73D07',
         800: '#9E370E',
         900: '#7F290F',
-        950: '#451A05'
+        950: '#451A05',
       },
       neutral: {
         gray: {
@@ -53,24 +51,24 @@ module.exports = {
           700: '#374151',
           800: '#1F2937',
           900: '#111827',
-          950: '#030712'
-        }
+          950: '#030712',
+        },
       },
       system: {
         red: {
           100: '#FF5E4D',
           200: '#FA4F34',
           300: '#F52F18',
-          400: '#F01700'
+          400: '#F01700',
         },
         green: {
           100: '#5CE58E',
           200: '#4ADE80',
           300: '#22C55D',
-          400: '#16A349'
-        }
-      }
-    }
+          400: '#16A349',
+        },
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 };
