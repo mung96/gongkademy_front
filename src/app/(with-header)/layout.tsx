@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
 export default function Layout({
@@ -9,6 +10,7 @@ export default function Layout({
     <>
       <Header />
       <div className="h-full px-4 tablet:px-6">{children}</div>
+      <Footer />
     </>
   );
 }

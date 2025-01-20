@@ -5,7 +5,7 @@ import Link from 'next/link';
 const textStyle = 'body2 flex items-center justify-center px-3 text-neutral-gray-950';
 export default function Header() {
   return (
-    <header className="flex h-16 w-full justify-center border-b border-neutral-gray-100 bg-neutral-gray-0 ">
+    <header className="sticky top-0 flex h-16 w-full justify-center border-b border-neutral-gray-100 bg-neutral-gray-0">
       <div className="flex h-full w-[1300px] max-w-[1300px] items-center  justify-between px-6">
         <div className="flex items-center ">
           <Link className={textStyle} href={PATH.HOME}>
