@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { cva, VariantProps } from 'class-variance-authority';
 import { twMerge } from 'tailwind-merge';
 
-const styles = cva('button1 flex h-11 min-w-[70px] items-center justify-center gap-2  rounded-lg px-3', {
+const styles = cva('button1 flex h-11 min-w-[70px] items-center justify-center gap-2  rounded-lg px-4', {
   variants: {
     variant: {
       filled:
@@ -27,12 +27,13 @@ type Props = VariantProps<typeof styles> & {
   onClick: () => void;
   icon?: ReactNode;
   children: ReactNode;
+  className?: string;
 };
 
-export default function Button({ children, onClick, variant, disabled, icon }: Props) {
+export default function Button({ children, onClick, variant, disabled, icon, className }: Props) {
   return (
-    <button onClick={onClick} className={twMerge(styles({ variant }))} disabled={disabled}>
-      {icon && <div className="flex items-center justify-center size-6">{icon}</div>}
+    <button onClick={onClick} className={twMerge(styles({ variant }), className)} disabled={disabled}>
+      {icon && <div className="flex size-6 items-center justify-center">{icon}</div>}
       <p>{children}</p>
     </button>
   );
