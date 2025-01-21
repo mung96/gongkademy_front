@@ -9,7 +9,7 @@ type Props = {
 
 export default function CourseDetail({ course }: Props) {
   return (
-    <div className="flex w-fit flex-col gap-6  px-4 pb-[72px] pt-9 tablet:w-[768px] tablet:flex-row tablet:justify-start tablet:gap-4 tablet:px-6 tablet:pt-12 desktop:w-[1280px] desktop:px-[128px] desktop:pt-16">
+    <div className="flex flex-col gap-6 tablet:flex-row tablet:justify-start tablet:gap-4 ">
       <div className=" aspect-video w-full min-w-[163px] rounded-lg tablet:h-[247px] tablet:w-[352px] desktop:w-[400px]">
         <img className="size-full rounded-lg" src={course.thumbnail} alt={'강좌 썸네일'} />
       </div>
