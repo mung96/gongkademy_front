@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${pretendard.variable} font-pretendard`}>
       <body>
-        <div className="flex min-h-full flex-col">{children}</div>
+        <div className="flex h-fit min-h-dvh flex-col ">{children}</div>
       </body>
     </html>
   );

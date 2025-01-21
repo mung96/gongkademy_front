@@ -6,8 +6,8 @@ const course = {
 };
 export default function Page() {
   return (
-    <main className="px-4 pt-9 tablet:px-6 tablet:pt-12 desktop:pt-16">
-      <section>
+    <main className="px-4 pb-[72px] pt-9 tablet:px-6 tablet:pt-12 desktop:pt-16">
+      <section className="flex items-center justify-center ">
         <CourseCard course={course} />
       </section>
     </main>
