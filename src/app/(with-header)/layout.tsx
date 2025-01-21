@@ -9,7 +9,7 @@ export default function Layout({
   return (
     <>
       <Header />
-      <div className="h-full px-4 tablet:px-6">{children}</div>
+      <div className="h-fit min-h-dvh ">{children}</div>
       <Footer />
     </>
   );
