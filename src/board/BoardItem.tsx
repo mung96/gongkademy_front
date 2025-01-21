@@ -15,29 +15,29 @@ type Props = {
 
 export default function BoardItem({ title, content, date, category, courseTitle, lectureTitle, commentCount }: Props) {
   return (
-    <li className="flex flex-col gap-2 px-4 py-4 rounded-lg tablet:px-6 bg-neutral-gray-0 hover:bg-neutral-gray-50 min-w-[340px]">
+    <li className="flex min-w-[340px] flex-col gap-2 rounded-lg bg-neutral-gray-0 p-4 hover:bg-neutral-gray-50 tablet:px-6">
       {category === BoardCategory.QUESTION && (
         <div className="flex items-center gap-2 tablet:hidden">
-          <p className="text-neutral-gray-400 body2">{courseTitle}</p>
-          <p className="text-neutral-gray-400 body2">{lectureTitle}</p>
+          <p className="body2 text-neutral-gray-400">{courseTitle}</p>
+          <p className="body2 text-neutral-gray-400">{lectureTitle}</p>
         </div>
       )}
 
-      <p className="text-neutral-gray-950 subtitle2 tablet:subtitle3">{title}</p>
-      <p className="text-neutral-gray-800 body1">{content}</p>
-      <div className="flex justify-between mt-1">
+      <p className="subtitle2 tablet:subtitle3 text-neutral-gray-950">{title}</p>
+      <p className="body1 text-neutral-gray-800">{content}</p>
+      <div className="mt-1 flex justify-between">
         <div className="flex gap-3">
           {category === BoardCategory.QUESTION && (
             <div className="flex items-center gap-2 max-tablet:hidden">
-              <p className="text-neutral-gray-400 body2">{courseTitle}</p>
-              <p className="text-neutral-gray-400 body2">{lectureTitle}</p>
+              <p className="body2 text-neutral-gray-400">{courseTitle}</p>
+              <p className="body2 text-neutral-gray-400">{lectureTitle}</p>
             </div>
           )}
-          <p className="text-neutral-gray-400 body2">{date}</p>
+          <p className="body2 text-neutral-gray-400">{date}</p>
         </div>
         <div className="flex gap-2">
-          <p className="text-neutral-gray-400 body2">댓글수</p>
-          <p className="text-neutral-gray-700 body2">{commentCount}</p>
+          <p className="body2 text-neutral-gray-400">댓글수</p>
+          <p className="body2 text-neutral-gray-700">{commentCount}</p>
         </div>
       </div>
     </li>
