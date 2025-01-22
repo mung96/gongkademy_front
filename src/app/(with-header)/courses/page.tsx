@@ -72,7 +72,7 @@ export default function Page() {
       <section className="flex items-center justify-center ">
         <ul className="grid grid-cols-2 gap-4 tablet:max-w-screen-tablet desktop:max-w-screen-desktop desktop:grid-cols-3">
           {courseList.map((course) => (
-            <Link href={PATH.COURSE(course.id)} key={course.id}>
+            <Link href={PATH.COURSE(course.id) + `?tab=curriculum`} key={course.id}>
               <CourseCard key={course.id} course={course} />
             </Link>
           ))}

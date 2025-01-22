@@ -1,8 +1,12 @@
+'use client';
+import Input from '@/components/Input';
 import ListItem from '@/components/ListItem';
 import { PATH } from '@/constants/path';
 import CourseDetail from '@/course/CourseDetail';
 import CurriculumItem, { PlayStatus } from '@/course/CurriculumItem';
 import Link from 'next/link';
+import { useState } from 'react';
+import MagnifierIcon from '@/app/assets/svg/MagnifierIcon.svg';
 const course = {
   id: '1',
   title: '강좌명',
@@ -16,6 +20,7 @@ type Props = {
 export default function Page({ params, searchParams }: Props) {
   const { id: courseId } = params;
   const { tab } = searchParams;
+  const [search, setSearch] = useState('');
   return (
     <main className="">
       <div className="pb-[72px] tablet:flex tablet:flex-col tablet:items-center">
@@ -31,13 +36,22 @@ export default function Page({ params, searchParams }: Props) {
                 <ListItem label={'질문'} isSelect={tab === 'question'} />
               </Link>
             </ul>
-            <ul className="flex flex-col">
-              {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-                <Link href={PATH.LECTURE(item.toString())} key={item}>
-                  <CurriculumItem title={'강의제목'} runTime={0} status={PlayStatus.COMPLETED} />
-                </Link>
-              ))}
-            </ul>
+            {tab === 'curriculum' && (
+              <ul className="flex flex-col">
+                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+                  <Link href={PATH.LECTURE(item.toString())} key={item}>
+                    <CurriculumItem title={'강의제목'} runTime={0} status={PlayStatus.COMPLETED} />
+                  </Link>
+                ))}
+              </ul>
+            )}
+
+            <Input
+              value={search}
+              placeholder="질문 검색"
+              onChange={(e) => setSearch(e.target.value)}
+              icon={<MagnifierIcon />}
+            />
           </section>
         </div>
       </div>
