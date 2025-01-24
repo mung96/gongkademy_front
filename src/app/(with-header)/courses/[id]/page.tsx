@@ -7,6 +7,7 @@ import CurriculumItem, { PlayStatus } from '@/course/CurriculumItem';
 import Link from 'next/link';
 import { useState } from 'react';
 import MagnifierIcon from '@/app/assets/svg/MagnifierIcon.svg';
+import Combobox from '@/components/Combobox';
 const course = {
   id: '1',
   title: '강좌명',
@@ -21,6 +22,8 @@ export default function Page({ params, searchParams }: Props) {
   const { id: courseId } = params;
   const { tab } = searchParams;
   const [search, setSearch] = useState('');
+  const [item, setItem] = useState({ label: '강의1', value: '강의1' });
+  console.log(item);
   return (
     <main className="">
       <div className="pb-[72px] tablet:flex tablet:flex-col tablet:items-center">
@@ -46,12 +49,22 @@ export default function Page({ params, searchParams }: Props) {
               </ul>
             )}
 
-            <Input
-              value={search}
-              placeholder="질문 검색"
-              onChange={(e) => setSearch(e.target.value)}
-              icon={<MagnifierIcon />}
-            />
+            <div className="flex w-full items-center justify-between gap-2">
+              <Input
+                value={search}
+                placeholder="질문 검색"
+                onChange={(e) => setSearch(e.target.value)}
+                icon={<MagnifierIcon />}
+              />
+              <Combobox
+                placeholder={'강의 선택'}
+                items={[
+                  { label: '강의1', value: '강의1' },
+                  { label: '강의2', value: '강의2' },
+                ]}
+                onSelect={(item) => setItem(item)}
+              />
+            </div>
           </section>
         </div>
       </div>
