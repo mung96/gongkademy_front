@@ -9,6 +9,7 @@ import { useState } from 'react';
 import MagnifierIcon from '@/app/assets/svg/MagnifierIcon.svg';
 import Combobox from '@/components/Combobox';
 import BoardItem, { BoardCategory } from '@/board/BoardItem';
+import Pagination from '@/components/Pagination';
 const course = {
   id: '1',
   title: '강좌명',
@@ -57,7 +58,7 @@ const boardList = [
     lectureTitle: '강좌2',
   },
   {
-    id: '1',
+    id: '5',
     title: '질문이 있어요',
     content: '질문질문',
     date: '2024-04-21',
@@ -67,7 +68,7 @@ const boardList = [
     lectureTitle: '강좌2',
   },
   {
-    id: '5',
+    id: '6',
     title: '질문이 있어요',
     content: '질문질문',
     date: '2024-04-21',
@@ -87,7 +88,7 @@ export default function Page({ params, searchParams }: Props) {
   const { tab } = searchParams;
   const [search, setSearch] = useState('');
   const [item, setItem] = useState({ label: '강의1', value: '강의1' });
-  console.log(item);
+
   return (
     <main className="">
       <div className="pb-[72px] tablet:flex tablet:flex-col tablet:items-center">
@@ -135,8 +136,8 @@ export default function Page({ params, searchParams }: Props) {
             )}
 
             {tab === 'question' && (
-              <>
-                <ul>
+              <div className="flex w-full flex-col items-center gap-4">
+                <ul className="w-full">
                   {boardList.map((board) => (
                     <BoardItem
                       title={board.title}
@@ -150,7 +151,8 @@ export default function Page({ params, searchParams }: Props) {
                     />
                   ))}
                 </ul>
-              </>
+                <Pagination totalPage={38} limit={20} buttonPerPage={5} />
+              </div>
             )}
           </section>
         </div>
