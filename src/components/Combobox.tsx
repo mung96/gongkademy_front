@@ -11,6 +11,7 @@ type Props<T> = {
   onSelect?: (item: T) => void;
 };
 
+/** width에 대한 지정이 미정인 상태 */
 const width = 'w-[116px] min-w-[116px]';
 
 export default function Combobox<T extends { label: string; value: string }>({
