@@ -16,7 +16,7 @@ const course = {
   thumbnail: 'https://i.ytimg.com/vi/wYPIhJsOs3U/hq720.jpg?sqp=-…BACGAY4AUAB&rs=AOn4CLBSCfnc25vP04mjehMtyu9qVOEqcA',
 };
 
-const boardList = [
+export const boardList = [
   {
     id: '1',
     title: '질문이 있어요',
