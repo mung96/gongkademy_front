@@ -9,17 +9,37 @@ import Input from '@/components/Input';
 import { useState } from 'react';
 import BoardItem from '@/board/BoardItem';
 import { boardList } from '@/app/(with-header)/courses/[id]/page';
+import YouTube from 'react-youtube';
+
 export default function Page() {
   const [search, setSearch] = useState('');
   return (
     <div>
-      <header className="flex items-center justify-between px-6 h-14">
+      <header className="flex h-14 items-center justify-between px-6">
         <Button icon={<MenuIcon />} onClick={() => console.log('메뉴 클릭')}>
           메뉴
         </Button>
         <p className="subtitle2 tablet:subtitle3">강의제목</p>
       </header>
-      <div className="flex flex-col gap-4 px-4">
+      <div>
+        <YouTube
+          videoId={'3opFbsYdQho'}
+          opts={{
+            width: '100%',
+            'aspect-ratio': 16 / 9,
+            playerVars: {
+              autoplay: 1,
+              rel: 0, //관련동영상 없애기
+              modestbranding: 1,
+              controls: 1,
+            },
+          }}
+          onPlay={() => console.log('재생')}
+          onReady={() => console.log('준비')}
+        />
+      </div>
+
+      <div className="flex flex-col gap-4 px-4 pt-4">
         <div className="flex items-center gap-2">
           <Input
             value={search}
