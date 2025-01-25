@@ -10,17 +10,26 @@ import { useState } from 'react';
 import BoardItem from '@/board/BoardItem';
 import { boardList } from '@/app/(with-header)/courses/[id]/page';
 import YouTube from 'react-youtube';
+import PlayerSidebar from '@/course/PlayerSidebar';
 
 export default function Page() {
   const [search, setSearch] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   return (
     <div>
       <header className="flex h-14 items-center justify-between px-6">
-        <Button icon={<MenuIcon />} onClick={() => console.log('메뉴 클릭')}>
+        <Button icon={<MenuIcon />} onClick={() => setIsSidebarOpen(true)}>
           메뉴
         </Button>
         <p className="subtitle2 tablet:subtitle3">강의제목</p>
       </header>
+      {isSidebarOpen && (
+        <>
+          <PlayerSidebar onClose={() => setIsSidebarOpen(false)} />
+          <div className="fixed inset-0 z-30 bg-neutral-gray-950 opacity-25" onClick={() => setIsSidebarOpen(false)} />
+        </>
+      )}
+
       <div>
         <YouTube
           videoId={'3opFbsYdQho'}
