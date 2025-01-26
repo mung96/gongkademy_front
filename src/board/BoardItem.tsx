@@ -1,6 +1,6 @@
 export enum BoardCategory {
-  QUESTION = 'QUESTION',
-  WORRY = 'WORRY',
+  QUESTION = 'question',
+  WORRY = 'worry',
 }
 
 type Props = {
