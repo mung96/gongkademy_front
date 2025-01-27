@@ -9,7 +9,7 @@ type Props = {
 
 export default function Input({ value, placeholder, onChange, icon }: Props) {
   return (
-    <div className="relative  min-w-[220px] flex-1 tablet:w-[132px]">
+    <div className="relative w-full min-w-[220px] flex-1">
       <input
         value={value}
         onChange={onChange}
