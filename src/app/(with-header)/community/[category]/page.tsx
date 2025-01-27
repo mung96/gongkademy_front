@@ -11,6 +11,19 @@ import Button from '@/components/Button';
 import PencilIcon from '@/app/assets/svg/PencilIcon.svg';
 import { boardList } from '@/app/(with-header)/courses/[id]/page';
 import Pagination from '@/components/Pagination';
+('use client');
+
+import BoardItem, { BoardCategory } from '@/board/BoardItem';
+import Input from '@/components/Input';
+import ListItem from '@/components/ListItem';
+import { PATH } from '@/constants/path';
+import Link from 'next/link';
+import { useState } from 'react';
+import MagnifierIcon from '@/app/assets/svg/MagnifierIcon.svg';
+import Button from '@/components/Button';
+import PencilIcon from '@/app/assets/svg/PencilIcon.svg';
+import { boardList } from '@/app/(with-header)/courses/[id]/page';
+import Pagination from '@/components/Pagination';
 
 export default function Page({ params }: { params: { category: BoardCategory } }) {
   const { category } = params;
