@@ -30,6 +30,7 @@ export default function Page({ params }: { params: { category: BoardCategory } }
         <div className="flex w-full flex-1 items-center gap-3">
           <Input
             value={search}
+            label="search"
             placeholder="질문 검색"
             onChange={(e) => setSearch(e.target.value)}
             icon={<MagnifierIcon />}

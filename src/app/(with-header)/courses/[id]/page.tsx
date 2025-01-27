@@ -112,6 +112,7 @@ export default function Page({ params, searchParams }: Props) {
                     placeholder="질문 검색"
                     onChange={(e) => setSearch(e.target.value)}
                     icon={<MagnifierIcon />}
+                    label={'search'}
                   />
                   <Combobox
                     placeholder={'강의 선택'}
