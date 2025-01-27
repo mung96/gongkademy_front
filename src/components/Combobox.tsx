@@ -12,7 +12,6 @@ type Props<T> = {
 };
 
 /** width에 대한 지정이 미정인 상태 */
-const width = 'w-[116px] min-w-[116px]';
 
 export default function Combobox<T extends { label: string; value: string }>({
   label,
@@ -21,6 +20,8 @@ export default function Combobox<T extends { label: string; value: string }>({
   disabled,
   onSelect,
 }: Props<T>) {
+  const width = '116';
+
   const { isOpen, getLabelProps, getInputProps, getToggleButtonProps, getMenuProps, getItemProps, selectedItem } =
     useCombobox({
       onInputValueChange({ inputValue }) {
@@ -35,11 +36,11 @@ export default function Combobox<T extends { label: string; value: string }>({
       },
     });
   return (
-    <div className={`relative ${width}`}>
+    <div className={`relative w-full flex-1`}>
       {label && <label {...getLabelProps()}>{label}</label>}
       <div
         className={
-          'group  flex w-fit items-center gap-2 rounded-lg border  border-neutral-gray-300 bg-neutral-gray-0 px-3 py-2 hover:bg-neutral-gray-50'
+          'group flex flex-1 items-center gap-2 rounded-lg border  border-neutral-gray-300 bg-neutral-gray-0 px-3 py-2 hover:bg-neutral-gray-50'
         }
       >
         <input
@@ -63,7 +64,7 @@ export default function Combobox<T extends { label: string; value: string }>({
       <ul
         {...getMenuProps()}
         style={{ transform: 'translateY(calc(100% + 8px))' }}
-        className={`absolute bottom-0 w-fit rounded-lg border border-neutral-gray-300 bg-neutral-gray-0 p-2 ${!(isOpen && items.length) && 'hidden'} ${width}`}
+        className={`absolute bottom-0 w-full rounded-lg border border-neutral-gray-300 bg-neutral-gray-0 p-2 ${!(isOpen && items.length) && 'hidden'}`}
       >
         {isOpen &&
           items.map((item, index) => (
