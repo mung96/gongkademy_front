@@ -6,5 +6,6 @@ export const PATH = {
   LECTURE: (lectureId: string) => `/lecture/${lectureId}`,
 
   COMMUNITY: (boardCategory: BoardCategory) => `/community/${boardCategory}`,
+  COMMUNITY_WRITE: (boardCategory: BoardCategory) => `/community/write?category=${boardCategory}`,
   MYPAGE: '/mypage',
 } as const;
