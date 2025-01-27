@@ -2,13 +2,13 @@
 
 import { BoardCategory } from '@/board/BoardItem';
 import Button from '@/components/Button';
+import Combobox from '@/components/Combobox';
 import Input from '@/components/Input';
 import ListItem from '@/components/ListItem';
 import TextArea from '@/components/TextArea';
 import { PATH } from '@/constants/path';
 import { exhaustiveCheck } from '@/utils/typeGuard';
 import Link from 'next/link';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const getBodyPlaceholder = (category: BoardCategory) => {
@@ -30,17 +30,10 @@ type FormValues = {
 };
 export default function Page({ searchParams }: { searchParams: { category: BoardCategory } }) {
   const { category } = searchParams;
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
   const { register, handleSubmit } = useForm<FormValues>();
   return (
     <main className="flex flex-col items-center gap-4 px-4 pb-[72px] pt-9 tablet:flex-row tablet:items-start tablet:justify-center tablet:px-6 tablet:pt-12 desktop:pt-16">
-      <form
-        className="flex w-full flex-col items-center gap-4 tablet:max-w-[720px] desktop:max-w-[816px]"
-        onSubmit={handleSubmit((data) => {
-          console.log(data);
-        })}
-      >
+      <form className="flex w-full flex-col items-center gap-4 tablet:max-w-[720px] desktop:max-w-[816px]">
         <nav className="flex w-full tablet:w-[192px]">
           <Link href={PATH.COMMUNITY_WRITE(BoardCategory.WORRY)} className="flex-1">
             <ListItem label={'고민'} isSelect={category === BoardCategory.WORRY} />
@@ -50,13 +43,25 @@ export default function Page({ searchParams }: { searchParams: { category: Board
           </Link>
         </nav>
         <Input placeholder="제목을 적어주세요" register={register} label="title" />
+        {category === BoardCategory.QUESTION && (
+          <div className="flex w-full gap-[14px] border">
+            <Combobox placeholder={'강좌 선택'} items={[]} />
+            <Combobox placeholder={'강의 선택'} items={[]} />
+          </div>
+        )}
+
         <TextArea
           placeholder={getBodyPlaceholder(category)}
           maxLength={BODY_MAX_LENGTH}
           label="body"
           register={register}
         />
-        <Button className="w-full" onClick={() => console.log('글쓰기 클릭')}>
+        <Button
+          className="w-full"
+          onClick={handleSubmit((data) => {
+            console.log(data);
+          })}
+        >
           올리기
         </Button>
       </form>
