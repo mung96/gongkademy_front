@@ -8,7 +8,7 @@ import PencilIcon from '@/app/assets/svg/PencilIcon.svg';
 import Input from '@/components/Input';
 import { useState } from 'react';
 import BoardItem from '@/board/BoardItem';
-import { boardList } from '@/app/(with-header)/courses/[id]/page';
+import { boardList } from '@/app/(with-header)/courses/[courseId]/page';
 import YouTube from 'react-youtube';
 import PlayerSidebar from '@/course/PlayerSidebar';
 
