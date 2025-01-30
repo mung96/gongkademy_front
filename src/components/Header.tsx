@@ -24,7 +24,7 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex items-center ">
-          <Link className={twMerge(textStyle, 'hidden tablet:block')} href={PATH.MYPAGE}>
+          <Link className={twMerge(textStyle, 'hidden tablet:block')} href={PATH.MY_PROFILE}>
             마이페이지
           </Link>
           <div className={twMerge(textStyle, 'hidden tablet:block')}>로그인</div>
