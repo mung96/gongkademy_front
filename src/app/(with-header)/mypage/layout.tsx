@@ -16,8 +16,8 @@ export default function Layout({
   //TODO: Server Component인 상태로 할 수는 없나?
   const pathname = usePathname();
   return (
-    <main className="flex flex-col items-center gap-4 px-4 pb-[72px] pt-9 tablet:flex-row tablet:items-start tablet:justify-center tablet:px-6 tablet:pt-12 desktop:pt-16">
-      <nav className="flex tablet:w-[168px] tablet:flex-col tablet:gap-3 desktop:w-[192px]">
+    <main className="flex flex-col items-center gap-4 px-4 pb-[72px] pt-9 tablet:justify-center tablet:gap-6  tablet:px-6 tablet:pt-12 desktop:flex-row desktop:items-start desktop:pt-16">
+      <nav className="flex  tablet:gap-3 desktop:w-[192px] desktop:flex-col">
         <Link href={PATH.MY_COMMUNITY}>
           <ListItem label={'게시글'} isSelect={pathname === PATH.MY_COMMUNITY} textAlign="left" icon={<PencilIcon />} />
         </Link>
