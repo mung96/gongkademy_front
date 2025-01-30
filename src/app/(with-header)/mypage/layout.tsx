@@ -7,6 +7,7 @@ import PencilIcon from '@/app/assets/svg/PencilIcon.svg';
 import VideoIcon from '@/app/assets/svg/VideoIcon.svg';
 import ProfileIcon from '@/app/assets/svg/ProfileIcon.svg';
 import { usePathname } from 'next/navigation';
+import { BoardCategory } from '@/board/BoardItem';
 
 export default function Layout({
   children,
@@ -18,8 +19,16 @@ export default function Layout({
   return (
     <main className="flex flex-col items-center gap-4 px-4 pb-[72px] pt-9 tablet:justify-center tablet:gap-6  tablet:px-6 tablet:pt-12 desktop:flex-row desktop:items-start desktop:pt-16">
       <nav className="flex  tablet:gap-3 desktop:w-[192px] desktop:flex-col">
-        <Link href={PATH.MY_COMMUNITY}>
-          <ListItem label={'게시글'} isSelect={pathname === PATH.MY_COMMUNITY} textAlign="left" icon={<PencilIcon />} />
+        <Link href={PATH.MY_COMMUNITY(BoardCategory.WORRY)}>
+          <ListItem
+            label={'게시글'}
+            isSelect={
+              pathname === PATH.MY_COMMUNITY(BoardCategory.WORRY) ||
+              pathname === PATH.MY_COMMUNITY(BoardCategory.QUESTION)
+            }
+            textAlign="left"
+            icon={<PencilIcon />}
+          />
         </Link>
         <Link href={PATH.MY_COURSES}>
           <ListItem label={'수강 강좌'} isSelect={pathname === PATH.MY_COURSES} textAlign="left" icon={<VideoIcon />} />
@@ -33,7 +42,9 @@ export default function Layout({
           />
         </Link>
       </nav>
-      <div className="flex w-full flex-col gap-3  tablet:max-w-[536px] desktop:max-w-[1024px]">{children}</div>
+      <div className="flex w-full flex-col items-center gap-3  tablet:max-w-[720px] desktop:max-w-[1024px]">
+        {children}
+      </div>
     </main>
   );
 }

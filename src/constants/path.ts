@@ -11,6 +11,6 @@ export const PATH = {
   COMMUNITY_WRITE: (boardCategory: BoardCategory) => `/community/write?category=${boardCategory}`,
 
   MY_PROFILE: '/mypage/profile',
-  MY_COMMUNITY: '/mypage/community',
+  MY_COMMUNITY: (boardCategory: BoardCategory) => `/mypage/community/${boardCategory}`,
   MY_COURSES: '/mypage/courses',
 } as const;
