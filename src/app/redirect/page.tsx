@@ -9,9 +9,11 @@ export default function Page() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  //TODO: 새로고침시 login수정
   useEffect(() => {
     //TODO: 세선테스트
     dispatch(login());
+    //TODO: 실패하면 alert창
 
     router.push('/');
   }, []);

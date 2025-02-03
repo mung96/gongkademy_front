@@ -3,9 +3,10 @@ import { PATH } from '@/constants/path';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import Logo from '@/app/assets/svg/Logo.svg';
-import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
+import HeaderLoginButton from '@/components/HeaderLoginButton';
 
-const textStyle = 'body2 flex items-center justify-center px-3 text-neutral-gray-950';
+export const textStyle = 'body2 flex items-center justify-center px-3 text-neutral-gray-950';
+
 export default function Header() {
   return (
     <header className="sticky top-0 flex h-16 min-h-16 w-full justify-center border-b border-neutral-gray-100 bg-neutral-gray-0">
@@ -24,14 +25,7 @@ export default function Header() {
             커뮤니티
           </Link>
         </div>
-        <div className="flex items-center ">
-          <Link className={twMerge(textStyle, 'hidden tablet:block')} href={PATH.MY_PROFILE}>
-            마이페이지
-          </Link>
-          <Link href={SERVER_BASE_URL + END_POINT.NAVER_LOGIN} className={twMerge(textStyle, 'hidden tablet:block')}>
-            로그인
-          </Link>
-        </div>
+        <HeaderLoginButton />
       </div>
     </header>
   );

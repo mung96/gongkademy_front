@@ -5,8 +5,9 @@ import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
 import { PATH } from '@/constants/path';
 import CourseCard from '@/course/CourseCard';
 import { Course } from '@/course/type';
+import { RootState } from '@/store/rootReducer';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 const courseList: Course[] = [
   {
     id: '1',
@@ -70,8 +71,8 @@ const courseList: Course[] = [
   },
 ];
 export default function HomeCourseList() {
-  const isLogin = false;
-  const dispatch = useDispatch();
+  const isLogin = useSelector((state: RootState) => state.auth.isLogin);
+
   return (
     <section className="flex items-center justify-center ">
       {isLogin ? (
