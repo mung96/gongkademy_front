@@ -2,6 +2,8 @@ import { BoardCategory } from '@/board/BoardItem';
 import { PATH } from '@/constants/path';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
+import Logo from '@/app/assets/svg/Logo.svg';
+import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
 
 const textStyle = 'body2 flex items-center justify-center px-3 text-neutral-gray-950';
 export default function Header() {
@@ -10,7 +12,7 @@ export default function Header() {
       <div className="flex h-full w-[1300px] min-w-[365px] max-w-[1300px] items-center justify-between px-6">
         <div className="flex items-center max-tablet:w-full max-tablet:justify-center">
           <Link className={textStyle} href={PATH.HOME}>
-            로고
+            <Logo />
           </Link>
           <Link className={twMerge(textStyle, 'hidden tablet:block')} href={PATH.COURSES}>
             강좌
@@ -23,10 +25,12 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex items-center ">
-          <Link className={twMerge(textStyle, 'hidden tablet:block')} href={PATH.MYPAGE}>
+          <Link className={twMerge(textStyle, 'hidden tablet:block')} href={PATH.MY_PROFILE}>
             마이페이지
           </Link>
-          <div className={twMerge(textStyle, 'hidden tablet:block')}>로그인</div>
+          <Link href={SERVER_BASE_URL + END_POINT.NAVER_LOGIN} className={twMerge(textStyle, 'hidden tablet:block')}>
+            로그인
+          </Link>
         </div>
       </div>
     </header>

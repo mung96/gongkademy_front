@@ -9,5 +9,8 @@ export const PATH = {
   COMMUNITY: (boardCategory: BoardCategory) => `/community/${boardCategory}`,
   COMMUNITY_DETAIL: (boardCategory: BoardCategory, boardId: number) => `/community/${boardCategory}/${boardId}`,
   COMMUNITY_WRITE: (boardCategory: BoardCategory) => `/community/write?category=${boardCategory}`,
-  MYPAGE: '/mypage',
+
+  MY_PROFILE: '/mypage/profile',
+  MY_COMMUNITY: (boardCategory: BoardCategory) => `/mypage/community/${boardCategory}`,
+  MY_COURSES: '/mypage/courses',
 } as const;
