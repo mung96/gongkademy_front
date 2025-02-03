@@ -3,6 +3,7 @@ import { PATH } from '@/constants/path';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import Logo from '@/app/assets/svg/Logo.svg';
+import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
 
 const textStyle = 'body2 flex items-center justify-center px-3 text-neutral-gray-950';
 export default function Header() {
@@ -27,7 +28,9 @@ export default function Header() {
           <Link className={twMerge(textStyle, 'hidden tablet:block')} href={PATH.MY_PROFILE}>
             마이페이지
           </Link>
-          <div className={twMerge(textStyle, 'hidden tablet:block')}>로그인</div>
+          <Link href={SERVER_BASE_URL + END_POINT.NAVER_LOGIN} className={twMerge(textStyle, 'hidden tablet:block')}>
+            로그인
+          </Link>
         </div>
       </div>
     </header>

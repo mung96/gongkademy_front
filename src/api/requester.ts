@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, isAxiosError } from 'axios';
+import { SERVER_BASE_URL } from '@/constants/api';
 // import { getAccessToken } from '@/main/services/helper/member/member.ts';
-export const SERVER_BASE_URL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 export const apiRequester: AxiosInstance = axios.create({
   baseURL: SERVER_BASE_URL,
