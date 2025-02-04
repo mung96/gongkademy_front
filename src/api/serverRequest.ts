@@ -1,4 +1,4 @@
-import { apiRequester, requesterErrorHandling, setRequestDefaultHeader } from '@/api/requester';
+import { requesterErrorHandling, setRequestDefaultHeader } from '@/api/requester';
 import { SERVER_BASE_URL } from '@/constants/api';
 import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import { cookies } from 'next/headers';
@@ -15,6 +15,7 @@ const setRequestServerComponentHeader = (requestConfig: AxiosRequestConfig) => {
   //서버 컴포넌트 api 호출 로직 추가
   const cookieStore = cookies();
   const session = cookieStore.get('JSESSIONID');
+  console.log('session쿠키' + session);
   config.headers = {
     Cookie: session ? `JSESSIONID=${session.value}` : '',
   };
@@ -22,7 +23,7 @@ const setRequestServerComponentHeader = (requestConfig: AxiosRequestConfig) => {
   return config as InternalAxiosRequestConfig;
 };
 
-apiRequester.interceptors.request.use((request) => {
+apiServerRequester.interceptors.request.use((request) => {
   console.log('요청 url: ' + SERVER_BASE_URL + request.url);
   console.log('요청 header: ' + request.headers);
 
@@ -31,7 +32,7 @@ apiRequester.interceptors.request.use((request) => {
   return request;
 });
 
-apiRequester.interceptors.response.use(
+apiServerRequester.interceptors.response.use(
   (response) => {
     // 응답 데이터를 그대로 반환
     return response;
