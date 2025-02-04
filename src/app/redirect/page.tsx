@@ -16,6 +16,7 @@ export default function Page() {
     //TODO: 실패하면 alert창
 
     router.push('/');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return <div>로그인 중입니다.</div>;
 }

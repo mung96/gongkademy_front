@@ -20,7 +20,7 @@ export default function Combobox<T extends { label: string; value: string }>({
   disabled,
   onSelect,
 }: Props<T>) {
-  const width = '116';
+  // const width = '116';
 
   const { isOpen, getLabelProps, getInputProps, getToggleButtonProps, getMenuProps, getItemProps, selectedItem } =
     useCombobox({

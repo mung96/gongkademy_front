@@ -28,7 +28,7 @@ export default function PlayerSidebar({ onClose }: Props) {
       </div>
       <ul className="flex flex-col overflow-scroll">
         {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14].map((item) => (
-          <Link href={PATH.LECTURE(item.toString())} key={item}>
+          <Link href={PATH.LECTURE(item)} key={item}>
             <CurriculumItem title={'강의제목'} runTime={0} status={PlayStatus.COMPLETED} />
           </Link>
         ))}

@@ -24,8 +24,10 @@ async function getRegisteredCourseList() {
   }
   return [];
 }
+
 export default async function HomeCourseList() {
   const courseList = await getRegisteredCourseList();
+
   console.log(courseList);
 
   return (

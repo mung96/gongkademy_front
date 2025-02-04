@@ -1,9 +1,8 @@
 // 'use client';
 import ChevronRightIcon from '/public/assets/svg/ChevronRightIcon.svg';
-import HomeCourseList from '@/course/HomeCourseList';
 import HomeCourseListOrLogin from '@/course/HomeCourseListOrLogin';
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="flex flex-col items-center pb-[72px] pt-9 tablet:pt-12 desktop:pt-16">
       <main className="flex w-full flex-col items-center gap-9 px-4 tablet:max-w-[720px] tablet:justify-center tablet:gap-12 tablet:px-6 desktop:max-w-[1024px] desktop:gap-16">
@@ -43,9 +42,7 @@ export default function Home() {
             <p className="subtitle2 text-neutral-gray-950">수강 중인 강좌</p>
             <ChevronRightIcon />
           </div>
-          <HomeCourseListOrLogin>
-            <HomeCourseList />
-          </HomeCourseListOrLogin>
+          <HomeCourseListOrLogin />
         </div>
       </main>
     </div>

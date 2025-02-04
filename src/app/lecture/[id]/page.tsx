@@ -8,9 +8,9 @@ import PencilIcon from '/public/assets/svg/PencilIcon.svg';
 import Input from '@/components/Input';
 import { useState } from 'react';
 import BoardItem from '@/board/BoardItem';
-import { boardList } from '@/app/(with-header)/courses/[courseId]/page';
 import YouTube from 'react-youtube';
 import PlayerSidebar from '@/course/PlayerSidebar';
+import { boardList } from '@/dummy';
 
 export default function Page() {
   const [search, setSearch] = useState('');
@@ -55,6 +55,7 @@ export default function Page() {
             placeholder="질문 검색"
             onChange={(e) => setSearch(e.target.value)}
             icon={<MagnifierIcon />}
+            label={'search'}
           />
           <Button icon={<PencilIcon />} onClick={() => console.log('글쓰기 클릭')}>
             글쓰기

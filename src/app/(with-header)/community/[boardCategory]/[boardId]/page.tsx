@@ -1,5 +1,4 @@
 'use client';
-import { BoardCategory } from '@/board/BoardItem';
 
 const commentList = [
   {

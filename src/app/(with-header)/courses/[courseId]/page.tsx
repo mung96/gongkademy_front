@@ -8,87 +8,27 @@ import Link from 'next/link';
 import { useState } from 'react';
 import MagnifierIcon from '/public/assets/svg/MagnifierIcon.svg';
 import Combobox from '@/components/Combobox';
-import BoardItem, { BoardCategory } from '@/board/BoardItem';
+import BoardItem from '@/board/BoardItem';
 import Pagination from '@/components/Pagination';
+import { boardList } from '@/dummy';
 
 const course = {
-  id: '1',
+  courseId: 1,
   title: '강좌명',
   thumbnail: 'https://i.ytimg.com/vi/wYPIhJsOs3U/hq720.jpg?sqp=-…BACGAY4AUAB&rs=AOn4CLBSCfnc25vP04mjehMtyu9qVOEqcA',
 };
-
-export const boardList = [
-  {
-    id: '1',
-    title: '질문이 있어요',
-    content: '질문질문',
-    date: '2024-04-21',
-    category: BoardCategory.QUESTION,
-    commentCount: 0,
-    courseTitle: '강좌1',
-    lectureTitle: '강좌2',
-  },
-  {
-    id: '2',
-    title: '질문이 있어요',
-    content: '질문질문',
-    date: '2024-04-21',
-    category: BoardCategory.QUESTION,
-    commentCount: 0,
-    courseTitle: '강좌1',
-    lectureTitle: '강좌2',
-  },
-  {
-    id: '3',
-    title: '질문이 있어요',
-    content: '질문질문',
-    date: '2024-04-21',
-    category: BoardCategory.QUESTION,
-    commentCount: 0,
-    courseTitle: '강좌1',
-    lectureTitle: '강좌2',
-  },
-  {
-    id: '4',
-    title: '질문이 있어요',
-    content: '질문질문',
-    date: '2024-04-21',
-    category: BoardCategory.QUESTION,
-    commentCount: 0,
-    courseTitle: '강좌1',
-    lectureTitle: '강좌2',
-  },
-  {
-    id: '5',
-    title: '질문이 있어요',
-    content: '질문질문',
-    date: '2024-04-21',
-    category: BoardCategory.QUESTION,
-    commentCount: 0,
-    courseTitle: '강좌1',
-    lectureTitle: '강좌2',
-  },
-  {
-    id: '6',
-    title: '질문이 있어요',
-    content: '질문질문',
-    date: '2024-04-21',
-    category: BoardCategory.QUESTION,
-    commentCount: 0,
-    courseTitle: '강좌1',
-    lectureTitle: '강좌2',
-  },
-];
 
 type Props = {
   searchParams: { tab: 'curriculum' | 'question' };
   params: { id: string };
 };
 export default function Page({ params, searchParams }: Props) {
-  const { id: courseId } = params;
+  const { id } = params;
+  const courseId = Number(id);
   const { tab } = searchParams;
   const [search, setSearch] = useState('');
   const [item, setItem] = useState({ label: '강의1', value: '강의1' });
+  console.log(item);
 
   return (
     <main className="">
@@ -130,7 +70,7 @@ export default function Page({ params, searchParams }: Props) {
             {tab === 'curriculum' && (
               <ul className="flex flex-col">
                 {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-                  <Link href={PATH.LECTURE(item.toString())} key={item}>
+                  <Link href={PATH.LECTURE(item)} key={item}>
                     <CurriculumItem title={'강의제목'} runTime={0} status={PlayStatus.COMPLETED} />
                   </Link>
                 ))}

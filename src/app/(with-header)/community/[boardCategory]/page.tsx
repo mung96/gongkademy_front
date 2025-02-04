@@ -9,8 +9,8 @@ import { useState } from 'react';
 import MagnifierIcon from '/public/assets/svg/MagnifierIcon.svg';
 import Button from '@/components/Button';
 import PencilIcon from '/public/assets/svg/PencilIcon.svg';
-import { boardList } from '@/app/(with-header)/courses/[courseId]/page';
 import Pagination from '@/components/Pagination';
+import { boardList } from '@/dummy';
 
 export default function Page({ params }: { params: { boardCategory: BoardCategory } }) {
   const { boardCategory } = params;
