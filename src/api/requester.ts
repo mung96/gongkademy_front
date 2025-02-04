@@ -38,18 +38,7 @@ apiRequester.interceptors.request.use((request) => {
 
 export const requesterErrorHandling = (error: Error) => {
   if (isAxiosError(error)) {
-    console.group(
-      '에러다.----------------------------------------------------------------------------------------------------------------------------------------',
-    );
-    console.log('요청 url: ' + error.request._url);
     console.log(error);
-    console.log(error.response?.data);
-    console.log('요청 header: ' + error.config?.headers);
-    // console.log(error.request);
-    console.log(
-      '에러끝.----------------------------------------------------------------------------------------------------------------------------------------',
-    );
-    console.groupEnd();
   }
 };
 

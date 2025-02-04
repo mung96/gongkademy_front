@@ -7,16 +7,11 @@ import { BoardCategory, BoardCriteria } from '@/board/type';
 import { getBoardListResponse } from '@/board/api';
 
 async function getHomeBoardList() {
-  try {
-    const data = await getBoardListResponse(BoardCategory.WORRY, 1, BoardCriteria.CREATE_AT);
-    if (data.boardList.length > 4) {
-      return data.boardList.slice(0, 4);
-    }
-    return data.boardList;
-  } catch (e) {
-    console.log(e);
+  const data = await getBoardListResponse(BoardCategory.WORRY, 1, BoardCriteria.CREATE_AT);
+  if (data.boardList.length > 4) {
+    return data.boardList.slice(0, 4);
   }
-  return [];
+  return data.boardList;
 }
 export default async function Home() {
   const boardList = await getHomeBoardList();
