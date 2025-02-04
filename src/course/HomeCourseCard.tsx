@@ -7,16 +7,17 @@ type Props = {
 };
 
 export default function HomeCourseCard({ course }: Props) {
-  // console.log('Ttt' + thumbnail);
   return (
     <li className="flex w-full flex-col gap-2 ">
-      <div className=" h-[207px] w-full min-w-[163px] rounded-lg tablet:h-[200px] tablet:w-[352px] desktop:w-[330px]">
+      <div className="min-w-[163px] rounded-lg  tablet:max-w-[233px] desktop:max-w-[334px]">
         <Image
           src={getCourseThumbnailPath(course.thumbnail)}
           alt={`${course.title} 썸네일`}
-          width={330}
-          height={207}
-          className="rounded-lg"
+          width={730}
+          height={425}
+          layout="responsive"
+          className="rounded-lg "
+          sizes="(min-width: 768px) 233px, (min-width: 1024px) 334px"
         />
       </div>
       <p className="subtitle2 text-neutral-gray-950">{course.title}</p>

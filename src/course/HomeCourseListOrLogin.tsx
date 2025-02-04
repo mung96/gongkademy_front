@@ -41,9 +41,9 @@ export default function HomeCourseListOrLogin() {
   return (
     <section className="flex items-center justify-center ">
       {isLogin ? (
-        <ul className="flex flex-col gap-6 tablet:max-w-screen-tablet desktop:max-w-screen-desktop">
+        <ul className="flex w-full flex-col gap-6 tablet:grid tablet:max-w-screen-tablet tablet:grid-cols-3 desktop:max-w-screen-desktop">
           {courseList.map((course) => (
-            <Link href={PATH.COURSE(course.courseId) + `?tab=curriculum`} key={course.courseId}>
+            <Link href={PATH.COURSE(course.courseId) + `?tab=curriculum`} key={course.courseId} className="w-full">
               <HomeCourseCard key={course.courseId} course={course} />
             </Link>
           ))}

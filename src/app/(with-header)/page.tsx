@@ -1,4 +1,3 @@
-// 'use client';
 import ChevronRightIcon from '/public/assets/svg/ChevronRightIcon.svg';
 import HomeCourseListOrLogin from '@/course/HomeCourseListOrLogin';
 
