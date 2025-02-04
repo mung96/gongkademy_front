@@ -26,6 +26,7 @@ async function getRegisteredCourseList() {
 }
 export default async function HomeCourseList() {
   const courseList = await getRegisteredCourseList();
+  console.log(courseList);
 
   return (
     <ul className="flex flex-col gap-6 tablet:max-w-screen-tablet desktop:max-w-screen-desktop">

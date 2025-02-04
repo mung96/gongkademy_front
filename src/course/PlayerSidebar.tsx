@@ -1,6 +1,6 @@
 import { PATH } from '@/constants/path';
 import CurriculumItem, { PlayStatus } from '@/course/CurriculumItem';
-import XIcon from '@/app/assets/svg/XIcon.svg';
+import XIcon from '/public/assets/svg/XIcon.svg';
 import Link from 'next/link';
 
 type Props = {

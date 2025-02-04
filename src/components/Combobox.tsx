@@ -1,6 +1,6 @@
 import { useCombobox } from 'downshift';
-import ChevronDownIcon from '@/app/assets/svg/ChevronDownIcon.svg';
-import ChevronUpIcon from '@/app/assets/svg/ChevronUpIcon.svg';
+import ChevronDownIcon from '/public/assets/svg/ChevronDownIcon.svg';
+import ChevronUpIcon from '/public/assets/svg/ChevronUpIcon.svg';
 import { twMerge } from 'tailwind-merge';
 
 type Props<T> = {

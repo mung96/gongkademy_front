@@ -6,10 +6,11 @@ import CourseDetail from '@/course/CourseDetail';
 import CurriculumItem, { PlayStatus } from '@/course/CurriculumItem';
 import Link from 'next/link';
 import { useState } from 'react';
-import MagnifierIcon from '@/app/assets/svg/MagnifierIcon.svg';
+import MagnifierIcon from '/public/assets/svg/MagnifierIcon.svg';
 import Combobox from '@/components/Combobox';
 import BoardItem, { BoardCategory } from '@/board/BoardItem';
 import Pagination from '@/components/Pagination';
+
 const course = {
   id: '1',
   title: '강좌명',

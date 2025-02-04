@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import ChevronLeftIcon from '@/app/assets/svg/ChevronLeftIcon.svg';
-import ChevronRightIcon from '@/app/assets/svg/ChevronRightIcon.svg';
+import ChevronLeftIcon from '/public/assets/svg/ChevronLeftIcon.svg';
+import ChevronRightIcon from '/public/assets/svg/ChevronRightIcon.svg';
 
 type Props = {
   totalPage: number;

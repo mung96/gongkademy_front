@@ -2,7 +2,7 @@ import { BoardCategory } from '@/board/BoardItem';
 import { PATH } from '@/constants/path';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
-import Logo from '@/app/assets/svg/Logo.svg';
+import Logo from '/public/assets/svg/Logo.svg';
 import HeaderLoginButton from '@/components/HeaderLoginButton';
 
 export const textStyle = 'body2 flex items-center justify-center px-3 text-neutral-gray-950';

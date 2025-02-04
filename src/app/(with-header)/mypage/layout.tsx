@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { PATH } from '@/constants/path';
 import ListItem from '@/components/ListItem';
-import PencilIcon from '@/app/assets/svg/PencilIcon.svg';
-import VideoIcon from '@/app/assets/svg/VideoIcon.svg';
-import ProfileIcon from '@/app/assets/svg/ProfileIcon.svg';
+import PencilIcon from '/public/assets/svg/PencilIcon.svg';
+import VideoIcon from '/public/assets/svg/VideoIcon.svg';
+import ProfileIcon from '/public/assets/svg/ProfileIcon.svg';
 import { usePathname } from 'next/navigation';
 import { BoardCategory } from '@/board/BoardItem';
 

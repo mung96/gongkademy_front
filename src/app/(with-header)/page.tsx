@@ -1,5 +1,5 @@
 // 'use client';
-import ChevronRightIcon from '@/app/assets/svg/ChevronRightIcon.svg';
+import ChevronRightIcon from '/public/assets/svg/ChevronRightIcon.svg';
 import HomeCourseList from '@/course/HomeCourseList';
 import HomeCourseListOrLogin from '@/course/HomeCourseListOrLogin';
 

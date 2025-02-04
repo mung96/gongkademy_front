@@ -6,9 +6,9 @@ import ListItem from '@/components/ListItem';
 import { PATH } from '@/constants/path';
 import Link from 'next/link';
 import { useState } from 'react';
-import MagnifierIcon from '@/app/assets/svg/MagnifierIcon.svg';
+import MagnifierIcon from '/public/assets/svg/MagnifierIcon.svg';
 import Button from '@/components/Button';
-import PencilIcon from '@/app/assets/svg/PencilIcon.svg';
+import PencilIcon from '/public/assets/svg/PencilIcon.svg';
 import { boardList } from '@/app/(with-header)/courses/[courseId]/page';
 import Pagination from '@/components/Pagination';
 
