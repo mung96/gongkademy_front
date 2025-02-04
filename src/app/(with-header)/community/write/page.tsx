@@ -8,7 +8,7 @@ import Input from '@/components/Input';
 import ListItem from '@/components/ListItem';
 import TextArea from '@/components/TextArea';
 import { PATH } from '@/constants/path';
-import { exhaustiveCheck } from '@/utils/typeGuard';
+import { exhaustiveCheck } from '@/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -30,7 +30,7 @@ type FormValues = {
   title: string;
   body: string;
 };
-//TODO: 질문일때 작성코드 + required max값 잡아줘야함
+//TODO: 질문일때 작성코드 + 실패시 Alert창
 
 export default function Page({ searchParams }: { searchParams: { category: BoardCategory } }) {
   const { category } = searchParams;

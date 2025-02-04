@@ -1,5 +1,5 @@
 import { Course } from '@/course/type';
-import { getCourseThumbnailPath } from '@/utils/image';
+import { getCourseThumbnailPath } from '@/utils';
 import Image from 'next/image';
 
 type Props = {

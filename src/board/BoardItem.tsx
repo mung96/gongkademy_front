@@ -1,12 +1,9 @@
 import { Board, BoardCategory } from '@/board/type';
+import { getFormatDate } from '@/utils';
 
 type Props = {
   board: Board;
 };
-
-function getFormatDate(dateString: string): string {
-  return dateString.split('T')[0];
-}
 
 export default function BoardItem({ board }: Props) {
   return (

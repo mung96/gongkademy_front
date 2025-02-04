@@ -18,3 +18,10 @@ export type Board = {
   lectureTitle?: string;
   commentCount: number;
 };
+
+export type Comment = {
+  commentId: string;
+  nickname: string;
+  content: string;
+  date: string;
+};
