@@ -1,6 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, isAxiosError } from 'axios';
 import { SERVER_BASE_URL } from '@/constants/api';
-import { cookies } from 'next/headers';
 
 export const apiRequester: AxiosInstance = axios.create({
   baseURL: SERVER_BASE_URL,
@@ -9,34 +8,50 @@ export const apiRequester: AxiosInstance = axios.create({
 });
 
 //기본 설정 넣고, header만 설정하는 로직이네
-const setRequestDefaultHeader = (requestConfig: AxiosRequestConfig) => {
-  const cookieStore = cookies();
-  const session = cookieStore.get('JSESSIONID');
-
+export const setRequestDefaultHeader = (requestConfig: AxiosRequestConfig) => {
   const config = requestConfig;
   config.headers = {
     ...config.headers,
     'Content-Type': 'application/json;charset=utf-8',
-    Cookie: session ? `JSESSIONID=${session.value}` : '',
   };
+
   return config as InternalAxiosRequestConfig;
 };
-const setRequestAuthorizationHeader = (requestConfig: AxiosRequestConfig) => {
-  const config = requestConfig;
-  config.headers = {
-    ...config.headers,
-  };
-  return config as InternalAxiosRequestConfig;
-};
+
+// const setRequestAuthorizationHeader = (requestConfig: AxiosRequestConfig) => {
+//   const config = requestConfig;
+//   config.headers = {
+//     ...config.headers,
+//   };
+//   return config as InternalAxiosRequestConfig;
+// };
 
 apiRequester.interceptors.request.use((request) => {
   console.log('요청 url: ' + SERVER_BASE_URL + request.url);
   console.log('요청 header: ' + request.headers);
 
   setRequestDefaultHeader(request);
-  setRequestAuthorizationHeader(request);
+
+  // setRequestAuthorizationHeader(request);
   return request;
 });
+
+export const requesterErrorHandling = (error: Error) => {
+  if (isAxiosError(error)) {
+    console.group(
+      '에러다.----------------------------------------------------------------------------------------------------------------------------------------',
+    );
+    console.log('요청 url: ' + error.request._url);
+    console.log(error);
+    console.log(error.response?.data);
+    console.log('요청 header: ' + error.config?.headers);
+    // console.log(error.request);
+    console.log(
+      '에러끝.----------------------------------------------------------------------------------------------------------------------------------------',
+    );
+    console.groupEnd();
+  }
+};
 
 apiRequester.interceptors.response.use(
   (response) => {
@@ -44,20 +59,7 @@ apiRequester.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (isAxiosError(error)) {
-      console.group(
-        '에러다.----------------------------------------------------------------------------------------------------------------------------------------',
-      );
-      console.log('요청 url: ' + error.request._url);
-      console.log(error);
-      console.log(error.response?.data);
-      console.log('요청 header: ' + error.config?.headers);
-      // console.log(error.request);
-      console.log(
-        '에러끝.----------------------------------------------------------------------------------------------------------------------------------------',
-      );
-      console.groupEnd();
-    }
+    requesterErrorHandling(error);
     return Promise.reject(error);
   },
 );
