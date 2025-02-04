@@ -33,6 +33,7 @@ export default function Page({ params }: { params: { boardCategory: BoardCategor
     fetchBoardList();
   }, [page]);
 
+  //TODO: 검색 API 만들어야함.
   const [search, setSearch] = useState('');
 
   return (

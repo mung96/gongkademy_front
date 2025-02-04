@@ -1,6 +1,6 @@
 'use client';
 
-import { BoardCategory } from '@/board/BoardItem';
+import { BoardCategory } from '@/board/type';
 import Button from '@/components/Button';
 import Combobox from '@/components/Combobox';
 import Input from '@/components/Input';
@@ -30,10 +30,20 @@ type FormValues = {
 };
 export default function Page({ searchParams }: { searchParams: { category: BoardCategory } }) {
   const { category } = searchParams;
-  const { register, handleSubmit } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid: isFormValid, isSubmitting },
+  } = useForm<FormValues>({});
   return (
     <main className="flex flex-col items-center gap-4 px-4 pb-[72px] pt-9 tablet:flex-row tablet:items-start tablet:justify-center tablet:px-6 tablet:pt-12 desktop:pt-16">
-      <form className="flex w-full flex-col items-center gap-4 tablet:max-w-[720px] desktop:max-w-[816px]">
+      <form
+        method="post"
+        onSubmit={handleSubmit((data) => {
+          console.log(data);
+        })}
+        className="flex w-full flex-col items-center gap-4 tablet:max-w-[720px] desktop:max-w-[816px]"
+      >
         <nav className="flex w-full tablet:w-[192px]">
           <Link href={PATH.COMMUNITY_WRITE(BoardCategory.WORRY)} className="flex-1">
             <ListItem label={'고민'} isSelect={category === BoardCategory.WORRY} />
@@ -42,7 +52,7 @@ export default function Page({ searchParams }: { searchParams: { category: Board
             <ListItem label={'질문'} isSelect={category === BoardCategory.QUESTION} />
           </Link>
         </nav>
-        <Input placeholder="제목을 적어주세요" register={register} label="title" />
+        <Input placeholder="제목을 적어주세요" register={register('title', { required: true })} label="title" />
         {category === BoardCategory.QUESTION && (
           <div className="flex w-full gap-[14px] border">
             <Combobox placeholder={'강좌 선택'} items={[]} />
@@ -54,14 +64,9 @@ export default function Page({ searchParams }: { searchParams: { category: Board
           placeholder={getBodyPlaceholder(category)}
           maxLength={BODY_MAX_LENGTH}
           label="body"
-          register={register}
+          register={register('body', { required: true })}
         />
-        <Button
-          className="w-full"
-          onClick={handleSubmit((data) => {
-            console.log(data);
-          })}
-        >
+        <Button className="w-full" disabled={!isFormValid || isSubmitting}>
           올리기
         </Button>
       </form>

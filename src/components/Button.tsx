@@ -24,7 +24,7 @@ const styles = cva('button1 flex h-11 min-w-[70px] items-center justify-center g
 type Props = VariantProps<typeof styles> & {
   variant?: 'filled' | 'outlined';
   disabled?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   icon?: ReactNode;
   children: ReactNode;
   className?: string;
