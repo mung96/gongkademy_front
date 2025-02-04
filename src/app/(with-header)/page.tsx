@@ -1,37 +1,7 @@
-'use client';
-
+// 'use client';
 import ChevronRightIcon from '@/app/assets/svg/ChevronRightIcon.svg';
-import BoardItem, { BoardCategory } from '@/board/BoardItem';
-import Link from 'next/link';
-import { boardList } from '@/app/(with-header)/courses/[courseId]/page';
-import { PATH } from '@/constants/path';
 import HomeCourseList from '@/course/HomeCourseList';
-
-const BoardList = () => {
-  return (
-    <section className="w-full">
-      <ul className="flex w-full flex-col items-center gap-4 desktop:grid desktop:grid-cols-2">
-        {boardList.map((board) => (
-          <Link
-            className="w-full"
-            href={PATH.COMMUNITY_DETAIL(BoardCategory.QUESTION, Number(board.id))}
-            key={board.id}
-          >
-            <BoardItem
-              title={board.title}
-              content={board.content}
-              date={board.date}
-              category={board.category}
-              commentCount={board.commentCount}
-              courseTitle={board.courseTitle}
-              lectureTitle={board.lectureTitle}
-            />
-          </Link>
-        ))}
-      </ul>
-    </section>
-  );
-};
+import HomeCourseListOrLogin from '@/course/HomeCourseListOrLogin';
 
 export default function Home() {
   return (
@@ -47,7 +17,7 @@ export default function Home() {
             <ChevronRightIcon />
           </div>
           <section className="w-full">
-            <ul className="flex w-full flex-col items-center gap-4 desktop:grid desktop:grid-cols-2">
+            {/* <ul className="flex flex-col items-center w-full gap-4 desktop:grid desktop:grid-cols-2">
               {boardList.map((board) => (
                 <Link
                   className="w-full"
@@ -65,16 +35,17 @@ export default function Home() {
                   />
                 </Link>
               ))}
-            </ul>
+            </ul> */}
           </section>
-          <BoardList />
         </div>
         <div className="flex w-full flex-col gap-4 ">
           <div className="flex items-center justify-start gap-2 ">
             <p className="subtitle2 text-neutral-gray-950">수강 중인 강좌</p>
             <ChevronRightIcon />
           </div>
-          <HomeCourseList />
+          <HomeCourseListOrLogin>
+            <HomeCourseList />
+          </HomeCourseListOrLogin>
         </div>
       </main>
     </div>

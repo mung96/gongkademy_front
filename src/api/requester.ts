@@ -1,18 +1,23 @@
 import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, isAxiosError } from 'axios';
 import { SERVER_BASE_URL } from '@/constants/api';
-// import { getAccessToken } from '@/main/services/helper/member/member.ts';
+import { cookies } from 'next/headers';
 
 export const apiRequester: AxiosInstance = axios.create({
   baseURL: SERVER_BASE_URL,
   timeout: 5000,
+  withCredentials: true,
 });
 
 //기본 설정 넣고, header만 설정하는 로직이네
 const setRequestDefaultHeader = (requestConfig: AxiosRequestConfig) => {
+  const cookieStore = cookies();
+  const session = cookieStore.get('JSESSIONID');
+
   const config = requestConfig;
   config.headers = {
     ...config.headers,
     'Content-Type': 'application/json;charset=utf-8',
+    Cookie: session ? `JSESSIONID=${session.value}` : '',
   };
   return config as InternalAxiosRequestConfig;
 };
@@ -25,6 +30,9 @@ const setRequestAuthorizationHeader = (requestConfig: AxiosRequestConfig) => {
 };
 
 apiRequester.interceptors.request.use((request) => {
+  console.log('요청 url: ' + SERVER_BASE_URL + request.url);
+  console.log('요청 header: ' + request.headers);
+
   setRequestDefaultHeader(request);
   setRequestAuthorizationHeader(request);
   return request;

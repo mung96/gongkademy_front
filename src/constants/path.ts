@@ -3,8 +3,8 @@ import { BoardCategory } from './../board/BoardItem';
 export const PATH = {
   HOME: '/',
   COURSES: '/courses',
-  COURSE: (courseId: string) => `/courses/${courseId}`,
-  LECTURE: (lectureId: string) => `/lecture/${lectureId}`,
+  COURSE: (courseId: number) => `/courses/${courseId}`,
+  LECTURE: (lectureId: number) => `/lecture/${lectureId}`,
 
   COMMUNITY: (boardCategory: BoardCategory) => `/community/${boardCategory}`,
   COMMUNITY_DETAIL: (boardCategory: BoardCategory, boardId: number) => `/community/${boardCategory}/${boardId}`,
