@@ -4,7 +4,7 @@ import { apiRequester } from '@/api/requester';
 import Button from '@/components/Button';
 import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
 import { PATH } from '@/constants/path';
-import CourseCard from '@/course/CourseCard';
+import HomeCourseCard from '@/course/HomeCourseCard';
 import { RegisterStatus } from '@/course/type';
 import { RootState } from '@/store/rootReducer';
 import Link from 'next/link';
@@ -44,7 +44,7 @@ export default function HomeCourseListOrLogin() {
         <ul className="flex flex-col gap-6 tablet:max-w-screen-tablet desktop:max-w-screen-desktop">
           {courseList.map((course) => (
             <Link href={PATH.COURSE(course.courseId) + `?tab=curriculum`} key={course.courseId}>
-              <CourseCard key={course.courseId} course={course} />
+              <HomeCourseCard key={course.courseId} course={course} />
             </Link>
           ))}
         </ul>
