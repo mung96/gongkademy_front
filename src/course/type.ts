@@ -1,5 +1,10 @@
 export type Course = {
-  id: string;
+  courseId: number;
   title: string;
   thumbnail: string;
 };
+
+export enum RegisterStatus {
+  IN_PROGRESS = 'IN_PROGRESS',
+  COMPLETED = 'COMPLETED',
+}

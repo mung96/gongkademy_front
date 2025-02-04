@@ -1,43 +1,38 @@
-export enum BoardCategory {
-  QUESTION = 'question',
-  WORRY = 'worry',
-}
+import { Board, BoardCategory } from '@/board/type';
 
 type Props = {
-  title: string;
-  content: string;
-  date: string;
-  category: BoardCategory;
-  courseTitle?: string;
-  lectureTitle?: string;
-  commentCount: number;
+  board: Board;
 };
 
-export default function BoardItem({ title, content, date, category, courseTitle, lectureTitle, commentCount }: Props) {
+function getFormatDate(dateString: string): string {
+  return dateString.split('T')[0];
+}
+
+export default function BoardItem({ board }: Props) {
   return (
     <li className="flex min-w-[340px] flex-col gap-2 rounded-lg bg-neutral-gray-0 p-4 hover:bg-neutral-gray-50 tablet:px-6">
-      {category === BoardCategory.QUESTION && (
+      {board.category === BoardCategory.QUESTION && (
         <div className="flex items-center gap-2 tablet:hidden">
-          <p className="body2 text-neutral-gray-400">{courseTitle}</p>
-          <p className="body2 text-neutral-gray-400">{lectureTitle}</p>
+          <p className="body2 text-neutral-gray-400">{board.courseTitle}</p>
+          <p className="body2 text-neutral-gray-400">{board.lectureTitle}</p>
         </div>
       )}
 
-      <p className="subtitle2 tablet:subtitle3 text-neutral-gray-950">{title}</p>
-      <p className="body1 text-neutral-gray-800">{content}</p>
+      <p className="subtitle2 tablet:subtitle3 truncate text-neutral-gray-950">{board.title}</p>
+      <p className="body1 truncate text-neutral-gray-800">{board.body}</p>
       <div className="mt-1 flex justify-between">
         <div className="flex gap-3">
-          {category === BoardCategory.QUESTION && (
+          {board.category === BoardCategory.QUESTION && (
             <div className="flex items-center gap-2 max-tablet:hidden">
-              <p className="body2 text-neutral-gray-400">{courseTitle}</p>
-              <p className="body2 text-neutral-gray-400">{lectureTitle}</p>
+              <p className="body2 text-neutral-gray-400">{board.courseTitle}</p>
+              <p className="body2 text-neutral-gray-400">{board.lectureTitle}</p>
             </div>
           )}
-          <p className="body2 text-neutral-gray-400">{date}</p>
+          <p className="body2 text-neutral-gray-400">{getFormatDate(board.date)}</p>
         </div>
         <div className="flex gap-2">
           <p className="body2 text-neutral-gray-400">댓글수</p>
-          <p className="body2 text-neutral-gray-700">{commentCount}</p>
+          <p className="body2 text-neutral-gray-700">{board.commentCount}</p>
         </div>
       </div>
     </li>

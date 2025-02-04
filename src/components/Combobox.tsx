@@ -1,6 +1,6 @@
 import { useCombobox } from 'downshift';
-import ChevronDownIcon from '@/app/assets/svg/ChevronDownIcon.svg';
-import ChevronUpIcon from '@/app/assets/svg/ChevronUpIcon.svg';
+import ChevronDownIcon from '/public/assets/svg/ChevronDownIcon.svg';
+import ChevronUpIcon from '/public/assets/svg/ChevronUpIcon.svg';
 import { twMerge } from 'tailwind-merge';
 
 type Props<T> = {
@@ -20,7 +20,7 @@ export default function Combobox<T extends { label: string; value: string }>({
   disabled,
   onSelect,
 }: Props<T>) {
-  const width = '116';
+  // const width = '116';
 
   const { isOpen, getLabelProps, getInputProps, getToggleButtonProps, getMenuProps, getItemProps, selectedItem } =
     useCombobox({

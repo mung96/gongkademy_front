@@ -1,16 +1,16 @@
 'use client';
 
 import Button from '@/components/Button';
-import MenuIcon from '@/app/assets/svg/MenuIcon.svg';
-import MagnifierIcon from '@/app/assets/svg/MagnifierIcon.svg';
-import HomeIcon from '@/app/assets/svg/HomeIcon.svg';
-import PencilIcon from '@/app/assets/svg/PencilIcon.svg';
+import MenuIcon from '/public/assets/svg/MenuIcon.svg';
+import MagnifierIcon from '/public/assets/svg/MagnifierIcon.svg';
+import HomeIcon from '/public/assets/svg/HomeIcon.svg';
+import PencilIcon from '/public/assets/svg/PencilIcon.svg';
 import Input from '@/components/Input';
 import { useState } from 'react';
 import BoardItem from '@/board/BoardItem';
-import { boardList } from '@/app/(with-header)/courses/[courseId]/page';
 import YouTube from 'react-youtube';
 import PlayerSidebar from '@/course/PlayerSidebar';
+import { boardList } from '@/dummy';
 
 export default function Page() {
   const [search, setSearch] = useState('');
@@ -55,6 +55,7 @@ export default function Page() {
             placeholder="질문 검색"
             onChange={(e) => setSearch(e.target.value)}
             icon={<MagnifierIcon />}
+            label={'search'}
           />
           <Button icon={<PencilIcon />} onClick={() => console.log('글쓰기 클릭')}>
             글쓰기

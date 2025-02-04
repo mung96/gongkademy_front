@@ -9,7 +9,7 @@ type FormValues = {
 };
 
 export default function Page() {
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register } = useForm<FormValues>();
   return (
     <div className={'flex w-full flex-col items-center gap-4  tablet:max-w-[536px] tablet:gap-6 desktop:max-w-[608px]'}>
       <h2 className={'title2 tablet:title1 text-neutral-gray-950'}>프로필 수정</h2>

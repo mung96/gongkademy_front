@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import ChevronLeftIcon from '@/app/assets/svg/ChevronLeftIcon.svg';
-import ChevronRightIcon from '@/app/assets/svg/ChevronRightIcon.svg';
+import ChevronLeftIcon from '/public/assets/svg/ChevronLeftIcon.svg';
+import ChevronRightIcon from '/public/assets/svg/ChevronRightIcon.svg';
 
 type Props = {
   totalPage: number;
@@ -8,6 +8,7 @@ type Props = {
   buttonPerPage: number;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Pagination({ totalPage, limit, buttonPerPage }: Props) {
   const [page, setPage] = useState(1);
 
@@ -15,6 +16,7 @@ export default function Pagination({ totalPage, limit, buttonPerPage }: Props) {
     const startPage = buttonPerPage * Math.floor((page - 1) / buttonPerPage) + 1;
     const endPage = Math.min(startPage + buttonPerPage - 1, totalPage);
     return Array.from({ length: endPage - startPage + 1 }, (_, idx) => idx + startPage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   return (
