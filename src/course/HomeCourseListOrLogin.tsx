@@ -34,6 +34,7 @@ export default function HomeCourseListOrLogin() {
   }
   useEffect(() => {
     getRegisteredCourseList();
+    setCourseList([]);
   }, []);
 
   const isLogin = useSelector((state: RootState) => state.auth.isLogin);
@@ -42,11 +43,15 @@ export default function HomeCourseListOrLogin() {
     <section className="flex items-center justify-center ">
       {isLogin ? (
         <ul className="flex w-full flex-col gap-6 tablet:grid tablet:max-w-screen-tablet tablet:grid-cols-3 desktop:max-w-screen-desktop">
-          {courseList.map((course) => (
-            <Link href={PATH.COURSE(course.courseId) + `?tab=curriculum`} key={course.courseId} className="w-full">
-              <HomeCourseCard key={course.courseId} course={course} />
-            </Link>
-          ))}
+          {courseList.length ? (
+            courseList.map((course) => (
+              <Link href={PATH.COURSE(course.courseId) + `?tab=curriculum`} key={course.courseId} className="w-full">
+                <HomeCourseCard key={course.courseId} course={course} />
+              </Link>
+            ))
+          ) : (
+            <p className="body2 text-neutral-gray-950">수강 중인 강좌가 없어요</p>
+          )}
         </ul>
       ) : (
         <div className="flex h-[200px] w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-neutral-gray-300 bg-neutral-gray-50">
