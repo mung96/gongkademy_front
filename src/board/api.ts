@@ -1,4 +1,4 @@
-import { apiServerRequester } from '@/api/serverRequest';
+import { apiRequester } from '@/api/requester';
 import { Board, BoardCategory, BoardCriteria } from '@/board/type';
 
 export type GetBoardListResponse = {
@@ -6,18 +6,19 @@ export type GetBoardListResponse = {
   boardList: Board[];
 };
 
-export async function getBoardList(
+export async function getBoardListResponse(
   boardCategory: BoardCategory,
   page: number = 1,
   criteria: BoardCriteria = BoardCriteria.CREATE_AT,
 ) {
   try {
-    const response = await apiServerRequester.get<GetBoardListResponse>(
+    const response = await apiRequester.get<GetBoardListResponse>(
       `/boards?category=${boardCategory}&page=${page}&&criteria=${criteria}`,
     );
-    return response.data.boardList;
+
+    return response.data;
   } catch (e) {
     console.log(e);
   }
-  return [];
+  return { boardList: [], totalPage: 0 };
 }

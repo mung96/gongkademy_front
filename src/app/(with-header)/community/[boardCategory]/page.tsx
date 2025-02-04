@@ -5,20 +5,33 @@ import Input from '@/components/Input';
 import ListItem from '@/components/ListItem';
 import { PATH } from '@/constants/path';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MagnifierIcon from '/public/assets/svg/MagnifierIcon.svg';
 import Button from '@/components/Button';
 import PencilIcon from '/public/assets/svg/PencilIcon.svg';
 import Pagination from '@/components/Pagination';
-import { boardList } from '@/dummy';
-import { BoardCategory } from '@/board/type';
+import { Board, BoardCategory, BoardCriteria } from '@/board/type';
 import { notFound } from 'next/navigation';
+import { getBoardListResponse } from '@/board/api';
 
 export default function Page({ params }: { params: { boardCategory: BoardCategory } }) {
   const { boardCategory } = params;
   if (!Object.values(BoardCategory).includes(boardCategory)) {
     notFound();
   }
+  const [boardList, setBoardList] = useState<Board[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+
+  useEffect(() => {
+    async function fetchBoardList() {
+      const data = await getBoardListResponse(boardCategory, page, BoardCriteria.CREATE_AT);
+      setBoardList(data.boardList);
+      setTotalPage(data.totalPage);
+    }
+
+    fetchBoardList();
+  }, [page]);
 
   const [search, setSearch] = useState('');
 
@@ -37,7 +50,7 @@ export default function Page({ params }: { params: { boardCategory: BoardCategor
           <Input
             value={search}
             label="search"
-            placeholder="질문 검색"
+            placeholder={boardCategory === BoardCategory.QUESTION ? '질문 검색' : '고민 검색'}
             onChange={(e) => setSearch(e.target.value)}
             icon={<MagnifierIcon />}
           />
@@ -55,7 +68,7 @@ export default function Page({ params }: { params: { boardCategory: BoardCategor
               </Link>
             ))}
           </ul>
-          <Pagination totalPage={38} limit={20} buttonPerPage={5} />
+          <Pagination totalPage={totalPage} buttonPerPage={5} page={page} setPage={setPage} />
         </div>
       </div>
     </main>

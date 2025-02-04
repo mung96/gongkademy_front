@@ -4,15 +4,15 @@ import Link from 'next/link';
 import { PATH } from '@/constants/path';
 import BoardItem from '@/board/BoardItem';
 import { BoardCategory, BoardCriteria } from '@/board/type';
-import { getBoardList } from '@/board/api';
+import { getBoardListResponse } from '@/board/api';
 
 async function getHomeBoardList() {
   try {
-    const boardList = await getBoardList(BoardCategory.WORRY, 1, BoardCriteria.CREATE_AT);
-    if (boardList.length > 4) {
-      return boardList.slice(0, 4);
+    const data = await getBoardListResponse(BoardCategory.WORRY, 1, BoardCriteria.CREATE_AT);
+    if (data.boardList.length > 4) {
+      return data.boardList.slice(0, 4);
     }
-    return boardList;
+    return data.boardList;
   } catch (e) {
     console.log(e);
   }
