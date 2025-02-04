@@ -3,18 +3,12 @@ import HomeCourseListOrLogin from '@/course/HomeCourseListOrLogin';
 import Link from 'next/link';
 import { PATH } from '@/constants/path';
 import BoardItem from '@/board/BoardItem';
-import { apiServerRequester } from '@/api/serverRequest';
-import { Board, BoardCategory } from '@/board/type';
-
-type GetHomeBoardListResponse = {
-  totalPage: number;
-  boardList: Board[];
-};
+import { BoardCategory, BoardCriteria } from '@/board/type';
+import { getBoardList } from '@/board/api';
 
 async function getHomeBoardList() {
   try {
-    const response = await apiServerRequester.get<GetHomeBoardListResponse>(`/boards?category=${BoardCategory.WORRY}`);
-    const boardList = response.data.boardList;
+    const boardList = await getBoardList(BoardCategory.WORRY, 1, BoardCriteria.CREATE_AT);
     if (boardList.length > 4) {
       return boardList.slice(0, 4);
     }

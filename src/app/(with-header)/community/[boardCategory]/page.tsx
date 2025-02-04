@@ -1,6 +1,6 @@
 'use client';
 
-import BoardItem, { BoardCategory } from '@/board/BoardItem';
+import BoardItem from '@/board/BoardItem';
 import Input from '@/components/Input';
 import ListItem from '@/components/ListItem';
 import { PATH } from '@/constants/path';
@@ -11,9 +11,15 @@ import Button from '@/components/Button';
 import PencilIcon from '/public/assets/svg/PencilIcon.svg';
 import Pagination from '@/components/Pagination';
 import { boardList } from '@/dummy';
+import { BoardCategory } from '@/board/type';
+import { notFound } from 'next/navigation';
 
 export default function Page({ params }: { params: { boardCategory: BoardCategory } }) {
   const { boardCategory } = params;
+  if (!Object.values(BoardCategory).includes(boardCategory)) {
+    notFound();
+  }
+
   const [search, setSearch] = useState('');
 
   return (
@@ -44,16 +50,8 @@ export default function Page({ params }: { params: { boardCategory: BoardCategor
         <div className="flex w-full flex-col items-center gap-4">
           <ul className="w-full">
             {boardList.map((board) => (
-              <Link href={PATH.COMMUNITY_DETAIL(boardCategory, Number(board.id))} key={board.id}>
-                <BoardItem
-                  title={board.title}
-                  content={board.content}
-                  date={board.date}
-                  category={board.category}
-                  commentCount={board.commentCount}
-                  courseTitle={board.courseTitle}
-                  lectureTitle={board.lectureTitle}
-                />
+              <Link href={PATH.COMMUNITY_DETAIL(boardCategory, Number(board.boardId))} key={board.boardId}>
+                <BoardItem board={board} />
               </Link>
             ))}
           </ul>

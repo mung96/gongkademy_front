@@ -3,6 +3,11 @@ export enum BoardCategory {
   WORRY = 'WORRY',
 }
 
+export enum BoardCriteria {
+  CREATE_AT = 'CREATED_AT',
+  COMMENT_CNT = 'COMMENT_CNT',
+}
+
 export type Board = {
   boardId: number;
   title: string;
