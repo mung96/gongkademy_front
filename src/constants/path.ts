@@ -1,4 +1,6 @@
+import { RegisterStatus } from '@/course/type';
 import { BoardCategory } from '@/board/type';
+import { register } from 'module';
 
 export const PATH = {
   HOME: '/',
@@ -12,5 +14,5 @@ export const PATH = {
 
   MY_PROFILE: '/mypage/profile',
   MY_COMMUNITY: (boardCategory: BoardCategory) => `/mypage/community/${boardCategory}`,
-  MY_COURSES: '/mypage/courses',
+  MY_COURSES: (registerStatus: RegisterStatus) => `/mypage/courses/${registerStatus}`,
 } as const;
