@@ -8,8 +8,7 @@ import { getBoardListResponse } from '@/board/api';
 
 async function getHomeBoardList() {
   const data = await getBoardListResponse(BoardCategory.WORRY, 1, BoardCriteria.CREATE_AT);
-  console.log('홈 데이터');
-  console.log(data);
+
   if (data.boardList?.length > 4) {
     return data.boardList.slice(0, 4);
   }

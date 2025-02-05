@@ -8,6 +8,7 @@ import VideoIcon from '/public/assets/svg/VideoIcon.svg';
 import ProfileIcon from '/public/assets/svg/ProfileIcon.svg';
 import { usePathname } from 'next/navigation';
 import { BoardCategory } from '@/board/type';
+import { RegisterStatus } from '@/course/type';
 
 export default function Layout({
   children,
@@ -30,8 +31,16 @@ export default function Layout({
             icon={<PencilIcon />}
           />
         </Link>
-        <Link href={PATH.MY_COURSES}>
-          <ListItem label={'수강 강좌'} isSelect={pathname === PATH.MY_COURSES} textAlign="left" icon={<VideoIcon />} />
+        <Link href={PATH.MY_COURSES(RegisterStatus.IN_PROGRESS)}>
+          <ListItem
+            label={'수강 강좌'}
+            isSelect={
+              pathname === PATH.MY_COURSES(RegisterStatus.IN_PROGRESS) ||
+              pathname === PATH.MY_COURSES(RegisterStatus.COMPLETED)
+            }
+            textAlign="left"
+            icon={<VideoIcon />}
+          />
         </Link>
         <Link href={PATH.MY_PROFILE}>
           <ListItem
