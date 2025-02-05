@@ -8,8 +8,9 @@ import Input from '@/components/Input';
 import ListItem from '@/components/ListItem';
 import TextArea from '@/components/TextArea';
 import { PATH } from '@/constants/path';
+import { getLectureListResponse } from '@/course/api';
 import { CourseItem, GetCourseListResponse, RegisterStatus } from '@/course/type';
-import { exhaustiveCheck } from '@/utils';
+import { exhaustiveCheck, getCourseLabelValue, getLectureLabelValue } from '@/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -50,44 +51,7 @@ export async function getRegisteredCourseListResponse(
   }
   return { courseList: [] };
 }
-type LectureItemDto = {
-  lectureId: number;
-  title: string;
-  runtime: number;
-  isComplete: boolean;
-};
 
-type GetLectureListResponse = {
-  isRegister: boolean;
-  lectureList: LectureItemDto[];
-};
-async function getLectureListResponse(courseId: number, onSuccess?: (lectureItemDtoList: LectureItemDto[]) => void) {
-  try {
-    const response = await apiRequester.get<GetLectureListResponse>(`/courses/${courseId}/lectures`);
-    if (onSuccess) {
-      onSuccess(response.data.lectureList);
-    }
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-  return { isRegister: false, lectureList: [] };
-}
-
-function getCourseLabelValue(courseItemDtoList: CourseItem[]) {
-  return courseItemDtoList.map((courseItemDto) => ({
-    label: courseItemDto.title,
-    value: courseItemDto.courseId,
-  }));
-}
-function getLectureLabelValue(lectureItemDtoList: LectureItemDto[]) {
-  const lectureList = lectureItemDtoList.map((lectureItemDto) => ({
-    label: lectureItemDto.title,
-    value: lectureItemDto.lectureId,
-  }));
-  lectureList.unshift({ label: '전체', value: 0 });
-  return lectureList;
-}
 export default function Page({ searchParams }: { searchParams: { category: BoardCategory } }) {
   const { category } = searchParams;
   const {

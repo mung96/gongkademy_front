@@ -21,7 +21,7 @@ export default async function Page() {
       <section className="flex items-center justify-center ">
         <ul className="grid w-full grid-cols-2 gap-4 tablet:max-w-screen-tablet desktop:max-w-screen-desktop desktop:grid-cols-3">
           {courseList.map((course) => (
-            <Link href={PATH.COURSE(course.courseId) + `?tab=curriculum`} key={course.courseId}>
+            <Link href={PATH.COURSE(course.courseId, 'curriculum')} key={course.courseId}>
               <CourseCard key={course.courseId} course={course} />
             </Link>
           ))}

@@ -8,7 +8,9 @@ import { getBoardListResponse } from '@/board/api';
 
 async function getHomeBoardList() {
   const data = await getBoardListResponse(BoardCategory.WORRY, 1, BoardCriteria.CREATE_AT);
-  if (data.boardList.length > 4) {
+  console.log('홈 데이터');
+  console.log(data);
+  if (data.boardList?.length > 4) {
     return data.boardList.slice(0, 4);
   }
   return data.boardList;
@@ -29,7 +31,7 @@ export default async function Home() {
           </div>
           <section className="w-full">
             <ul className="flex w-full flex-col items-center gap-4 desktop:grid desktop:grid-cols-2">
-              {boardList.map((board) => (
+              {boardList?.map((board) => (
                 <Link
                   className="w-full"
                   href={PATH.COMMUNITY_DETAIL(BoardCategory.WORRY, Number(board.boardId))}

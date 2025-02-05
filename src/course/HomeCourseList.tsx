@@ -31,7 +31,7 @@ export default async function HomeCourseList() {
   return (
     <ul className="flex flex-col gap-6 tablet:max-w-screen-tablet desktop:max-w-screen-desktop">
       {courseList.map((course) => (
-        <Link href={PATH.COURSE(course.courseId) + `?tab=curriculum`} key={course.courseId}>
+        <Link href={PATH.COURSE(course.courseId, 'curriculum')} key={course.courseId}>
           <CourseCard key={course.courseId} course={course} />
         </Link>
       ))}
