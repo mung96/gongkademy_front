@@ -1,39 +1,33 @@
-'use client';
+// 'use client';
 import Input from '@/components/Input';
 import ListItem from '@/components/ListItem';
 import { PATH } from '@/constants/path';
 import CourseDetail from '@/course/CourseDetail';
 import CurriculumItem, { PlayStatus } from '@/course/CurriculumItem';
 import Link from 'next/link';
-import { useState } from 'react';
+// import { useState } from 'react';
 import MagnifierIcon from '/public/assets/svg/MagnifierIcon.svg';
 import Combobox from '@/components/Combobox';
 import BoardItem from '@/board/BoardItem';
 import Pagination from '@/components/Pagination';
 import { boardList } from '@/dummy';
 
-const course = {
-  courseId: 1,
-  title: '강좌명',
-  thumbnail: 'https://i.ytimg.com/vi/wYPIhJsOs3U/hq720.jpg?sqp=-…BACGAY4AUAB&rs=AOn4CLBSCfnc25vP04mjehMtyu9qVOEqcA',
-};
-
 type Props = {
   searchParams: { tab: 'curriculum' | 'question' };
-  params: { id: string };
+  params: { courseId: string };
 };
 export default function Page({ params, searchParams }: Props) {
-  const { id } = params;
-  const courseId = Number(id);
+  const courseId = Number(params.courseId);
   const { tab } = searchParams;
-  const [search, setSearch] = useState('');
-  const [item, setItem] = useState({ label: '강의1', value: '강의1' });
+  // const [search, setSearch] = useState('');
+  // const [item, setItem] = useState({ label: '강의1', value: '강의1' });
+  // const [page, setPage] = useState(1);
 
   return (
     <main className="">
       <div className="pb-[72px] tablet:flex tablet:flex-col tablet:items-center">
         <div className="flex flex-col gap-9 px-4 pt-9 tablet:w-[768px] tablet:px-6 tablet:pt-12 desktop:w-[1280px] desktop:gap-12 desktop:px-[128px] desktop:pt-16">
-          <CourseDetail course={course} />
+          <CourseDetail courseId={courseId} />
 
           <section>
             <ul className="flex w-full flex-col gap-2 tablet:flex-row tablet:justify-between">
@@ -45,7 +39,7 @@ export default function Page({ params, searchParams }: Props) {
                   <ListItem label={'질문'} isSelect={tab === 'question'} />
                 </Link>
               </div>
-              {tab === 'question' && (
+              {/* {tab === 'question' && (
                 <div className="flex items-center gap-2">
                   <Input
                     value={search}
@@ -63,7 +57,7 @@ export default function Page({ params, searchParams }: Props) {
                     onSelect={(item) => setItem(item)}
                   />
                 </div>
-              )}
+              )} */}
             </ul>
 
             {tab === 'curriculum' && (
@@ -76,25 +70,16 @@ export default function Page({ params, searchParams }: Props) {
               </ul>
             )}
 
-            {tab === 'question' && (
-              <div className="flex w-full flex-col items-center gap-4">
+            {/* {tab === 'question' && (
+              <div className="flex flex-col items-center w-full gap-4">
                 <ul className="w-full">
                   {boardList.map((board) => (
-                    <BoardItem
-                      title={board.title}
-                      content={board.content}
-                      date={board.date}
-                      category={board.category}
-                      commentCount={board.commentCount}
-                      courseTitle={board.courseTitle}
-                      lectureTitle={board.lectureTitle}
-                      key={board.id}
-                    />
+                    <BoardItem board={board} key={board.boardId} />
                   ))}
                 </ul>
-                <Pagination totalPage={38} limit={20} buttonPerPage={5} />
+                <Pagination totalPage={38} buttonPerPage={5} page={page} setPage={setPage} />
               </div>
-            )}
+            )} */}
           </section>
         </div>
       </div>

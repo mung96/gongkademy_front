@@ -50,7 +50,6 @@ export async function getRegisteredCourseListResponse(
   }
   return { courseList: [] };
 }
-// /{courseId}/lectures
 type LectureItemDto = {
   lectureId: number;
   title: string;
