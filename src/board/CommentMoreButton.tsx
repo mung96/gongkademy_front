@@ -1,28 +1,25 @@
 'use client';
 
 import { apiRequester } from '@/api/requester';
-import { BoardCategory } from '@/board/type';
 import Combobox from '@/components/Combobox';
 import { HTTP_STATUS } from '@/constants/api';
-import { PATH } from '@/constants/path';
 import { isAxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 type Props = {
-  boardId: number;
-  boardCategory: BoardCategory;
+  commentId: number;
 };
 
 //TODO: 수정은 이후에 구현
-export default function BoardMoreButton({ boardId, boardCategory }: Props) {
+export default function CommentMoreButton({ commentId }: Props) {
   const [selectedItem, setSelectedItem] = useState<{ label: string; value: string }>();
-  const router = useRouter();
 
-  async function deleteBoard() {
+  const router = useRouter();
+  async function deleteComment() {
     try {
-      await apiRequester.delete(`/boards/${boardId}`);
-      router.push(PATH.COMMUNITY(boardCategory));
+      await apiRequester.delete(`/boards/comments/${commentId}`);
+      router.refresh();
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.status === HTTP_STATUS.FORBIDDEN) {
@@ -35,15 +32,14 @@ export default function BoardMoreButton({ boardId, boardCategory }: Props) {
   }
 
   useEffect(() => {
-    if (selectedItem?.value === '수정') {
-      console.log('수정');
-    } else if (selectedItem?.value === '삭제') {
+    if (selectedItem?.value === '삭제') {
       if (confirm('정말 삭제하시겠습니까? 삭제 후에는 다시 복구할 수 없습니다.')) {
-        deleteBoard();
+        deleteComment();
       } else {
       }
     }
   }, [selectedItem]);
+
   return (
     <div className="w-[98px]">
       <Combobox

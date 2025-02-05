@@ -20,8 +20,9 @@ export type Board = {
 };
 
 export type Comment = {
-  commentId: string;
+  commentId: number;
   nickname: string;
   content: string;
   date: string;
+  isMine: boolean;
 };

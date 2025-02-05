@@ -32,7 +32,7 @@ export default async function Home() {
               {boardList.map((board) => (
                 <Link
                   className="w-full"
-                  href={PATH.COMMUNITY_DETAIL(BoardCategory.QUESTION, Number(board.boardId))}
+                  href={PATH.COMMUNITY_DETAIL(BoardCategory.WORRY, Number(board.boardId))}
                   key={board.boardId}
                 >
                   <BoardItem board={board} />

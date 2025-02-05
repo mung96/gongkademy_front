@@ -1,5 +1,7 @@
 import { apiServerRequester } from '@/api/serverRequest';
 import BoardMoreButton from '@/board/BoardMoreButton';
+import CommentInput from '@/board/CommentInput';
+import CommentMoreButton from '@/board/CommentMoreButton';
 import { BoardCategory, Comment } from '@/board/type';
 import { HTTP_STATUS } from '@/constants/api';
 import { getFormatDate } from '@/utils';
@@ -69,7 +71,7 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
 
           <p className={'body1 text-neutral-gray-950'}>{boardDetail.body}</p>
         </div>
-
+        <CommentInput boardId={boardId} />
         <ul className={'flex w-full flex-col gap-4'}>
           {boardDetail.commentList.map((comment) => (
             <li
@@ -81,6 +83,11 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
                 <p className={'body2 text-neutral-gray-500'}>{getFormatDate(comment.date)}</p>
               </div>
               <p className={'body1 text-neutral-gray-950'}>{comment.content}</p>
+              {comment.isMine && (
+                <div className="flex justify-end">
+                  <CommentMoreButton commentId={comment.commentId} />
+                </div>
+              )}
             </li>
           ))}
         </ul>
