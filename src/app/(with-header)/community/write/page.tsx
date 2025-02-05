@@ -30,7 +30,7 @@ type FormValues = {
   title: string;
   body: string;
 };
-//TODO: 질문일때 작성코드 + 실패시 Alert창
+//TODO: 질문일때 작성코드
 
 export default function Page({ searchParams }: { searchParams: { category: BoardCategory } }) {
   const { category } = searchParams;
@@ -44,7 +44,6 @@ export default function Page({ searchParams }: { searchParams: { category: Board
 
   async function writeBoard(formValues: FormValues) {
     try {
-      console.log('formValues', formValues);
       const response = await apiRequester.post(`/boards?category=${category}`, { ...formValues });
 
       //성공시 리다이렉트를 한다
@@ -60,7 +59,6 @@ export default function Page({ searchParams }: { searchParams: { category: Board
       <form
         method="post"
         onSubmit={handleSubmit((data) => {
-          console.log('data', data);
           writeBoard(data);
         })}
         className="flex w-full flex-col items-center gap-4 tablet:max-w-[720px] desktop:max-w-[816px]"

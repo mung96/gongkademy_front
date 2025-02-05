@@ -9,6 +9,7 @@ type Props<T> = {
   items: T[];
   disabled?: boolean;
   onSelect?: (item: T) => void;
+  reset?: boolean;
 };
 
 /** width에 대한 지정이 미정인 상태 */
@@ -19,22 +20,35 @@ export default function Combobox<T extends { label: string; value: string }>({
   items,
   disabled,
   onSelect,
+  reset = false,
 }: Props<T>) {
   // const width = '116';
 
-  const { isOpen, getLabelProps, getInputProps, getToggleButtonProps, getMenuProps, getItemProps, selectedItem } =
-    useCombobox({
-      onInputValueChange({ inputValue }) {
-        const item = items.find((item) => item.label === inputValue)!;
-        if (onSelect) {
-          onSelect(item);
-        }
-      },
-      items,
-      itemToString(item) {
-        return item ? item.label : '';
-      },
-    });
+  const {
+    isOpen,
+    getLabelProps,
+    getInputProps,
+    getToggleButtonProps,
+    getMenuProps,
+    getItemProps,
+    selectedItem,
+    selectItem,
+  } = useCombobox({
+    onInputValueChange({ inputValue }) {
+      const item = items.find((item) => item.label === inputValue)!;
+      if (onSelect) {
+        onSelect(item);
+      }
+      console.log(reset);
+      if (reset) {
+        selectItem(null);
+      }
+    },
+    items,
+    itemToString(item) {
+      return item ? item.label : placeholder;
+    },
+  });
   return (
     <div className={`relative w-full flex-1`}>
       {label && <label {...getLabelProps()}>{label}</label>}

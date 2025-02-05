@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, i
 import { SERVER_BASE_URL } from '@/constants/api';
 
 export const apiRequester: AxiosInstance = axios.create({
-  baseURL: SERVER_BASE_URL,
+  baseURL: SERVER_BASE_URL + '/api',
   timeout: 5000,
   withCredentials: true,
 });
@@ -27,9 +27,6 @@ export const setRequestDefaultHeader = (requestConfig: AxiosRequestConfig) => {
 // };
 
 apiRequester.interceptors.request.use((request) => {
-  console.log('요청 url: ' + SERVER_BASE_URL + request.url);
-  console.log('요청 header: ' + request.headers);
-
   setRequestDefaultHeader(request);
 
   // setRequestAuthorizationHeader(request);

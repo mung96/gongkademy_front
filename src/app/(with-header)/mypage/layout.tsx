@@ -7,7 +7,7 @@ import PencilIcon from '/public/assets/svg/PencilIcon.svg';
 import VideoIcon from '/public/assets/svg/VideoIcon.svg';
 import ProfileIcon from '/public/assets/svg/ProfileIcon.svg';
 import { usePathname } from 'next/navigation';
-import { BoardCategory } from '@/board/BoardItem';
+import { BoardCategory } from '@/board/type';
 
 export default function Layout({
   children,

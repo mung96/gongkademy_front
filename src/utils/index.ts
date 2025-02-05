@@ -1,5 +1,5 @@
 export function getFormatDate(dateString: string): string {
-  return dateString.split('T')[0];
+  return dateString?.split('T')[0];
 }
 
 export function getCourseThumbnailPath(courseThumbnail: string) {

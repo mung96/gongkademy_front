@@ -1,7 +1,10 @@
 import { apiServerRequester } from '@/api/serverRequest';
+import BoardMoreButton from '@/board/BoardMoreButton';
 import { BoardCategory, Comment } from '@/board/type';
-import Combobox from '@/components/Combobox';
+import { HTTP_STATUS } from '@/constants/api';
 import { getFormatDate } from '@/utils';
+import { isAxiosError } from 'axios';
+import { notFound } from 'next/navigation';
 
 type GetBoardDetailResponse = {
   boardId: number;
@@ -11,6 +14,7 @@ type GetBoardDetailResponse = {
   nickname: string;
   courseTitle: string;
   lectureTitle: string;
+  isMine: boolean;
   commentList: Comment[];
 };
 
@@ -22,8 +26,14 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
       const response = await apiServerRequester.get<GetBoardDetailResponse>(`/boards/${boardId}`);
 
       return response.data;
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response?.status === HTTP_STATUS.NOT_FOUND) {
+          notFound();
+        } else {
+          console.log('에러: ' + error);
+        }
+      }
     }
     return {
       boardId: 0,
@@ -33,12 +43,12 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
       nickname: '',
       courseTitle: '',
       lectureTitle: '',
+      isMine: false,
       commentList: [],
     };
   }
 
   const boardDetail = await getBoardDetail();
-  console.log('boardDetail', boardDetail);
 
   return (
     <main className={'flex flex-col items-center px-4 pb-[72px] pt-9 tablet:px-6  tablet:pt-12 desktop:pt-16'}>
@@ -50,9 +60,7 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
         >
           <div className="flex justify-between">
             <h1 className={'subtitle1 text-neutral-gray-950'}>{boardDetail.title}</h1>
-            {/* <div className="flex w-full gap-[14px] border">
-              <Combobox placeholder={'더보기'} items={[]} />
-            </div> */}
+            {boardDetail.isMine && <BoardMoreButton boardId={boardDetail.boardId} boardCategory={boardCategory} />}
           </div>
           <div className={'flex justify-between'}>
             <p className={'body2 text-neutral-gray-500'}>{boardDetail.nickname}</p>
