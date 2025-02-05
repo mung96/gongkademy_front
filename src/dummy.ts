@@ -1,10 +1,10 @@
-import { BoardCategory } from '@/board/BoardItem';
+import { BoardCategory } from '@/board/type';
 
 export const boardList = [
   {
-    id: '1',
+    boardId: 1,
     title: '질문이 있어요',
-    content: '질문질문',
+    body: '질문질문',
     date: '2024-04-21',
     category: BoardCategory.QUESTION,
     commentCount: 0,
@@ -12,9 +12,9 @@ export const boardList = [
     lectureTitle: '강좌2',
   },
   {
-    id: '2',
+    boardId: 2,
     title: '질문이 있어요',
-    content: '질문질문',
+    body: '질문질문',
     date: '2024-04-21',
     category: BoardCategory.QUESTION,
     commentCount: 0,
@@ -22,9 +22,9 @@ export const boardList = [
     lectureTitle: '강좌2',
   },
   {
-    id: '3',
+    boardId: 3,
     title: '질문이 있어요',
-    content: '질문질문',
+    body: '질문질문',
     date: '2024-04-21',
     category: BoardCategory.QUESTION,
     commentCount: 0,
@@ -32,9 +32,9 @@ export const boardList = [
     lectureTitle: '강좌2',
   },
   {
-    id: '4',
+    boardId: 4,
     title: '질문이 있어요',
-    content: '질문질문',
+    body: '질문질문',
     date: '2024-04-21',
     category: BoardCategory.QUESTION,
     commentCount: 0,
@@ -42,9 +42,9 @@ export const boardList = [
     lectureTitle: '강좌2',
   },
   {
-    id: '5',
+    boardId: 5,
     title: '질문이 있어요',
-    content: '질문질문',
+    body: '질문질문',
     date: '2024-04-21',
     category: BoardCategory.QUESTION,
     commentCount: 0,
@@ -52,9 +52,9 @@ export const boardList = [
     lectureTitle: '강좌2',
   },
   {
-    id: '6',
+    boardId: 6,
     title: '질문이 있어요',
-    content: '질문질문',
+    body: '질문질문',
     date: '2024-04-21',
     category: BoardCategory.QUESTION,
     commentCount: 0,

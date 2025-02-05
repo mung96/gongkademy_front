@@ -1,4 +1,4 @@
-import { BoardCategory } from './../board/BoardItem';
+import { BoardCategory } from '@/board/type';
 
 export const PATH = {
   HOME: '/',

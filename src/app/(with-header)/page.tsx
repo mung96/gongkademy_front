@@ -3,26 +3,15 @@ import HomeCourseListOrLogin from '@/course/HomeCourseListOrLogin';
 import Link from 'next/link';
 import { PATH } from '@/constants/path';
 import BoardItem from '@/board/BoardItem';
-import { apiServerRequester } from '@/api/serverRequest';
-import { Board, BoardCategory } from '@/board/type';
-
-type GetHomeBoardListResponse = {
-  totalPage: number;
-  boardList: Board[];
-};
+import { BoardCategory, BoardCriteria } from '@/board/type';
+import { getBoardListResponse } from '@/board/api';
 
 async function getHomeBoardList() {
-  try {
-    const response = await apiServerRequester.get<GetHomeBoardListResponse>(`/boards?category=${BoardCategory.WORRY}`);
-    const boardList = response.data.boardList;
-    if (boardList.length > 4) {
-      return boardList.slice(0, 4);
-    }
-    return boardList;
-  } catch (e) {
-    console.log(e);
+  const data = await getBoardListResponse(BoardCategory.WORRY, 1, BoardCriteria.CREATE_AT);
+  if (data.boardList.length > 4) {
+    return data.boardList.slice(0, 4);
   }
-  return [];
+  return data.boardList;
 }
 export default async function Home() {
   const boardList = await getHomeBoardList();
@@ -43,7 +32,7 @@ export default async function Home() {
               {boardList.map((board) => (
                 <Link
                   className="w-full"
-                  href={PATH.COMMUNITY_DETAIL(BoardCategory.QUESTION, Number(board.boardId))}
+                  href={PATH.COMMUNITY_DETAIL(BoardCategory.WORRY, Number(board.boardId))}
                   key={board.boardId}
                 >
                   <BoardItem board={board} />

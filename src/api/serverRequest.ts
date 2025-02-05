@@ -4,7 +4,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } 
 import { cookies } from 'next/headers';
 
 export const apiServerRequester: AxiosInstance = axios.create({
-  baseURL: SERVER_BASE_URL,
+  baseURL: SERVER_BASE_URL + '/api',
   timeout: 5000,
   withCredentials: true,
 });
@@ -15,7 +15,6 @@ const setRequestServerComponentHeader = (requestConfig: AxiosRequestConfig) => {
   //서버 컴포넌트 api 호출 로직 추가
   const cookieStore = cookies();
   const session = cookieStore.get('JSESSIONID');
-  console.log('session쿠키' + session);
   config.headers = {
     Cookie: session ? `JSESSIONID=${session.value}` : '',
   };
@@ -24,9 +23,6 @@ const setRequestServerComponentHeader = (requestConfig: AxiosRequestConfig) => {
 };
 
 apiServerRequester.interceptors.request.use((request) => {
-  console.log('요청 url: ' + SERVER_BASE_URL + request.url);
-  console.log('요청 header: ' + request.headers);
-
   setRequestDefaultHeader(request);
   setRequestServerComponentHeader(request);
   return request;

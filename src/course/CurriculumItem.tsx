@@ -1,4 +1,4 @@
-import { exhaustiveCheck } from '@/utils/typeGuard';
+import { exhaustiveCheck } from '@/utils';
 import { cva } from 'class-variance-authority';
 import { twMerge } from 'tailwind-merge';
 

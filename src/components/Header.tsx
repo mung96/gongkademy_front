@@ -1,9 +1,9 @@
-import { BoardCategory } from '@/board/BoardItem';
 import { PATH } from '@/constants/path';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import Logo from '/public/assets/svg/Logo.svg';
 import HeaderLoginButton from '@/components/HeaderLoginButton';
+import { BoardCategory } from '@/board/type';
 
 export const textStyle = 'body2 flex items-center justify-center px-3 text-neutral-gray-950';
 
@@ -18,10 +18,7 @@ export default function Header() {
           <Link className={twMerge(textStyle, 'hidden tablet:block')} href={PATH.COURSES}>
             강좌
           </Link>
-          <Link
-            className={twMerge(textStyle, 'hidden tablet:block')}
-            href={PATH.COMMUNITY('question' as BoardCategory)}
-          >
+          <Link className={twMerge(textStyle, 'hidden tablet:block')} href={PATH.COMMUNITY(BoardCategory.WORRY)}>
             커뮤니티
           </Link>
         </div>

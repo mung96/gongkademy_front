@@ -1,19 +1,39 @@
 'use client';
 
-import BoardItem, { BoardCategory } from '@/board/BoardItem';
+import BoardItem from '@/board/BoardItem';
 import Input from '@/components/Input';
 import ListItem from '@/components/ListItem';
 import { PATH } from '@/constants/path';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MagnifierIcon from '/public/assets/svg/MagnifierIcon.svg';
 import Button from '@/components/Button';
 import PencilIcon from '/public/assets/svg/PencilIcon.svg';
 import Pagination from '@/components/Pagination';
-import { boardList } from '@/dummy';
+import { Board, BoardCategory, BoardCriteria } from '@/board/type';
+import { notFound } from 'next/navigation';
+import { getBoardListResponse } from '@/board/api';
 
 export default function Page({ params }: { params: { boardCategory: BoardCategory } }) {
   const { boardCategory } = params;
+  if (!Object.values(BoardCategory).includes(boardCategory)) {
+    notFound();
+  }
+  const [boardList, setBoardList] = useState<Board[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+
+  useEffect(() => {
+    async function fetchBoardList() {
+      const data = await getBoardListResponse(boardCategory, page, BoardCriteria.CREATE_AT);
+      setBoardList(data.boardList);
+      setTotalPage(data.totalPage);
+    }
+
+    fetchBoardList();
+  }, [page]);
+
+  //TODO: 검색 API 만들어야함.
   const [search, setSearch] = useState('');
 
   return (
@@ -31,7 +51,7 @@ export default function Page({ params }: { params: { boardCategory: BoardCategor
           <Input
             value={search}
             label="search"
-            placeholder="질문 검색"
+            placeholder={boardCategory === BoardCategory.QUESTION ? '질문 검색' : '고민 검색'}
             onChange={(e) => setSearch(e.target.value)}
             icon={<MagnifierIcon />}
           />
@@ -44,20 +64,12 @@ export default function Page({ params }: { params: { boardCategory: BoardCategor
         <div className="flex w-full flex-col items-center gap-4">
           <ul className="w-full">
             {boardList.map((board) => (
-              <Link href={PATH.COMMUNITY_DETAIL(boardCategory, Number(board.id))} key={board.id}>
-                <BoardItem
-                  title={board.title}
-                  content={board.content}
-                  date={board.date}
-                  category={board.category}
-                  commentCount={board.commentCount}
-                  courseTitle={board.courseTitle}
-                  lectureTitle={board.lectureTitle}
-                />
+              <Link href={PATH.COMMUNITY_DETAIL(boardCategory, Number(board.boardId))} key={board.boardId}>
+                <BoardItem board={board} />
               </Link>
             ))}
           </ul>
-          <Pagination totalPage={38} limit={20} buttonPerPage={5} />
+          <Pagination totalPage={totalPage} buttonPerPage={5} page={page} setPage={setPage} />
         </div>
       </div>
     </main>

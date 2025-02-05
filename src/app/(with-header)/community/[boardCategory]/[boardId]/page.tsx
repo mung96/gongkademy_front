@@ -1,72 +1,110 @@
-'use client';
+import { apiServerRequester } from '@/api/serverRequest';
+import BoardMoreButton from '@/board/BoardMoreButton';
+import CommentInput from '@/board/CommentInput';
+import CommentMoreButton from '@/board/CommentMoreButton';
+import { BoardCategory, Comment } from '@/board/type';
+import { HTTP_STATUS } from '@/constants/api';
+import { getFormatDate } from '@/utils';
+import { isAxiosError } from 'axios';
+import { notFound } from 'next/navigation';
 
-const commentList = [
-  {
-    id: '1',
-    nickname: '질문이 있어요',
-    content: '질문질문',
-    date: '2024-04-21',
-  },
-  {
-    id: '2',
-    nickname: '질문이 있어요',
-    content: '질문질문',
-    date: '2024-04-21',
-  },
-  {
-    id: '3',
-    nickname: '질문이 있어요',
-    content: '질문질문',
-    date: '2024-04-21',
-  },
-  {
-    id: '4',
-    nickname: '질문이 있어요',
-    content: '질문질문',
-    date: '2024-04-21',
-  },
-  {
-    id: '5',
-    nickname: '질문이 있어요',
-    content: '질문질문',
-    date: '2024-04-21',
-  },
-];
-export default function Page() {
+type GetBoardDetailResponse = {
+  boardId: number;
+  title: string;
+  body: string;
+  date: string;
+  nickname: string;
+  courseTitle: string;
+  lectureTitle: string;
+  boardCategory: BoardCategory;
+  isMine: boolean;
+  commentList: Comment[];
+};
+
+export default async function Page({ params }: { params: { boardCategory: BoardCategory; boardId: number } }) {
+  const { boardCategory, boardId } = params;
+
+  async function getBoardDetail() {
+    try {
+      const response = await apiServerRequester.get<GetBoardDetailResponse>(`/boards/${boardId}`);
+
+      return response.data;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response?.status === HTTP_STATUS.NOT_FOUND) {
+          notFound();
+        } else {
+          console.log('에러: ' + error);
+        }
+      }
+    }
+    return {
+      boardId: 0,
+      title: '',
+      body: '',
+      date: new Date().toString(),
+      nickname: '',
+      courseTitle: '',
+      lectureTitle: '',
+      isMine: false,
+      commentList: [],
+      boardCategory: boardCategory,
+    };
+  }
+
+  const boardDetail = await getBoardDetail();
+  if (boardDetail.boardCategory !== boardCategory) {
+    notFound();
+  }
+
   return (
-    <main className={'flex flex-col items-center px-4 pb-[72px] pt-9 tablet:px-6  tablet:pt-12 desktop:pt-16'}>
-      <div className={'flex  flex-col items-center  gap-7    p-6 tablet:max-w-[720px] desktop:max-w-[816px]'}>
+    <main className={'flex w-lvw flex-col items-center px-4 pb-[72px] pt-9 tablet:px-6  tablet:pt-12 desktop:pt-16'}>
+      <div className={'flex w-full flex-col  items-center gap-7   p-6 tablet:max-w-[720px] desktop:max-w-[816px]'}>
         <div
-          className={
-            'flex flex-col gap-4 rounded-lg   bg-neutral-gray-50 p-6 tablet:max-w-[720px] desktop:max-w-[816px]'
-          }
+          className={'flex w-full  flex-col gap-4 rounded-lg bg-neutral-gray-50 p-6 tablet:w-[720px] desktop:w-[816px]'}
         >
-          <h1 className={'subtitle1 text-neutral-gray-950'}>제목</h1>
+          <div className="flex justify-between w-full">
+            <h1 className={'subtitle1  break-all text-neutral-gray-950'}>{boardDetail.title}</h1>
+            {boardDetail.isMine && <BoardMoreButton boardId={boardDetail.boardId} boardCategory={boardCategory} />}
+          </div>
           <div className={'flex justify-between'}>
-            <p className={'body2 text-neutral-gray-500'}>닉네임</p>
-            <p className={'body2 text-neutral-gray-500'}>yyyy.mm.dd</p>
+            <p className={'body2 text-neutral-gray-500'}>{boardDetail.nickname}</p>
+            <p className={'body2 text-neutral-gray-500'}>{getFormatDate(boardDetail.date)}</p>
           </div>
 
-          <p className={'body1 text-neutral-gray-950'}>
-            안녕하세요. 객체지향의 사실과 오해, 오브젝트부터 이어서 강의까지 영호님의 강의를 즐겁게 보고 있습니다.
-            강의를 보면서 궁금한 것이 있습니다. Movie는 DiscountPolicy와 협력하고 있고, DisscountPolicy는
-            DiscountCondition과 건이 추가된다면 DiscountCondition 에 협력자로 Customer가 파라미터로 전달이 되어야할 것
-            같습니다. 이를 위해 BirthdayDiscountCondition이라는 할인 조건을 만 깨지는 상황도 발생하게 될 것 같습니다.
-            이렇게 기존에 설계된 추상화가 다른 조건의 추가로 인해 깨지는 경우에는 어떻게 설계를 접근하는 것이 좋을까요??
-          </p>
-        </div>
+          <p className={'body1 break-words text-neutral-gray-950'}>{boardDetail.body}</p>
 
-        <div className={'flex w-full flex-col'}>
-          {commentList.map((comment) => (
-            <div className={'flex flex-col gap-3 rounded-lg bg-neutral-gray-50 px-6 pb-4 pt-[22px]'} key={comment.id}>
+          {boardDetail.boardCategory === BoardCategory.QUESTION && (
+            <div className="flex gap-2">
+              <p className="px-2 py-1 rounded-lg body1 w-fit bg-neutral-gray-200 text-neutral-gray-950">
+                {boardDetail.courseTitle}
+              </p>
+              <p className="px-2 py-1 rounded-lg body1 w-fit bg-neutral-gray-200 text-neutral-gray-950">
+                {boardDetail.lectureTitle}
+              </p>
+            </div>
+          )}
+        </div>
+        <CommentInput boardId={boardId} />
+        <ul className={'flex w-full flex-col gap-4'}>
+          {boardDetail.commentList.map((comment) => (
+            <li
+              className={'flex flex-col gap-3 rounded-lg bg-neutral-gray-50 px-6 pb-4 pt-[22px]'}
+              key={comment.commentId}
+            >
               <div className={'flex justify-between'}>
                 <p className={'body2 text-neutral-gray-500'}>{comment.nickname}</p>
-                <p className={'body2 text-neutral-gray-500'}>{comment.date}</p>
+                <p className={'body2 text-neutral-gray-500'}>{getFormatDate(comment.date)}</p>
               </div>
               <p className={'body1 text-neutral-gray-950'}>{comment.content}</p>
-            </div>
+              {comment.isMine && (
+                <div className="flex justify-end">
+                  <CommentMoreButton commentId={comment.commentId} />
+                </div>
+              )}
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </main>
   );

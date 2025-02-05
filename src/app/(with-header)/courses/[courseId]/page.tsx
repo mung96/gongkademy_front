@@ -28,7 +28,6 @@ export default function Page({ params, searchParams }: Props) {
   const { tab } = searchParams;
   const [search, setSearch] = useState('');
   const [item, setItem] = useState({ label: '강의1', value: '강의1' });
-  console.log(item);
 
   return (
     <main className="">

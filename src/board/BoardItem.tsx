@@ -1,17 +1,14 @@
 import { Board, BoardCategory } from '@/board/type';
+import { getFormatDate } from '@/utils';
 
 type Props = {
   board: Board;
 };
 
-function getFormatDate(dateString: string): string {
-  return dateString.split('T')[0];
-}
-
 export default function BoardItem({ board }: Props) {
   return (
     <li className="flex min-w-[340px] flex-col gap-2 rounded-lg bg-neutral-gray-0 p-4 hover:bg-neutral-gray-50 tablet:px-6">
-      {board.category === BoardCategory.QUESTION && (
+      {board.boardCategory === BoardCategory.QUESTION && (
         <div className="flex items-center gap-2 tablet:hidden">
           <p className="body2 text-neutral-gray-400">{board.courseTitle}</p>
           <p className="body2 text-neutral-gray-400">{board.lectureTitle}</p>
@@ -22,7 +19,7 @@ export default function BoardItem({ board }: Props) {
       <p className="body1 truncate text-neutral-gray-800">{board.body}</p>
       <div className="mt-1 flex justify-between">
         <div className="flex gap-3">
-          {board.category === BoardCategory.QUESTION && (
+          {board.boardCategory === BoardCategory.QUESTION && (
             <div className="flex items-center gap-2 max-tablet:hidden">
               <p className="body2 text-neutral-gray-400">{board.courseTitle}</p>
               <p className="body2 text-neutral-gray-400">{board.lectureTitle}</p>
