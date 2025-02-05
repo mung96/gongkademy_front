@@ -13,7 +13,7 @@ export type Board = {
   title: string;
   body: string;
   date: string;
-  category: BoardCategory;
+  boardCategory: BoardCategory;
   courseTitle?: string;
   lectureTitle?: string;
   commentCount: number;

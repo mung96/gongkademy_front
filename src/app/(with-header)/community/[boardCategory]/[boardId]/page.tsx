@@ -16,6 +16,7 @@ type GetBoardDetailResponse = {
   nickname: string;
   courseTitle: string;
   lectureTitle: string;
+  boardCategory: BoardCategory;
   isMine: boolean;
   commentList: Comment[];
 };
@@ -47,10 +48,14 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
       lectureTitle: '',
       isMine: false,
       commentList: [],
+      boardCategory: boardCategory,
     };
   }
 
   const boardDetail = await getBoardDetail();
+  if (boardDetail.boardCategory !== boardCategory) {
+    notFound();
+  }
 
   return (
     <main className={'flex flex-col items-center px-4 pb-[72px] pt-9 tablet:px-6  tablet:pt-12 desktop:pt-16'}>
@@ -70,6 +75,16 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
           </div>
 
           <p className={'body1 text-neutral-gray-950'}>{boardDetail.body}</p>
+          {boardDetail.boardCategory === BoardCategory.QUESTION && (
+            <div className="flex gap-2">
+              <p className="body1 w-fit rounded-lg bg-neutral-gray-200 px-2 py-1 text-neutral-gray-950">
+                {boardDetail.courseTitle}
+              </p>
+              <p className="body1 w-fit rounded-lg bg-neutral-gray-200 px-2 py-1 text-neutral-gray-950">
+                {boardDetail.lectureTitle}
+              </p>
+            </div>
+          )}
         </div>
         <CommentInput boardId={boardId} />
         <ul className={'flex w-full flex-col gap-4'}>
