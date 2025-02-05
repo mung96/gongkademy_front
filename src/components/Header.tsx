@@ -9,7 +9,7 @@ export const textStyle = 'body2 flex items-center justify-center px-3 text-neutr
 
 export default function Header() {
   return (
-    <header className="sticky top-0 flex h-16 min-h-16 w-full justify-center border-b border-neutral-gray-100 bg-neutral-gray-0">
+    <header className="sticky top-0 z-50 flex h-16 min-h-16 w-full justify-center border-b border-neutral-gray-100 bg-neutral-gray-0">
       <div className="flex h-full w-[1300px] min-w-[365px] max-w-[1300px] items-center justify-between px-6">
         <div className="flex items-center max-tablet:w-full max-tablet:justify-center">
           <Link className={textStyle} href={PATH.HOME}>

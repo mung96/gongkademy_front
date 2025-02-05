@@ -3,7 +3,7 @@ import { BoardCategory } from '@/board/type';
 export const PATH = {
   HOME: '/',
   COURSES: '/courses',
-  COURSE: (courseId: number) => `/courses/${courseId}`,
+  COURSE: (courseId: number, tab: 'curriculum' | 'question') => `/courses/${courseId}/${tab}`,
   LECTURE: (lectureId: number) => `/lecture/${lectureId}`,
 
   COMMUNITY: (boardCategory: BoardCategory) => `/community/${boardCategory}`,

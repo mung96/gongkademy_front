@@ -45,7 +45,7 @@ export default function HomeCourseListOrLogin() {
         <ul className="flex w-full flex-col gap-6 tablet:grid tablet:max-w-screen-tablet tablet:grid-cols-3 desktop:max-w-screen-desktop">
           {courseList.length ? (
             courseList.map((course) => (
-              <Link href={PATH.COURSE(course.courseId) + `?tab=curriculum`} key={course.courseId} className="w-full">
+              <Link href={PATH.COURSE(course.courseId, 'curriculum')} key={course.courseId} className="w-full">
                 <HomeCourseCard key={course.courseId} course={course} />
               </Link>
             ))
