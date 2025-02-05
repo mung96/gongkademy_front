@@ -8,7 +8,7 @@ import Input from '@/components/Input';
 import ListItem from '@/components/ListItem';
 import TextArea from '@/components/TextArea';
 import { PATH } from '@/constants/path';
-import { RegisterStatus } from '@/course/type';
+import { CourseItem, GetCourseListResponse, RegisterStatus } from '@/course/type';
 import { exhaustiveCheck } from '@/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -32,23 +32,13 @@ type FormValues = {
   title: string;
   body: string;
 };
-//TODO: 질문일때 작성코드
-type CourseItemDto = {
-  courseId: number;
-  title: string;
-  thumbnail: string;
-};
-
-type GetRegisteredCourseListResponse = {
-  courseList: CourseItemDto[];
-};
 
 export async function getRegisteredCourseListResponse(
-  onSuccess?: (courseItemDtoList: CourseItemDto[]) => void,
+  onSuccess?: (courseItemDtoList: CourseItem[]) => void,
   registerStatus?: RegisterStatus,
 ) {
   try {
-    const response = await apiRequester.get<GetRegisteredCourseListResponse>(
+    const response = await apiRequester.get<GetCourseListResponse>(
       `/members/courses${registerStatus ? `?registerStatus=${registerStatus}` : ''}`,
     );
     if (onSuccess) {
@@ -85,7 +75,7 @@ async function getLectureListResponse(courseId: number, onSuccess?: (lectureItem
   return { isRegister: false, lectureList: [] };
 }
 
-function getCourseLabelValue(courseItemDtoList: CourseItemDto[]) {
+function getCourseLabelValue(courseItemDtoList: CourseItem[]) {
   return courseItemDtoList.map((courseItemDto) => ({
     label: courseItemDto.title,
     value: courseItemDto.courseId,
