@@ -1,5 +1,6 @@
 import { apiServerRequester } from '@/api/serverRequest';
-import Button from '@/components/Button';
+import DownloadCourseNoteButton from '@/course/DownloadCourseNoteButton';
+import RegisterCourseButton from '@/course/RegisterCourseButton';
 import { getCourseThumbnailPath } from '@/utils';
 import Image from 'next/image';
 
@@ -11,17 +12,18 @@ type GetCourseDetailResponse = {
   thumbnail: string;
   courseNote: string;
   courseTime: number;
-  isRegister: boolean;
+  register: boolean;
 };
 
 async function getCourseDetailResponse(courseId: number) {
   try {
     const response = await apiServerRequester.get<GetCourseDetailResponse>(`/courses/${courseId}`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
   }
-  return { title: '', thumbnail: '', courseNote: '', courseTime: 0, isRegister: false };
+  return { title: '', thumbnail: '', courseNote: '', courseTime: 0, register: false };
 }
 
 export default async function CourseDetail({ courseId }: Props) {
@@ -29,7 +31,6 @@ export default async function CourseDetail({ courseId }: Props) {
   return (
     <div className="flex flex-col gap-6 tablet:flex-row tablet:justify-start tablet:gap-4 ">
       <div className=" aspect-video w-full min-w-[163px] rounded-lg tablet:h-[247px] tablet:w-[352px] desktop:w-[400px]">
-        {/* <img className="rounded-lg size-full" src={course.thumbnail} alt={'강좌 썸네일'} /> */}
         <Image
           src={getCourseThumbnailPath(courseDetail.thumbnail)}
           alt={`${courseDetail.title} 썸네일`}
@@ -58,8 +59,8 @@ export default async function CourseDetail({ courseId }: Props) {
         </div>
 
         <div className="flex flex-col gap-2 tablet:flex-row tablet:gap-4">
-          <Button variant="filled">수강 신청</Button>
-          <Button variant="outlined">강의 자료 다운로드</Button>
+          {!courseDetail.register && <RegisterCourseButton courseId={courseId} />}
+          <DownloadCourseNoteButton courseId={courseId} />
         </div>
       </section>
     </div>
