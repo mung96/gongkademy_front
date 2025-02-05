@@ -58,15 +58,13 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
   }
 
   return (
-    <main className={'flex flex-col items-center px-4 pb-[72px] pt-9 tablet:px-6  tablet:pt-12 desktop:pt-16'}>
-      <div className={'flex  flex-col items-center  gap-7    p-6 tablet:max-w-[720px] desktop:max-w-[816px]'}>
+    <main className={'flex w-lvw flex-col items-center px-4 pb-[72px] pt-9 tablet:px-6  tablet:pt-12 desktop:pt-16'}>
+      <div className={'flex w-full flex-col  items-center gap-7   p-6 tablet:max-w-[720px] desktop:max-w-[816px]'}>
         <div
-          className={
-            'flex flex-col gap-4 rounded-lg   bg-neutral-gray-50 p-6 tablet:max-w-[720px] desktop:max-w-[816px]'
-          }
+          className={'flex w-full  flex-col gap-4 rounded-lg bg-neutral-gray-50 p-6 tablet:w-[720px] desktop:w-[816px]'}
         >
-          <div className="flex justify-between">
-            <h1 className={'subtitle1 text-neutral-gray-950'}>{boardDetail.title}</h1>
+          <div className="flex justify-between w-full">
+            <h1 className={'subtitle1  break-all text-neutral-gray-950'}>{boardDetail.title}</h1>
             {boardDetail.isMine && <BoardMoreButton boardId={boardDetail.boardId} boardCategory={boardCategory} />}
           </div>
           <div className={'flex justify-between'}>
@@ -74,13 +72,14 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
             <p className={'body2 text-neutral-gray-500'}>{getFormatDate(boardDetail.date)}</p>
           </div>
 
-          <p className={'body1 text-neutral-gray-950'}>{boardDetail.body}</p>
+          <p className={'body1 break-words text-neutral-gray-950'}>{boardDetail.body}</p>
+
           {boardDetail.boardCategory === BoardCategory.QUESTION && (
             <div className="flex gap-2">
-              <p className="body1 w-fit rounded-lg bg-neutral-gray-200 px-2 py-1 text-neutral-gray-950">
+              <p className="px-2 py-1 rounded-lg body1 w-fit bg-neutral-gray-200 text-neutral-gray-950">
                 {boardDetail.courseTitle}
               </p>
-              <p className="body1 w-fit rounded-lg bg-neutral-gray-200 px-2 py-1 text-neutral-gray-950">
+              <p className="px-2 py-1 rounded-lg body1 w-fit bg-neutral-gray-200 text-neutral-gray-950">
                 {boardDetail.lectureTitle}
               </p>
             </div>

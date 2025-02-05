@@ -53,7 +53,7 @@ export default function BoardMoreButton({ boardId, boardCategory }: Props) {
     }
   }, [selectedItem]);
   return (
-    <div className="w-[98px]">
+    <div className="w-[130px] min-w-[100px]">
       <Combobox
         placeholder={'더보기'}
         items={[

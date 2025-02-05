@@ -169,7 +169,7 @@ export default function Page({ searchParams }: { searchParams: { category: Board
           label="title"
         />
         {category === BoardCategory.QUESTION && (
-          <div className="flex w-full gap-[14px] border">
+          <div className="flex w-full gap-[14px] ">
             <Combobox
               placeholder={'수강중인 강좌 선택'}
               items={courseList}
@@ -192,10 +192,7 @@ export default function Page({ searchParams }: { searchParams: { category: Board
           label="body"
           register={register('body', { required: true, maxLength: BODY_MAX_LENGTH })}
         />
-        <input
-          className="h-40 w-full"
-          onChange={() => console.log(selectedCourse !== null && selectedLecture !== null)}
-        />
+
         <Button
           className="w-full"
           disabled={

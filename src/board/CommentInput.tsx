@@ -36,13 +36,13 @@ export default function CommentInput({ boardId }: Props) {
     <form
       method="post"
       onSubmit={handleSubmit((data) => writeComment(data))}
-      className="flex w-full flex-col gap-2 tablet:flex-row "
+      className="flex w-full flex-col gap-2 tablet:flex-row  tablet:w-[720px] desktop:w-[816px]"
     >
       <textarea
         placeholder={'댓글을 적어주세요'}
         maxLength={COMMENT_MAX_LENGTH}
         {...register('content', { required: true, maxLength: COMMENT_MAX_LENGTH })}
-        className="body1 h-[200px] w-full resize-none rounded-lg bg-neutral-gray-100 px-3 py-2 pr-9 text-neutral-gray-700 outline-none outline-offset-0 placeholder:text-neutral-gray-700 hover:outline-primary-300 focus:text-neutral-gray-900 focus:caret-primary-600 focus:outline-primary-500 disabled:text-neutral-gray-300"
+        className="body1 h-[140px] w-full resize-none rounded-lg bg-neutral-gray-100 px-3 py-2 pr-9 text-neutral-gray-700 outline-none outline-offset-0 placeholder:text-neutral-gray-700 hover:outline-primary-300 focus:text-neutral-gray-900 focus:caret-primary-600 focus:outline-primary-500 disabled:text-neutral-gray-300"
       />
       <Button className="w-full tablet:w-[56px]" disabled={!isFormValid || isSubmitting}>
         작성
