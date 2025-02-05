@@ -11,6 +11,7 @@ import Combobox from '@/components/Combobox';
 import BoardItem from '@/board/BoardItem';
 import Pagination from '@/components/Pagination';
 import { boardList } from '@/dummy';
+import CurriculumList from '@/course/CurriculumList';
 
 type Props = {
   searchParams: { tab: 'curriculum' | 'question' };
@@ -59,16 +60,7 @@ export default function Page({ params, searchParams }: Props) {
                 </div>
               )} */}
             </ul>
-
-            {tab === 'curriculum' && (
-              <ul className="flex flex-col">
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-                  <Link href={PATH.LECTURE(item)} key={item}>
-                    <CurriculumItem title={'강의제목'} runTime={0} status={PlayStatus.COMPLETED} />
-                  </Link>
-                ))}
-              </ul>
-            )}
+            {tab === 'curriculum' && <CurriculumList courseId={courseId} />}
 
             {/* {tab === 'question' && (
               <div className="flex flex-col items-center w-full gap-4">

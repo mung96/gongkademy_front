@@ -12,3 +12,14 @@ export enum RegisterStatus {
 export type GetCourseListResponse = {
   courseList: CourseItem[];
 };
+export type LectureItem = {
+  lectureId: number;
+  title: string;
+  runtime: number;
+  playStatus: PlayStatus;
+};
+export enum PlayStatus {
+  COMPLETED = 'COMPLETED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  NOT_PLAY = 'NOT_PLAY',
+}
