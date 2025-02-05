@@ -13,7 +13,7 @@ type Props = {
 
 //TODO: 수정은 이후에 구현
 export default function CommentMoreButton({ commentId }: Props) {
-  const [selectedItem, setSelectedItem] = useState<{ label: string; value: string }>();
+  const [selectedItem, setSelectedItem] = useState<{ label: string; value: string } | null>(null);
 
   const router = useRouter();
   async function deleteComment() {
@@ -30,12 +30,19 @@ export default function CommentMoreButton({ commentId }: Props) {
       }
     }
   }
+  const [reset, setReset] = useState(false);
+  useEffect(() => {
+    if (reset) {
+      setReset(false);
+    }
+  }, [reset]);
 
   useEffect(() => {
     if (selectedItem?.value === '삭제') {
       if (confirm('정말 삭제하시겠습니까? 삭제 후에는 다시 복구할 수 없습니다.')) {
         deleteComment();
       } else {
+        setReset(true);
       }
     }
   }, [selectedItem]);
@@ -49,7 +56,8 @@ export default function CommentMoreButton({ commentId }: Props) {
           { label: '삭제', value: '삭제' },
         ]}
         onSelect={setSelectedItem}
-        reset={true}
+        reset={reset}
+        selectedItem={selectedItem}
       />
     </div>
   );

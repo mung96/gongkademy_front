@@ -8,9 +8,11 @@ import Input from '@/components/Input';
 import ListItem from '@/components/ListItem';
 import TextArea from '@/components/TextArea';
 import { PATH } from '@/constants/path';
+import { RegisterStatus } from '@/course/type';
 import { exhaustiveCheck } from '@/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const getBodyPlaceholder = (category: BoardCategory) => {
@@ -31,7 +33,72 @@ type FormValues = {
   body: string;
 };
 //TODO: 질문일때 작성코드
+type CourseItemDto = {
+  courseId: number;
+  title: string;
+  thumbnail: string;
+};
 
+type GetRegisteredCourseListResponse = {
+  courseList: CourseItemDto[];
+};
+
+export async function getRegisteredCourseListResponse(
+  onSuccess?: (courseItemDtoList: CourseItemDto[]) => void,
+  registerStatus?: RegisterStatus,
+) {
+  try {
+    const response = await apiRequester.get<GetRegisteredCourseListResponse>(
+      `/members/courses${registerStatus ? `?registerStatus=${registerStatus}` : ''}`,
+    );
+    if (onSuccess) {
+      onSuccess(response.data.courseList);
+    }
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+  return { courseList: [] };
+}
+// /{courseId}/lectures
+type LectureItemDto = {
+  lectureId: number;
+  title: string;
+  runtime: number;
+  isComplete: boolean;
+};
+
+type GetLectureListResponse = {
+  isRegister: boolean;
+  lectureList: LectureItemDto[];
+};
+async function getLectureListResponse(courseId: number, onSuccess?: (lectureItemDtoList: LectureItemDto[]) => void) {
+  try {
+    const response = await apiRequester.get<GetLectureListResponse>(`/courses/${courseId}/lectures`);
+    if (onSuccess) {
+      onSuccess(response.data.lectureList);
+    }
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+  return { isRegister: false, lectureList: [] };
+}
+
+function getCourseLabelValue(courseItemDtoList: CourseItemDto[]) {
+  return courseItemDtoList.map((courseItemDto) => ({
+    label: courseItemDto.title,
+    value: courseItemDto.courseId,
+  }));
+}
+function getLectureLabelValue(lectureItemDtoList: LectureItemDto[]) {
+  const lectureList = lectureItemDtoList.map((lectureItemDto) => ({
+    label: lectureItemDto.title,
+    value: lectureItemDto.lectureId,
+  }));
+  lectureList.unshift({ label: '전체', value: 0 });
+  return lectureList;
+}
 export default function Page({ searchParams }: { searchParams: { category: BoardCategory } }) {
   const { category } = searchParams;
   const {
@@ -40,11 +107,36 @@ export default function Page({ searchParams }: { searchParams: { category: Board
     formState: { isValid: isFormValid, isSubmitting },
   } = useForm<FormValues>({});
 
+  const [courseList, setCourseList] = useState<{ label: string; value: number | string }[]>([]);
+  const [lectureList, setLectureList] = useState<{ label: string; value: number | string }[]>([]);
+  const [selectedCourse, setSelectedCourse] = useState<{ label: string; value: number | string } | null>(null);
+  const [selectedLecture, setSelectedLecture] = useState<{ label: string; value: number | string } | null>(null);
+  const [reset, setReset] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    getRegisteredCourseListResponse((data) => setCourseList(getCourseLabelValue(data)));
+  }, []);
+  useEffect(() => {
+    if (reset) {
+      setReset(false);
+    }
+  }, [reset]);
+
+  useEffect(() => {
+    if (selectedCourse !== undefined) {
+      getLectureListResponse(Number(selectedCourse?.value), (data) => setLectureList(getLectureLabelValue(data)));
+      setReset(true);
+    }
+  }, [selectedCourse]);
 
   async function writeBoard(formValues: FormValues) {
     try {
-      const response = await apiRequester.post(`/boards?category=${category}`, { ...formValues });
+      const response = await apiRequester.post(`/boards?category=${category}`, {
+        ...formValues,
+        courseId: selectedCourse?.value,
+        lectureId: selectedLecture?.value === 0 ? null : selectedLecture?.value,
+      });
 
       //성공시 리다이렉트를 한다
       const boardId = response.headers.location.split('/').pop();
@@ -78,8 +170,19 @@ export default function Page({ searchParams }: { searchParams: { category: Board
         />
         {category === BoardCategory.QUESTION && (
           <div className="flex w-full gap-[14px] border">
-            <Combobox placeholder={'강좌 선택'} items={[]} />
-            <Combobox placeholder={'강의 선택'} items={[]} />
+            <Combobox
+              placeholder={'수강중인 강좌 선택'}
+              items={courseList}
+              selectedItem={selectedCourse}
+              onSelect={setSelectedCourse}
+            />
+            <Combobox
+              placeholder={'강의 선택'}
+              items={lectureList}
+              selectedItem={selectedLecture}
+              onSelect={setSelectedLecture}
+              reset={reset}
+            />
           </div>
         )}
 
@@ -89,7 +192,19 @@ export default function Page({ searchParams }: { searchParams: { category: Board
           label="body"
           register={register('body', { required: true, maxLength: BODY_MAX_LENGTH })}
         />
-        <Button className="w-full" disabled={!isFormValid || isSubmitting}>
+        <input
+          className="h-40 w-full"
+          onChange={() => console.log(selectedCourse !== null && selectedLecture !== null)}
+        />
+        <Button
+          className="w-full"
+          disabled={
+            !(
+              isFormValid &&
+              (category === BoardCategory.QUESTION ? selectedCourse !== null && selectedLecture !== null : true)
+            ) || isSubmitting
+          }
+        >
           올리기
         </Button>
       </form>

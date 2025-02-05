@@ -2,20 +2,22 @@ import { useCombobox } from 'downshift';
 import ChevronDownIcon from '/public/assets/svg/ChevronDownIcon.svg';
 import ChevronUpIcon from '/public/assets/svg/ChevronUpIcon.svg';
 import { twMerge } from 'tailwind-merge';
+import { useEffect } from 'react';
 
 type Props<T> = {
+  selectedItem: T | null;
   label?: string;
   placeholder: string;
   items: T[];
   disabled?: boolean;
-  onSelect?: (item: T) => void;
+  onSelect?: (item: T | null) => void;
   reset?: boolean;
 };
 
 /** width에 대한 지정이 미정인 상태 */
 
-export default function Combobox<T extends { label: string; value: string }>({
-  label,
+export default function Combobox<T extends { label: string; value: string | number }>({
+  selectedItem,
   placeholder,
   items,
   disabled,
@@ -24,34 +26,28 @@ export default function Combobox<T extends { label: string; value: string }>({
 }: Props<T>) {
   // const width = '116';
 
-  const {
-    isOpen,
-    getLabelProps,
-    getInputProps,
-    getToggleButtonProps,
-    getMenuProps,
-    getItemProps,
-    selectedItem,
-    selectItem,
-  } = useCombobox({
-    onInputValueChange({ inputValue }) {
-      const item = items.find((item) => item.label === inputValue)!;
-      if (onSelect) {
-        onSelect(item);
-      }
-      console.log(reset);
-      if (reset) {
-        selectItem(null);
-      }
-    },
+  const { isOpen, getInputProps, getToggleButtonProps, getMenuProps, getItemProps } = useCombobox({
+    onInputValueChange({}) {},
     items,
     itemToString(item) {
       return item ? item.label : placeholder;
     },
+    selectedItem,
+    onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
+      if (onSelect) {
+        onSelect(newSelectedItem);
+      }
+    },
   });
+
+  useEffect(() => {
+    if (reset && onSelect) {
+      onSelect(null);
+    }
+  }, [reset]);
+
   return (
     <div className={`relative w-full flex-1`}>
-      {label && <label {...getLabelProps()}>{label}</label>}
       <div
         className={
           'group flex flex-1 items-center gap-2 rounded-lg border  border-neutral-gray-300 bg-neutral-gray-0 px-3 py-2 hover:bg-neutral-gray-50'
