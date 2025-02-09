@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 type Props = {
   courseId: number;
-  lectureId: number;
+  lectureOrder: number;
 };
 
 type GetCurriculumListResponse = {
@@ -29,8 +29,8 @@ export async function getCurriculumList(courseId: number, onSuccess?: (data: Get
   }
   return { isRegister: false, lectureList: [] };
 }
-export default function PlayCurriculumList({ courseId, lectureId }: Props) {
-  console.log(lectureId);
+export default function PlayCurriculumList({ courseId, lectureOrder }: Props) {
+  console.log(lectureOrder);
   const [lectureList, setLectureList] = useState<LectureItem[]>([]);
 
   useEffect(() => {
@@ -42,8 +42,12 @@ export default function PlayCurriculumList({ courseId, lectureId }: Props) {
   return (
     <ul className="flex flex-col">
       {lectureList.map((lecture) => (
-        <Link className="w-full" href={PATH.LECTURE(courseId, lecture.lectureId)} key={lecture.lectureId}>
-          <CurriculumItem lecture={lecture} isPlaying={lecture.lectureId === lectureId} />
+        <Link
+          className="w-full"
+          href={PATH.LECTURE(courseId, lecture.lectureOrder, lecture.lectureId)}
+          key={lecture.lectureId}
+        >
+          <CurriculumItem lecture={lecture} isPlaying={lecture.lectureOrder === lectureOrder} />
         </Link>
       ))}
     </ul>

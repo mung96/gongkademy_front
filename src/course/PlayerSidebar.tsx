@@ -3,12 +3,12 @@ import PlayCurriculumList from '@/course/PlayCurriculumList';
 
 type Props = {
   courseId: number;
-  lectureId: number;
+  lectureOrder: number;
   onClose: () => void;
-  courseTime: number | undefined;
+  courseTime?: number | undefined;
 };
 
-export default function PlayerSidebar({ onClose, courseId, lectureId, courseTime }: Props) {
+export default function PlayerSidebar({ onClose, courseId, lectureOrder }: Props) {
   // const widthPercent = 27;
 
   return (
@@ -36,7 +36,7 @@ export default function PlayerSidebar({ onClose, courseId, lectureId, courseTime
         </div>
       </div> */}
       <div className="flex flex-col overflow-scroll ">
-        <PlayCurriculumList courseId={courseId} lectureId={lectureId} />
+        <PlayCurriculumList courseId={courseId} lectureOrder={lectureOrder} />
       </div>
     </aside>
   );

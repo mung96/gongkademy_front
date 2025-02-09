@@ -35,10 +35,11 @@ export default function Page({
   searchParams,
   params,
 }: {
-  searchParams: { courseId: number };
+  searchParams: { courseId: number; lectureOrder: number };
   params: { lectureId: number };
 }) {
   const courseId = Number(searchParams.courseId);
+  const lectureOrder = Number(searchParams.lectureOrder);
   const lectureId = Number(params.lectureId);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [courseDetail, setCourseDetail] = useState<GetCourseDetailResponse>();
@@ -59,7 +60,7 @@ export default function Page({
           <PlayerSidebar
             onClose={() => setIsSidebarOpen(false)}
             courseId={courseId}
-            lectureId={lectureId}
+            lectureOrder={lectureOrder}
             courseTime={courseDetail?.courseTime}
           />
           <div className="fixed inset-0 z-30 bg-neutral-gray-950 opacity-25" onClick={() => setIsSidebarOpen(false)} />
