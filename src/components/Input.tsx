@@ -1,5 +1,5 @@
 import { ChangeEvent, ReactNode } from 'react';
-import { FieldValues, Path, UseFormRegister, UseFormRegisterReturn } from 'react-hook-form';
+import { FieldValues, Path, UseFormRegisterReturn } from 'react-hook-form';
 
 type Props = {
   placeholder?: string;

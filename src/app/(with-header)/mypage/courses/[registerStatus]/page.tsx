@@ -5,7 +5,7 @@ import CourseCard from '@/course/CourseCard';
 import { GetCourseListResponse, RegisterStatus } from '@/course/type';
 import Link from 'next/link';
 
-export async function getCourseListResponse(status: RegisterStatus) {
+async function getCourseListResponse(status: RegisterStatus) {
   try {
     const response = await apiServerRequester.get<GetCourseListResponse>(`/members/courses?status=${status}`);
     return response.data;
@@ -38,9 +38,9 @@ export default async function Page({ params }: { params: { registerStatus: Regis
         </Link>
       </nav>
       <main className="px-4 pb-[72px] pt-9 tablet:px-6 tablet:pt-12 desktop:pt-16">
-        <section className="flex items-center justify-center w-full ">
+        <section className="flex w-full items-center justify-center ">
           {courseList?.length ? (
-            <ul className="grid w-full grid-cols-2 gap-4 tablet:max-w-screen-tablet desktop:max-w-screen-desktop desktop:grid-cols-3 tablet:gap-12">
+            <ul className="grid w-full grid-cols-2 gap-4 tablet:max-w-screen-tablet tablet:gap-12 desktop:max-w-screen-desktop desktop:grid-cols-3">
               {courseList.map((course) => (
                 <Link className="w-fit" href={PATH.COURSE(course.courseId, 'curriculum')} key={course.courseId}>
                   <CourseCard key={course.courseId} course={course} />
@@ -48,7 +48,7 @@ export default async function Page({ params }: { params: { registerStatus: Regis
               ))}
             </ul>
           ) : (
-            <p className="py-4 body1">해당 하는 강좌가 없습니다.</p>
+            <p className="body1 py-4">해당 하는 강좌가 없습니다.</p>
           )}
         </section>
       </main>

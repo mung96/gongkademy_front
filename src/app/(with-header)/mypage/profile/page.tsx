@@ -1,7 +1,7 @@
 'use client';
 
 import Input from '@/components/Input';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Button from '@/components/Button';
 import { apiRequester } from '@/api/requester';
 import { useEffect } from 'react';

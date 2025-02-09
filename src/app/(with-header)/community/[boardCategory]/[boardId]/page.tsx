@@ -63,7 +63,7 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
         <div
           className={'flex w-full  flex-col gap-4 rounded-lg bg-neutral-gray-50 p-6 tablet:w-[720px] desktop:w-[816px]'}
         >
-          <div className="flex justify-between w-full">
+          <div className="flex w-full justify-between">
             <h1 className={'subtitle1  break-all text-neutral-gray-950'}>{boardDetail.title}</h1>
             {boardDetail.isMine && <BoardMoreButton boardId={boardDetail.boardId} boardCategory={boardCategory} />}
           </div>
@@ -76,10 +76,10 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
 
           {boardDetail.boardCategory === BoardCategory.QUESTION && (
             <div className="flex gap-2">
-              <p className="px-2 py-1 rounded-lg body1 w-fit bg-neutral-gray-200 text-neutral-gray-950">
+              <p className="body1 w-fit rounded-lg bg-neutral-gray-200 px-2 py-1 text-neutral-gray-950">
                 {boardDetail.courseTitle}
               </p>
-              <p className="px-2 py-1 rounded-lg body1 w-fit bg-neutral-gray-200 text-neutral-gray-950">
+              <p className="body1 w-fit rounded-lg bg-neutral-gray-200 px-2 py-1 text-neutral-gray-950">
                 {boardDetail.lectureTitle}
               </p>
             </div>

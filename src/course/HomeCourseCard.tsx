@@ -1,9 +1,9 @@
-import { Course } from '@/course/type';
+import { CourseItem } from '@/course/type';
 import { getCourseThumbnailPath } from '@/utils';
 import Image from 'next/image';
 
 type Props = {
-  course: Course;
+  course: CourseItem;
 };
 
 export default function HomeCourseCard({ course }: Props) {
