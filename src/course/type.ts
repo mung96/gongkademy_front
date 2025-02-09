@@ -21,6 +21,7 @@ export type GetCourseListResponse = {
 
 export type LectureItem = {
   lectureId: number;
+  lectureOrder: number;
   title: string;
   runtime: number;
   playStatus: PlayStatus;

@@ -16,8 +16,6 @@ type GetCurriculumListResponse = {
 export async function getCurriculumList(courseId: number) {
   try {
     const response = await apiServerRequester.get<GetCurriculumListResponse>(`/courses/${courseId}/lectures`);
-    console.log('데이터' + response.data);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -31,7 +29,7 @@ export default async function CurriculumList({ courseId }: Props) {
     <ul className="flex flex-col">
       {lectureList.map((lecture) =>
         isRegister ? (
-          <Link href={PATH.LECTURE(lecture.lectureId)} key={lecture.lectureId}>
+          <Link href={PATH.LECTURE(lecture.lectureId, courseId)} key={lecture.lectureId}>
             <CurriculumItem lecture={lecture} />
           </Link>
         ) : (
