@@ -34,7 +34,7 @@ type FormValues = {
   body: string;
 };
 
-export async function getRegisteredCourseListResponse(
+async function getRegisteredCourseListResponse(
   onSuccess?: (courseItemDtoList: CourseItem[]) => void,
   registerStatus?: RegisterStatus,
 ) {

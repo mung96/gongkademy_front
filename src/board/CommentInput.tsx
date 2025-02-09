@@ -36,7 +36,7 @@ export default function CommentInput({ boardId }: Props) {
     <form
       method="post"
       onSubmit={handleSubmit((data) => writeComment(data))}
-      className="flex w-full flex-col gap-2 tablet:flex-row  tablet:w-[720px] desktop:w-[816px]"
+      className="flex w-full flex-col gap-2 tablet:w-[720px]  tablet:flex-row desktop:w-[816px]"
     >
       <textarea
         placeholder={'댓글을 적어주세요'}

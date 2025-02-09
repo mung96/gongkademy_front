@@ -19,7 +19,7 @@ export default function Page({ params }: { params: { boardCategory: BoardCategor
           <ListItem label={'질문'} isSelect={boardCategory === BoardCategory.QUESTION} textAlign={'center'} />
         </Link>
       </nav>
-      <div className="flex flex-col w-full gap-3">
+      <div className="flex w-full flex-col gap-3">
         <MyBoardList boardCategory={boardCategory} />
       </div>
     </div>

@@ -45,7 +45,7 @@ export default function MyBoardList({ boardCategory }: Props) {
     });
   }, []);
   return (
-    <div className="flex flex-col items-center w-full gap-4">
+    <div className="flex w-full flex-col items-center gap-4">
       {boardList?.length ? (
         <>
           <ul className="w-full ">
@@ -58,7 +58,7 @@ export default function MyBoardList({ boardCategory }: Props) {
           <Pagination totalPage={totalPage} buttonPerPage={5} page={page} setPage={setPage} />
         </>
       ) : (
-        <p className="py-4 body1">작성한 게시글이 없습니다.</p>
+        <p className="body1 py-4">작성한 게시글이 없습니다.</p>
       )}
     </div>
   );

@@ -4,7 +4,7 @@ import CourseCard from '@/course/CourseCard';
 import { GetCourseListResponse } from '@/course/type';
 import Link from 'next/link';
 
-export async function getCourseListResponse() {
+async function getCourseListResponse() {
   try {
     const response = await apiServerRequester.get<GetCourseListResponse>(`/courses`);
     return response.data;
