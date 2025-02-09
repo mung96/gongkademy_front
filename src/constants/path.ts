@@ -5,8 +5,7 @@ export const PATH = {
   HOME: '/',
   COURSES: '/courses',
   COURSE: (courseId: number, tab: 'curriculum' | 'question') => `/courses/${courseId}/${tab}`,
-  LECTURE: (courseId: number, lectureId: number, lectureOrder: number) =>
-    `/lecture/${lectureId}?courseId=${courseId}&lectureOrder=${lectureOrder}`,
+  LECTURE: (lectureId: number, courseId: number) => `/lecture/${lectureId}?courseId=${courseId}`,
 
   COMMUNITY: (boardCategory: BoardCategory) => `/community/${boardCategory}`,
   COMMUNITY_DETAIL: (boardCategory: BoardCategory, boardId: number) => `/community/${boardCategory}/${boardId}`,
