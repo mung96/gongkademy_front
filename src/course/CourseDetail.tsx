@@ -12,7 +12,7 @@ type GetCourseDetailResponse = {
   thumbnail: string;
   courseNote: string;
   courseTime: number;
-  register: boolean;
+  isRegister: boolean;
 };
 
 async function getCourseDetailResponse(courseId: number) {
@@ -23,7 +23,7 @@ async function getCourseDetailResponse(courseId: number) {
   } catch (error) {
     console.log(error);
   }
-  return { title: '', thumbnail: '', courseNote: '', courseTime: 0, register: false };
+  return { title: '', thumbnail: '', courseNote: '', courseTime: 0, isRegister: false };
 }
 
 export default async function CourseDetail({ courseId }: Props) {
@@ -59,7 +59,7 @@ export default async function CourseDetail({ courseId }: Props) {
         </div>
 
         <div className="flex flex-col gap-2 tablet:flex-row tablet:gap-4">
-          {!courseDetail.register && <RegisterCourseButton courseId={courseId} />}
+          {!courseDetail.isRegister && <RegisterCourseButton courseId={courseId} />}
           <DownloadCourseNoteButton courseId={courseId} />
         </div>
       </section>

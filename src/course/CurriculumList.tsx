@@ -31,7 +31,7 @@ export default async function CurriculumList({ courseId }: Props) {
     <ul className="flex flex-col">
       {lectureList.map((lecture) =>
         isRegister ? (
-          <Link href={PATH.LECTURE(lecture.lectureId)} key={lecture.lectureId}>
+          <Link href={PATH.LECTURE(courseId, lecture.lectureId)} key={lecture.lectureId}>
             <CurriculumItem lecture={lecture} />
           </Link>
         ) : (
