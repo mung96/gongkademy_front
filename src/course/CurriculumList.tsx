@@ -16,8 +16,6 @@ type GetCurriculumListResponse = {
 export async function getCurriculumList(courseId: number) {
   try {
     const response = await apiServerRequester.get<GetCurriculumListResponse>(`/courses/${courseId}/lectures`);
-    console.log('데이터' + response.data);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

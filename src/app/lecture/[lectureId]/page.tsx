@@ -3,12 +3,33 @@
 import Button from '@/components/Button';
 import HomeIcon from '/public/assets/svg/HomeIcon.svg';
 import MenuIcon from '/public/assets/svg/MenuIcon.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 import PlayerSidebar from '@/course/PlayerSidebar';
 import LectureQuestionList from '@/course/LectureQuestionList';
 import { PATH } from '@/constants/path';
 import Link from 'next/link';
+import { apiRequester } from '@/api/requester';
+type GetCourseDetailResponse = {
+  title: string;
+  thumbnail: string;
+  courseNote: string;
+  courseTime: number;
+  isRegister: boolean;
+};
+
+async function getCourseDetailResponse(courseId: number, onSuccess?: (data: GetCourseDetailResponse) => void) {
+  try {
+    const response = await apiRequester.get<GetCourseDetailResponse>(`/courses/${courseId}`);
+    if (onSuccess) {
+      onSuccess(response.data);
+    }
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+  return { title: '', thumbnail: '', courseNote: '', courseTime: 0, isRegister: false };
+}
 
 export default function Page({
   searchParams,
@@ -17,10 +38,13 @@ export default function Page({
   searchParams: { courseId: number };
   params: { lectureId: number };
 }) {
-  const [search, setSearch] = useState('');
-  const { courseId } = searchParams;
-  const { lectureId } = params;
+  const courseId = Number(searchParams.courseId);
+  const lectureId = Number(params.lectureId);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [courseDetail, setCourseDetail] = useState<GetCourseDetailResponse>();
+  useEffect(() => {
+    getCourseDetailResponse(courseId, (data) => setCourseDetail(data));
+  }, []);
 
   return (
     <main className="flex w-full flex-col items-center tablet:max-w-screen-tablet desktop:max-w-[1232px] ">
@@ -28,11 +52,16 @@ export default function Page({
         <Button icon={<MenuIcon />} onClick={() => setIsSidebarOpen(true)}>
           메뉴
         </Button>
-        <p className="subtitle2 tablet:subtitle3">강의제목</p>
+        <p className="subtitle2 tablet:subtitle3">{courseDetail?.title}</p>
       </header>
       {isSidebarOpen && (
         <>
-          <PlayerSidebar onClose={() => setIsSidebarOpen(false)} />
+          <PlayerSidebar
+            onClose={() => setIsSidebarOpen(false)}
+            courseId={courseId}
+            lectureId={lectureId}
+            courseTime={courseDetail?.courseTime}
+          />
           <div className="fixed inset-0 z-30 bg-neutral-gray-950 opacity-25" onClick={() => setIsSidebarOpen(false)} />
         </>
       )}

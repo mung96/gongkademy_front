@@ -30,11 +30,14 @@ const getStatusLabel = (status: PlayStatus) => {
 
 type Props = {
   lecture: LectureItem;
+  isPlaying?: boolean;
 };
 
-export default function CurriculumItem({ lecture }: Props) {
+export default function CurriculumItem({ lecture, isPlaying }: Props) {
   return (
-    <li className="flex h-[58px] min-w-[300px] items-center justify-between rounded-lg px-4 hover:bg-neutral-gray-50">
+    <li
+      className={`flex h-[58px]  min-w-[300px] items-center justify-between rounded-lg px-4 hover:bg-neutral-gray-50 ${isPlaying && 'bg-neutral-gray-50'}`}
+    >
       <p className="subtitle2 tablet:subtitle3 text-neutral-gray-950">{lecture.title}</p>
       <div className="flex items-center gap-4">
         {lecture.playStatus !== null && (
