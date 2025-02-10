@@ -19,12 +19,12 @@ export default function HeaderLoginButton() {
         마이페이지
       </Link>
       {isLogin ? (
-        <button
-          onClick={() => console.log('클릭')}
+        <Link
+          href={SERVER_BASE_URL + END_POINT.LOGOUT}
           className={twMerge(textStyle, 'hidden tablet:block text-neutral-gray-500 ')}
         >
           로그아웃
-        </button>
+        </Link>
       ) : (
         <Link
           href={SERVER_BASE_URL + END_POINT.NAVER_LOGIN}
