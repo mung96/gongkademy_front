@@ -1,22 +1,24 @@
 'use client';
 
-import { login } from '@/store/auth';
+import { PATH } from '@/constants/path';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 export default function Page() {
-  const dispatch = useDispatch();
   const router = useRouter();
 
-  //TODO: 새로고침시 login수정
   useEffect(() => {
-    //TODO: 세선테스트
-    dispatch(login());
-    //TODO: 실패하면 alert창
-
-    router.push('/');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    async function login() {
+      try {
+        const result = await signIn('credentials', { redirect: false });
+        console.log('자동 로그인 결과:', result);
+        router.push(PATH.HOME);
+      } catch (e) {
+        console.error('자동 로그인 에러:', e);
+      }
+    }
+    login();
   }, []);
   return <div>로그인 중입니다.</div>;
 }

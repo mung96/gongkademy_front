@@ -43,27 +43,18 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
-      // console.log('토큰 콜백을 실행합니다. ');
-      // console.log('토큰 정보:', token);
-      // console.log('유저 정보:', user);
       if (user) {
         token.user = user;
-        // console.log('토큰에 유저 정보를 할당합니다. ');
-        // console.log(token.user);
       }
       return token;
     },
     async session({ session, token }) {
-      // console.log('세션 콜백을 실행합니다. ');
-      // console.log('토큰 정보:', token);
-      // console.log('세션 정보:', session);
-
-      // token.user가 undefined가 아닐 때 session.user에 할당
       session.user = token.user as DefaultSession['user'] & { isLogin: boolean };
 
       return session;
     },
   },
+  secret: process.env.NEXT_PUBLIC_NEXT_AUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);
