@@ -1,6 +1,7 @@
 import localFont from 'next/font/local';
 import './globals.css';
 import ClientLayout from '@/components/ClientLayout';
+import { AuthSessionProvider } from '@/app/AuthSessionProvider';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -18,7 +19,9 @@ export default function RootLayout({
     <html lang="ko" className={`${pretendard.variable} font-pretendard`}>
       <body>
         <ClientLayout>
-          <div className="flex h-fit min-h-dvh flex-col items-center">{children}</div>
+          <AuthSessionProvider>
+            <div className="flex h-fit min-h-dvh flex-col items-center">{children}</div>
+          </AuthSessionProvider>
         </ClientLayout>
       </body>
     </html>

@@ -50,6 +50,7 @@ async function getLectureDetailResponse(lectureId: number, onSuccess?: (data: Ge
   }
   return { title: '', lastPlayedTime: 0, lastLectureOrder: 0, url: '' };
 }
+//TODO: 수강 중이 아닐때 튕겨내야함.
 export default function Page({
   params,
   searchParams,

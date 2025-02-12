@@ -18,7 +18,6 @@ export async function getBoardListResponse(
     const response = await apiRequester.get<GetBoardListResponse>(
       `/boards?category=${boardCategory}&page=${page}&criteria=${criteria}${courseId !== undefined ? '&course=' + courseId : ''}${lectureId !== undefined ? '&lecture=' + lectureId : ''}`,
     );
-    console.log('요청 경로' + response.config.url);
     if (onSuccess) {
       onSuccess(response.data);
     }
