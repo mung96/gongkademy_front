@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import Logo from '/public/assets/svg/Logo.svg';
 import { BoardCategory } from '@/board/type';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/libs/auth';
 import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
 export const textStyle = 'body2 flex items-center justify-center px-3 text-neutral-gray-950';
 

@@ -1,9 +1,7 @@
 import { apiServerRequester } from '@/api/serverRequest';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { PATH } from '@/constants/path';
 import CourseCard from '@/course/CourseCard';
 import { GetCourseListResponse } from '@/course/type';
-import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 
 async function getCourseListResponse() {
@@ -18,8 +16,7 @@ async function getCourseListResponse() {
 
 export default async function Page() {
   const { courseList } = await getCourseListResponse();
-  const session = await getServerSession(authOptions);
-  console.log(session);
+
   return (
     <main className="px-4 pb-[72px] pt-9 tablet:px-6 tablet:pt-12 desktop:pt-16">
       <section className="flex items-center justify-center ">
