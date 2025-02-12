@@ -3,6 +3,7 @@ import Credentials from 'next-auth/providers/credentials';
 import { isAxiosError } from 'axios';
 import { HTTP_STATUS } from '@/constants/api';
 import { apiServerRequester } from '@/api/serverRequest';
+import { JWT_SECRET_KEY } from '@/constants/key';
 
 type CheckSessionResponse = {
   memberId: number;
@@ -39,6 +40,9 @@ export const authOptions: NextAuthOptions = {
   ],
   // JWT 기반 세션 관리
   session: {
+    //TODO: 이거 다시 봐야함
+    maxAge: 30 * 60,
+    updateAge: 60 * 5,
     strategy: 'jwt',
   },
   callbacks: {
@@ -54,7 +58,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXT_PUBLIC_NEXT_AUTH_SECRET,
+  secret: JWT_SECRET_KEY,
 };
 
 const handler = NextAuth(authOptions);
