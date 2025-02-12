@@ -21,7 +21,6 @@ export async function getMyBoardListResponse(
     const response = await apiRequester.get<GetBoardListResponse>(
       `/members/boards/${boardCategory}?page=${page}&criteria=${criteria}`,
     );
-    console.log('요청 경로' + response.config.url);
     if (onSuccess) {
       onSuccess(response.data);
     }
