@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
   //TODO: 원래 가려던 페이지로 리다이렉트 해줘야함.
   if (!token) {
     console.log('로그인 url ', req.url);
-    const loginUrl = new URL(SERVER_BASE_URL + END_POINT.NAVER_LOGIN, req.url);
+    const loginUrl = new URL(SERVER_BASE_URL + END_POINT.NAVER_LOGIN(req.url), req.url);
     // 로그인 후 다시 원래 페이지로 돌아오도록 callbackUrl을 지정할 수 있습니다.
     loginUrl.searchParams.set('callbackUrl', req.url);
     return NextResponse.redirect(loginUrl);

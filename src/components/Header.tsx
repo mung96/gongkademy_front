@@ -6,16 +6,17 @@ import { BoardCategory } from '@/board/type';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/libs/auth';
 import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
-export const textStyle = 'body2 flex items-center justify-center px-3 text-neutral-gray-950';
+import LoginButton from '@/components/LoginButton';
+const textStyle = 'body2 flex items-center justify-center px-3 text-neutral-gray-950';
 
 //TODO: 로그아웃을 여러번 해야하는 이슈가 있음
 export default async function Header() {
   const session = await getServerSession(authOptions);
   const isLogin = session?.user.isLogin;
+  console.log(session);
   // const isLogin = true;
   // console.log(session);
   // const isLogin = true;
-
   return (
     <header className="sticky top-0 z-50 flex h-16 min-h-16 w-full justify-center border-b border-neutral-gray-100 bg-neutral-gray-0">
       <div className="flex h-full w-[1300px] min-w-[365px] max-w-[1300px] items-center justify-between px-6">
@@ -34,7 +35,7 @@ export default async function Header() {
         <div className="flex items-center ">
           <Link
             className={twMerge(textStyle, 'hidden tablet:block')}
-            href={isLogin ? PATH.MY_PROFILE : SERVER_BASE_URL + END_POINT.NAVER_LOGIN}
+            href={isLogin ? PATH.MY_PROFILE : SERVER_BASE_URL + END_POINT.NAVER_LOGIN(PATH.MY_PROFILE)}
           >
             마이페이지
           </Link>
@@ -46,12 +47,7 @@ export default async function Header() {
               로그아웃
             </Link>
           ) : (
-            <Link
-              href={SERVER_BASE_URL + END_POINT.NAVER_LOGIN}
-              className={twMerge(textStyle, 'hidden tablet:block text-primary-500 ')}
-            >
-              로그인
-            </Link>
+            <LoginButton />
           )}
         </div>
       </div>

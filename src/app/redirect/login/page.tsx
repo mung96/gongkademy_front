@@ -1,12 +1,13 @@
 'use client';
 
-import { PATH } from '@/constants/path';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function Page() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUri = searchParams.get('redirect_uri') || '/';
 
   useEffect(() => {
     async function login() {
@@ -16,7 +17,7 @@ export default function Page() {
         });
         console.log('자동 로그인 결과:', result);
         // 로그인 성공 후 callbackUrl로 이동합니다.
-        router.push(PATH.HOME);
+        router.push(redirectUri);
       } catch (e) {
         console.error('자동 로그인 에러:', e);
       }
