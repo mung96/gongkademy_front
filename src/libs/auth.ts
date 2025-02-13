@@ -17,12 +17,11 @@ export const authOptions: NextAuthOptions = {
       credentials: {},
       async authorize() {
         try {
-          // Next.js App Router에서는 req 타입을 NextRequest로 캐스팅하여 cookie를 가져옵니다.
-          const response = await apiServerRequester.get<CheckSessionResponse>(`/auth/session/check`, {
+          const response = await apiServerRequester.get<CheckSessionResponse>('/auth/session/check', {
             withCredentials: true,
           });
 
-          // Spring Boot API가 { valid: true, user: { ... } } 형태로 응답한다고 가정합니다.
+          // 응답 데이터가 있을 경우 사용자 정보 반환
           if (response.data) {
             return { id: response.data.memberId.toString(), isLogin: response.data.isLogin };
           }
@@ -30,7 +29,7 @@ export const authOptions: NextAuthOptions = {
         } catch (error) {
           if (isAxiosError(error)) {
             if (error.response?.status === HTTP_STATUS.UNAUTHORIZED) {
-              //TODO: 실패처리
+              // TODO: 실패처리 (예: 에러 메시지 출력 등)
             }
           }
           return null;
@@ -40,9 +39,8 @@ export const authOptions: NextAuthOptions = {
   ],
   // JWT 기반 세션 관리
   session: {
-    //TODO: 이거 다시 봐야함
-    maxAge: 30 * 60,
-    updateAge: 60 * 5,
+    maxAge: 30 * 60, // 30분
+    updateAge: 60 * 5, // 5분
     strategy: 'jwt',
   },
   callbacks: {
@@ -54,8 +52,27 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       session.user = token.user as DefaultSession['user'] & { isLogin: boolean };
-
       return session;
+    },
+  },
+  // 쿠키 설정 추가 (배포 환경에서 cross-site 요청 지원)
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'none', // cross-site 상황에서 필요
+        secure: true, // production에서는 HTTPS가 필수
+        path: '/',
+      },
+    },
+    callbackUrl: {
+      name: `next-auth.callback-url`,
+      options: {
+        sameSite: 'none',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+      },
     },
   },
   secret: JWT_SECRET_KEY,
