@@ -3,12 +3,14 @@ import Credentials from 'next-auth/providers/credentials';
 import { isAxiosError } from 'axios';
 import { HTTP_STATUS } from '@/constants/api';
 import { apiServerRequester } from '@/api/serverRequest';
-import { JWT_SECRET_KEY } from '@/constants/key';
+import { JWT_SECRET_KEY, NODE_ENV } from '@/constants/key';
 
 type CheckSessionResponse = {
   memberId: number;
   isLogin: boolean;
 };
+
+const isProduction = NODE_ENV === 'production';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -20,8 +22,6 @@ export const authOptions: NextAuthOptions = {
           const response = await apiServerRequester.get<CheckSessionResponse>('/auth/session/check', {
             withCredentials: true,
           });
-
-          // 응답 데이터가 있을 경우 사용자 정보 반환
           if (response.data) {
             return { id: response.data.memberId.toString(), isLogin: response.data.isLogin };
           }
@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
         } catch (error) {
           if (isAxiosError(error)) {
             if (error.response?.status === HTTP_STATUS.UNAUTHORIZED) {
-              // TODO: 실패처리 (예: 에러 메시지 출력 등)
+              // TODO: 실패처리
             }
           }
           return null;
@@ -37,10 +37,9 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  // JWT 기반 세션 관리
   session: {
-    maxAge: 30 * 60, // 30분
-    updateAge: 60 * 5, // 5분
+    maxAge: 30 * 60,
+    updateAge: 60 * 5,
     strategy: 'jwt',
   },
   callbacks: {
@@ -55,22 +54,23 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  // 쿠키 설정 추가 (배포 환경에서 cross-site 요청 지원)
   cookies: {
     sessionToken: {
-      name: `next-auth.session-token`,
+      name: isProduction ? '__Secure-next-auth.session-token' : 'next-auth.session-token',
       options: {
         httpOnly: true,
-        sameSite: 'none', // cross-site 상황에서 필요
-        secure: true, // production에서는 HTTPS가 필수
+        sameSite: 'none',
+        secure: isProduction,
         path: '/',
+        // 필요한 경우 domain도 명시
+        // domain: 'your-domain.com',
       },
     },
     callbackUrl: {
-      name: `next-auth.callback-url`,
+      name: isProduction ? '__Secure-next-auth.callback-url' : 'next-auth.callback-url',
       options: {
         sameSite: 'none',
-        secure: process.env.NODE_ENV === 'production',
+        secure: isProduction,
         path: '/',
       },
     },
