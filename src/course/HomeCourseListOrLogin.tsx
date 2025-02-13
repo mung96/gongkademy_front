@@ -6,10 +6,9 @@ import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
 import { PATH } from '@/constants/path';
 import HomeCourseCard from '@/course/HomeCourseCard';
 import { RegisterStatus } from '@/course/type';
-import { RootState } from '@/store/rootReducer';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 export type CourseItem = {
   courseId: number;
   title: string;
@@ -20,6 +19,8 @@ export type RegisterdCourseListResponse = {
 };
 
 export default function HomeCourseListOrLogin() {
+  const { data: session } = useSession();
+
   const [courseList, setCourseList] = useState<CourseItem[]>([]);
 
   async function getRegisteredCourseList() {
@@ -37,11 +38,9 @@ export default function HomeCourseListOrLogin() {
     setCourseList([]);
   }, []);
 
-  const isLogin = useSelector((state: RootState) => state.auth.isLogin);
-
   return (
     <section className="flex items-center justify-center ">
-      {isLogin ? (
+      {session?.user.isLogin ? (
         <ul className="flex w-full flex-col gap-6 tablet:grid tablet:max-w-screen-tablet tablet:grid-cols-3 desktop:max-w-screen-desktop">
           {courseList.length ? (
             courseList.map((course) => (

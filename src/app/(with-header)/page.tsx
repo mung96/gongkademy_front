@@ -17,8 +17,8 @@ async function getHomeBoardList() {
 export default async function Home() {
   const boardList = await getHomeBoardList();
   return (
-    <div className="flex flex-col items-center pb-[72px] pt-9 tablet:pt-12 desktop:pt-16">
-      <main className="flex w-full flex-col items-center gap-9 px-4 tablet:max-w-[720px] tablet:justify-center tablet:gap-12 tablet:px-6 desktop:max-w-[1024px] desktop:gap-16">
+    <div className="flex flex-col items-center  pb-[72px] pt-9 tablet:pt-12 desktop:pt-16">
+      <main className="flex w-full min-w-[343px] flex-col items-center gap-9  px-4 tablet:min-w-[720px] tablet:max-w-[720px] tablet:justify-center tablet:gap-12 tablet:px-6 desktop:min-w-[1024px] desktop:max-w-[1024px] desktop:gap-16">
         <h1 className="flex flex-col items-center tablet:flex-row">
           <span className="title1 text-neutral-gray-950">공학의 장벽을 낮추는 곳,</span>
           <span className="title1 text-primary-500">공카데미</span>
