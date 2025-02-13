@@ -41,17 +41,21 @@ export default function HomeCourseListOrLogin() {
   return (
     <section className="flex items-center justify-center ">
       {session?.user.isLogin ? (
-        <ul className="flex w-full flex-col gap-6 tablet:grid tablet:max-w-screen-tablet tablet:grid-cols-3 desktop:max-w-screen-desktop">
-          {courseList.length ? (
-            courseList.map((course) => (
-              <Link href={PATH.COURSE(course.courseId, 'curriculum')} key={course.courseId} className="w-full">
-                <HomeCourseCard key={course.courseId} course={course} />
-              </Link>
-            ))
-          ) : (
-            <p className="body2 text-neutral-gray-950">수강 중인 강좌가 없어요</p>
-          )}
-        </ul>
+        courseList.length ? (
+          <ul className="flex w-full flex-col gap-6 tablet:grid tablet:max-w-screen-tablet tablet:grid-cols-3 desktop:max-w-screen-desktop">
+            {courseList.length ? (
+              courseList.map((course) => (
+                <Link href={PATH.COURSE(course.courseId, 'curriculum')} key={course.courseId} className="w-full">
+                  <HomeCourseCard key={course.courseId} course={course} />
+                </Link>
+              ))
+            ) : (
+              <p className="body2 text-neutral-gray-950">수강 중인 강좌가 없어요</p>
+            )}
+          </ul>
+        ) : (
+          <p className="body1 py-4">수강 중인 강좌가 없습니다.</p>
+        )
       ) : (
         <div className="flex h-[200px] w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-neutral-gray-300 bg-neutral-gray-50">
           <p className="body1 text-neutral-gray-950">로그인 후에 강의를 수강할 수 있어요</p>
