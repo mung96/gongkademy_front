@@ -14,7 +14,7 @@ export type CourseItem = {
   title: string;
   thumbnail: string;
 };
-export type RegisterdCourseListResponse = {
+export type RegisteredCourseListResponse = {
   courseList: CourseItem[];
 };
 
@@ -25,7 +25,7 @@ export default function HomeCourseListOrLogin() {
 
   async function getRegisteredCourseList() {
     try {
-      const response = await apiRequester.get<RegisterdCourseListResponse>(
+      const response = await apiRequester.get<RegisteredCourseListResponse>(
         '/members/courses?status=' + RegisterStatus.IN_PROGRESS,
       );
       setCourseList(response.data.courseList);
@@ -59,7 +59,7 @@ export default function HomeCourseListOrLogin() {
       ) : (
         <div className="flex h-[200px] w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-neutral-gray-300 bg-neutral-gray-50">
           <p className="body1 text-neutral-gray-950">로그인 후에 강의를 수강할 수 있어요</p>
-          <Link href={SERVER_BASE_URL + END_POINT.NAVER_LOGIN}>
+          <Link href={SERVER_BASE_URL + END_POINT.NAVER_LOGIN(PATH.HOME)}>
             <Button>3초 만에 로그인</Button>
           </Link>
         </div>
