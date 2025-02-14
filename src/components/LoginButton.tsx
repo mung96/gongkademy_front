@@ -2,7 +2,7 @@
 
 import { validateSession } from '@/auth/api';
 import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
-import { login } from '@/store/auth';
+import { login, logout } from '@/store/auth';
 import { RootState } from '@/store/rootReducer';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -23,7 +23,10 @@ export default function LoginButton() {
 
   useEffect(() => {
     if (!isLogin) {
-      validateSession(() => dispatch(login()));
+      validateSession(
+        () => dispatch(login()),
+        () => dispatch(logout()),
+      );
     }
   }, []);
 

@@ -8,16 +8,12 @@ export async function validateServerSession() {
     const response = await apiServerRequester.get<CheckSessionResponse>(END_POINT.SESSION_CHECK, {
       withCredentials: true,
     });
-    if (response.data) {
-      return { isLogin: response.data.isLogin };
-    }
-    return null;
+    return response?.data.isLogin;
   } catch (error) {
     if (isAxiosError(error)) {
       if (error.response?.status === HTTP_STATUS.UNAUTHORIZED) {
         // TODO: 실패처리
       }
     }
-    return null;
   }
 }

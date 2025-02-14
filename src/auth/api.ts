@@ -3,7 +3,7 @@ import { CheckSessionResponse } from '@/auth/type';
 import { END_POINT, HTTP_STATUS } from '@/constants/api';
 import { isAxiosError } from 'axios';
 
-export async function validateSession(onSuccess?: () => void) {
+export async function validateSession(onSuccess?: () => void, onFail?: () => void) {
   try {
     const response = await apiRequester.get<CheckSessionResponse>(END_POINT.SESSION_CHECK, {
       withCredentials: true,
@@ -15,7 +15,9 @@ export async function validateSession(onSuccess?: () => void) {
   } catch (error) {
     if (isAxiosError(error)) {
       if (error.response?.status === HTTP_STATUS.UNAUTHORIZED) {
-        // TODO: 실패처리
+        if (onFail) {
+          onFail();
+        }
       }
     }
     return null;
