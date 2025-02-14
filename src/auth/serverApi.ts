@@ -5,14 +5,12 @@ import { isAxiosError } from 'axios';
 
 export async function validateServerSession() {
   try {
-    const response = await apiServerRequester.get<CheckSessionResponse>(END_POINT.SESSION_CHECK, {
-      withCredentials: true,
-    });
+    const response = await apiServerRequester.get<CheckSessionResponse>(END_POINT.SESSION_CHECK);
     return response?.data.isLogin;
   } catch (error) {
     if (isAxiosError(error)) {
       if (error.response?.status === HTTP_STATUS.UNAUTHORIZED) {
-        // TODO: 실패처리
+        return false;
       }
     }
   }

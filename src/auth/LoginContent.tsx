@@ -15,7 +15,7 @@ export default function LoginContent() {
     try {
       dispatch(login());
       // 로그인 성공 후 callbackUrl로 이동합니다.
-      router.push(redirectUri);
+      router.replace(redirectUri);
     } catch (e) {
       console.error('자동 로그인 에러:', e);
     }

@@ -12,7 +12,7 @@ export default function Page() {
 
   useEffect(() => {
     dispatch(logout());
-    router.push(PATH.HOME);
+    router.replace(PATH.HOME);
   }, []);
 
   return <div>로그아웃 중입니다.</div>;
