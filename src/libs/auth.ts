@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
       options: {
         httpOnly: true,
         sameSite: 'none',
-        secure: isProduction,
+        secure: true,
         path: '/',
         // 필요한 경우 domain도 명시
         // domain: 'your-domain.com',
@@ -69,8 +69,9 @@ export const authOptions: NextAuthOptions = {
     callbackUrl: {
       name: isProduction ? '__Secure-next-auth.callback-url' : 'next-auth.callback-url',
       options: {
+        httpOnly: true,
         sameSite: 'none',
-        secure: isProduction,
+        secure: true,
         path: '/',
       },
     },
