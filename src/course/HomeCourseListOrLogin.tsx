@@ -6,9 +6,10 @@ import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
 import { PATH } from '@/constants/path';
 import HomeCourseCard from '@/course/HomeCourseCard';
 import { RegisterStatus } from '@/course/type';
-import { useSession } from 'next-auth/react';
+import { RootState } from '@/store/rootReducer';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 export type CourseItem = {
   courseId: number;
   title: string;
@@ -19,7 +20,7 @@ export type RegisteredCourseListResponse = {
 };
 
 export default function HomeCourseListOrLogin() {
-  const { data: session } = useSession();
+  const isLogin = useSelector((state: RootState) => state.auth.isLogin);
 
   const [courseList, setCourseList] = useState<CourseItem[]>([]);
 
@@ -40,7 +41,7 @@ export default function HomeCourseListOrLogin() {
 
   return (
     <section className="flex items-center justify-center ">
-      {session?.user.isLogin ? (
+      {isLogin ? (
         courseList.length ? (
           <ul className="flex w-full flex-col gap-6 tablet:grid tablet:max-w-screen-tablet tablet:grid-cols-3 desktop:max-w-screen-desktop">
             {courseList.length ? (
