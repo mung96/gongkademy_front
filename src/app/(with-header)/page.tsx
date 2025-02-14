@@ -4,7 +4,31 @@ import Link from 'next/link';
 import { PATH } from '@/constants/path';
 import BoardItem from '@/board/BoardItem';
 import { BoardCategory, BoardCriteria } from '@/board/type';
-import { getBoardListResponse } from '@/board/api';
+import { GetBoardListResponse } from '@/board/api';
+import { apiServerRequester } from '@/api/serverRequest';
+// import { getBoardListResponse } from '@/board/api';
+export async function getBoardListResponse(
+  boardCategory: BoardCategory,
+  page: number = 1,
+  criteria: BoardCriteria = BoardCriteria.CREATE_AT,
+  onSuccess?: (response: GetBoardListResponse) => void,
+  courseId?: number,
+  lectureId?: number,
+) {
+  try {
+    const response = await apiServerRequester.get<GetBoardListResponse>(
+      `/boards?category=${boardCategory}&page=${page}&criteria=${criteria}${courseId !== undefined ? '&course=' + courseId : ''}${lectureId !== undefined ? '&lecture=' + lectureId : ''}`,
+    );
+    if (onSuccess) {
+      onSuccess(response.data);
+    }
+    return response.data;
+  } catch (error) {
+    console.log('error발생');
+    console.log(error);
+  }
+  return { boardList: [], totalPage: 0 };
+}
 
 async function getHomeBoardList() {
   const data = await getBoardListResponse(BoardCategory.WORRY, 1, BoardCriteria.CREATE_AT);

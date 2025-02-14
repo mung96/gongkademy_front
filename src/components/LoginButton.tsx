@@ -30,19 +30,23 @@ export default function LoginButton() {
     }
   }, []);
 
-  return isLogin ? (
-    <Link
-      href={SERVER_BASE_URL + END_POINT.LOGOUT}
-      className={twMerge(textStyle, 'hidden tablet:block text-neutral-gray-500 ')}
-    >
-      로그아웃
-    </Link>
-  ) : (
-    <Link
-      href={SERVER_BASE_URL + END_POINT.NAVER_LOGIN(redirectUrl)}
-      className={twMerge(textStyle, 'hidden tablet:block text-primary-500 ')}
-    >
-      로그인
-    </Link>
+  return (
+    <>
+      {isLogin ? (
+        <Link
+          href={SERVER_BASE_URL + END_POINT.LOGOUT}
+          className={twMerge(textStyle, 'hidden tablet:block text-neutral-gray-500 ')}
+        >
+          로그아웃
+        </Link>
+      ) : (
+        <Link
+          href={SERVER_BASE_URL + END_POINT.NAVER_LOGIN(redirectUrl)}
+          className={twMerge(textStyle, 'hidden tablet:block text-primary-500 ')}
+        >
+          로그인
+        </Link>
+      )}
+    </>
   );
 }

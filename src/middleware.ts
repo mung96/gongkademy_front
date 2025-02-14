@@ -1,11 +1,37 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
-import { validateServerSession } from '@/auth/serverApi';
+import { END_POINT, HTTP_STATUS, SERVER_BASE_URL } from '@/constants/api';
+import { isAxiosError } from 'axios';
+import { apiServerRequester } from '@/api/serverRequest';
+import { CheckSessionResponse } from '@/auth/type';
+//다른 도메인에 대해서 항상 isLogin이 false로 나오는 문제가 있음
 
-/*  middleware에서는 토큰만 접근되나? session은 접근을 못함?? */
 export async function middleware(req: NextRequest) {
+  async function validateServerSession() {
+    try {
+      console.log('쿠키가 뭐냐', req.cookies);
+      const cookieHeader = req.headers.get('cookie') || '';
+
+      const response = await apiServerRequester.get<CheckSessionResponse>(END_POINT.SESSION_CHECK, {
+        headers: {
+          Cookie: cookieHeader, // 백엔드에 쿠키 전달
+        },
+      });
+      console.log('응답이다.', response);
+      return response?.data.isLogin;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response?.status === HTTP_STATUS.UNAUTHORIZED) {
+          console.log('에러 응답이다.', error.response);
+          console.log('세션이 없음');
+          return false;
+        }
+      }
+    }
+  }
+
   const isLogin = await validateServerSession();
+  // const isLogin = true;
   const { pathname, search } = new URL(req.url);
   const fullPath = pathname + search; // 도메인 없이 pathname과 querystring 결합
 
