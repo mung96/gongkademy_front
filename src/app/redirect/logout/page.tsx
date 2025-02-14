@@ -1,7 +1,5 @@
 'use client';
 
-import { PATH } from '@/constants/path';
-import { signOut } from 'next-auth/react';
 import { useEffect } from 'react';
 
 /*
@@ -10,7 +8,7 @@ next-auth.session-token 이거를 날리는게 문제임. 이걸 제대로 날�
  */
 export default function Page() {
   useEffect(() => {
-    signOut({ redirect: true, callbackUrl: PATH.HOME });
+    // signOut({ redirect: true, callbackUrl: PATH.HOME });
     // async function logout() {
     //   try {
     //     // NextAuth의 signOut()을 호출하여 세션 쿠키/토큰을 삭제합니다.
@@ -18,7 +16,6 @@ export default function Page() {
     //     await signOut({ redirect: true, callbackUrl: PATH.HOME });
     //     // await signOut({ redirect: false });
     //     console.log('로그아웃 이후 세션: ', session);
-
     //     // signOut 호출 후 쿠키 제거에 약간의 딜레이가 있을 수 있으므로,
     //   } catch (error) {
     //     console.error('NextAuth 세션 삭제 에러:', error);

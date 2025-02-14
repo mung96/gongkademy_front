@@ -3,17 +3,11 @@ import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import Logo from '/public/assets/svg/Logo.svg';
 import { BoardCategory } from '@/board/type';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/libs/auth';
-import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
 import LoginButton from '@/components/LoginButton';
 const textStyle = 'body2 flex items-center justify-center px-3 text-neutral-gray-950';
 
 //TODO: 로그아웃을 여러번 해야하는 이슈가 있음
 export default async function Header() {
-  const session = await getServerSession(authOptions);
-  const isLogin = session?.user.isLogin;
-  console.log(session);
   // const isLogin = true;
   // console.log(session);
   // const isLogin = true;
@@ -33,22 +27,11 @@ export default async function Header() {
           </Link>
         </div>
         <div className="flex items-center ">
-          <Link
-            className={twMerge(textStyle, 'hidden tablet:block')}
-            href={isLogin ? PATH.MY_PROFILE : SERVER_BASE_URL + END_POINT.NAVER_LOGIN(PATH.MY_PROFILE)}
-          >
+          <Link className={twMerge(textStyle, 'hidden tablet:block')} href={PATH.MY_PROFILE}>
             마이페이지
           </Link>
-          {isLogin ? (
-            <Link
-              href={SERVER_BASE_URL + END_POINT.LOGOUT}
-              className={twMerge(textStyle, 'hidden tablet:block text-neutral-gray-500 ')}
-            >
-              로그아웃
-            </Link>
-          ) : (
-            <LoginButton />
-          )}
+
+          <LoginButton />
         </div>
       </div>
     </header>
