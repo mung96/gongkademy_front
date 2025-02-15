@@ -14,17 +14,11 @@ export async function getBoardListResponse(
   courseId?: number,
   lectureId?: number,
 ) {
-  try {
-    const response = await apiRequester.get<GetBoardListResponse>(
-      `/boards?category=${boardCategory}&page=${page}&criteria=${criteria}${courseId !== undefined ? '&course=' + courseId : ''}${lectureId !== undefined ? '&lecture=' + lectureId : ''}`,
-    );
-    if (onSuccess) {
-      onSuccess(response.data);
-    }
-    return response.data;
-  } catch (error) {
-    console.log('error발생');
-    console.log(error);
+  const response = await apiRequester.get<GetBoardListResponse>(
+    `/boards?category=${boardCategory}&page=${page}&criteria=${criteria}${courseId !== undefined ? '&course=' + courseId : ''}${lectureId !== undefined ? '&lecture=' + lectureId : ''}`,
+  );
+  if (onSuccess) {
+    onSuccess(response.data);
   }
-  return { boardList: [], totalPage: 0 };
+  return response.data;
 }

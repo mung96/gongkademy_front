@@ -5,13 +5,8 @@ import { GetCourseListResponse } from '@/course/type';
 import Link from 'next/link';
 
 async function getCourseListResponse() {
-  try {
-    const response = await apiServerRequester.get<GetCourseListResponse>(`/courses`);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-  return { courseList: [] };
+  const response = await apiServerRequester.get<GetCourseListResponse>(`/courses`);
+  return response.data;
 }
 
 export default async function Page() {

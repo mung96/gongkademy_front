@@ -14,15 +14,10 @@ export type RegisterdCourseListResponse = {
 };
 
 async function getRegisteredCourseList() {
-  try {
-    const response = await apiRequester.get<RegisterdCourseListResponse>(
-      '/members/courses?status=' + RegisterStatus.IN_PROGRESS,
-    );
-    return response.data.courseList;
-  } catch (e) {
-    console.log(e);
-  }
-  return [];
+  const response = await apiRequester.get<RegisterdCourseListResponse>(
+    '/members/courses?status=' + RegisterStatus.IN_PROGRESS,
+  );
+  return response.data.courseList;
 }
 
 export default async function HomeCourseList() {

@@ -14,13 +14,8 @@ type GetCurriculumListResponse = {
 };
 
 export async function getCurriculumList(courseId: number) {
-  try {
-    const response = await apiServerRequester.get<GetCurriculumListResponse>(`/courses/${courseId}/lectures`);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-  return { isRegister: false, lectureList: [] };
+  const response = await apiServerRequester.get<GetCurriculumListResponse>(`/courses/${courseId}/lectures`);
+  return response.data;
 }
 export default async function CurriculumList({ courseId }: Props) {
   const { isRegister, lectureList } = await getCurriculumList(courseId);

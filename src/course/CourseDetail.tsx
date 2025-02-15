@@ -16,14 +16,9 @@ type GetCourseDetailResponse = {
 };
 
 async function getCourseDetailResponse(courseId: number) {
-  try {
-    const response = await apiServerRequester.get<GetCourseDetailResponse>(`/courses/${courseId}`);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-  return { title: '', thumbnail: '', courseNote: '', courseTime: 0, isRegister: false };
+  const response = await apiServerRequester.get<GetCourseDetailResponse>(`/courses/${courseId}`);
+  console.log(response.data);
+  return response.data;
 }
 
 export default async function CourseDetail({ courseId }: Props) {

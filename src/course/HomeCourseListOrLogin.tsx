@@ -25,15 +25,12 @@ export default function HomeCourseListOrLogin() {
   const [courseList, setCourseList] = useState<CourseItem[]>([]);
 
   async function getRegisteredCourseList() {
-    try {
-      const response = await apiRequester.get<RegisteredCourseListResponse>(
-        '/members/courses?status=' + RegisterStatus.IN_PROGRESS,
-      );
-      setCourseList(response.data.courseList);
-    } catch (e) {
-      console.log(e);
-    }
+    const response = await apiRequester.get<RegisteredCourseListResponse>(
+      '/members/courses?status=' + RegisterStatus.IN_PROGRESS,
+    );
+    setCourseList(response.data.courseList);
   }
+
   useEffect(() => {
     getRegisteredCourseList();
     setCourseList([]);

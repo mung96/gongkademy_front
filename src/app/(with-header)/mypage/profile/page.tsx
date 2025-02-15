@@ -19,16 +19,12 @@ type FormValues = {
 const NICKNAME_MIN_LENGTH = 2;
 const NICKNAME_MAX_LENGTH = 20;
 async function getMemberInfo(onSuccess?: (nickname: string) => void) {
-  try {
-    const response = await apiRequester.get<{ nickname: string }>(`/members`);
-    if (onSuccess) {
-      onSuccess(response.data.nickname);
-    }
-    return response.data;
-  } catch (error) {
-    console.log('error발생');
-    console.log(error);
+  const response = await apiRequester.get<{ nickname: string }>(`/members`);
+  if (onSuccess) {
+    onSuccess(response.data.nickname);
   }
+  return response.data;
+
   return '';
 }
 

@@ -31,28 +31,18 @@ type GetLectureDetailResponse = {
   url: string;
 };
 async function getCourseDetailResponse(courseId: number, onSuccess?: (data: GetCourseDetailResponse) => void) {
-  try {
-    const response = await apiRequester.get<GetCourseDetailResponse>(`/courses/${courseId}`);
-    if (onSuccess) {
-      onSuccess(response.data);
-    }
-    return response.data;
-  } catch (error) {
-    console.log(error);
+  const response = await apiRequester.get<GetCourseDetailResponse>(`/courses/${courseId}`);
+  if (onSuccess) {
+    onSuccess(response.data);
   }
-  return { title: '', thumbnail: '', courseNote: '', courseTime: 0, isRegister: false };
+  return response.data;
 }
 async function getLectureDetailResponse(lectureId: number, onSuccess?: (data: GetLectureDetailResponse) => void) {
-  try {
-    const response = await apiRequester.get<GetLectureDetailResponse>(`/courses/lectures/${lectureId}`);
-    if (onSuccess) {
-      onSuccess(response.data);
-    }
-    return response.data;
-  } catch (error) {
-    console.log(error);
+  const response = await apiRequester.get<GetLectureDetailResponse>(`/courses/lectures/${lectureId}`);
+  if (onSuccess) {
+    onSuccess(response.data);
   }
-  return { title: '', lastPlayedTime: 0, lastLectureOrder: 0, url: '' };
+  return response.data;
 }
 //TODO: 수강 중이 아닐때 튕겨내야함.
 export default function Page({
