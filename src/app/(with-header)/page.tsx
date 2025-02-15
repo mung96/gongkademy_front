@@ -6,6 +6,8 @@ import BoardItem from '@/board/BoardItem';
 import { BoardCategory, BoardCriteria } from '@/board/type';
 import { getBoardListResponse } from '@/board/api';
 
+export const dynamic = 'force-dynamic';
+
 async function getHomeBoardList() {
   const data = await getBoardListResponse(BoardCategory.WORRY, 1, BoardCriteria.CREATE_AT);
 
@@ -23,13 +25,13 @@ export default async function Home() {
           <span className="title1 text-neutral-gray-950">공학의 장벽을 낮추는 곳,</span>
           <span className="title1 text-primary-500">공카데미</span>
         </h1>
-        <div className="flex w-full flex-col gap-2 ">
+        <div className="flex flex-col w-full gap-2 ">
           <div className="flex items-center justify-start gap-2 ">
             <p className="subtitle2 text-neutral-gray-950">질문과 고민</p>
             <ChevronRightIcon />
           </div>
           <section className="w-full">
-            <ul className="flex w-full flex-col items-center gap-4 desktop:grid desktop:grid-cols-2">
+            <ul className="flex flex-col items-center w-full gap-4 desktop:grid desktop:grid-cols-2">
               {boardList?.map((board) => (
                 <Link
                   className="w-full"
@@ -42,7 +44,7 @@ export default async function Home() {
             </ul>
           </section>
         </div>
-        <div className="flex w-full flex-col gap-4 ">
+        <div className="flex flex-col w-full gap-4 ">
           <div className="flex items-center justify-start gap-2 ">
             <p className="subtitle2 text-neutral-gray-950">수강 중인 강좌</p>
             <ChevronRightIcon />
