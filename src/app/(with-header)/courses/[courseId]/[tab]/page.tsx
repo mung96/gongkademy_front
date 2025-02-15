@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import CurriculumList from '@/course/CurriculumList';
 import QuestionList from '@/course/QuestionList';
+import { Suspense } from 'react';
 
 type Props = {
   params: { courseId: string; tab: 'curriculum' | 'question' };
@@ -31,7 +32,11 @@ export default function Page({ params }: Props) {
               </div>
             </ul>
             {tab === 'curriculum' && <CurriculumList courseId={courseId} />}
-            {tab === 'question' && <QuestionList courseId={courseId} />}
+            {tab === 'question' && (
+              <Suspense>
+                <QuestionList courseId={courseId} />
+              </Suspense>
+            )}
           </section>
         </div>
       </div>

@@ -11,30 +11,62 @@ import Button from '@/components/Button';
 import PencilIcon from '/public/assets/svg/PencilIcon.svg';
 import Pagination from '@/components/Pagination';
 import { Board, BoardCategory, BoardCriteria } from '@/board/type';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { getBoardListResponse } from '@/board/api';
 
-export default function Page({ params }: { params: { boardCategory: BoardCategory } }) {
+type Props = {
+  params: { boardCategory: BoardCategory };
+  searchParams: { keyword?: string };
+};
+
+export default function Page({ params, searchParams }: Props) {
   const { boardCategory } = params;
+  const router = useRouter();
   if (!Object.values(BoardCategory).includes(boardCategory)) {
     notFound();
   }
   const [boardList, setBoardList] = useState<Board[]>([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const [keyword, setKeyword] = useState(searchParams.keyword || '');
 
+  // boardList 불러오기 (페이지, 카테고리 변경 시)
   useEffect(() => {
     async function fetchBoardList() {
-      const data = await getBoardListResponse(boardCategory, page, BoardCriteria.CREATE_AT);
+      const data = await getBoardListResponse(
+        boardCategory,
+        page,
+        BoardCriteria.CREATE_AT,
+        undefined,
+        undefined,
+        undefined,
+        keyword,
+      );
       setBoardList(data.boardList);
       setTotalPage(data.totalPage);
     }
-
     fetchBoardList();
-  }, [page]);
+  }, [page, boardCategory]);
 
-  //TODO: 검색 API 만들어야함.
-  const [search, setSearch] = useState('');
+  // 검색을 위한 함수 (엔터키를 누르면 호출)
+  const handleSearchKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      // 검색 시 첫 페이지로 이동
+      setPage(1);
+      router.replace(`?keyword=${encodeURIComponent(keyword)}`);
+      const data = await getBoardListResponse(
+        boardCategory,
+        1,
+        BoardCriteria.CREATE_AT,
+        undefined,
+        undefined,
+        undefined,
+        keyword,
+      );
+      setBoardList(data.boardList);
+      setTotalPage(data.totalPage);
+    }
+  };
 
   return (
     <main className="flex flex-col items-center gap-4 px-4 pb-[72px] pt-9 tablet:flex-row tablet:items-start tablet:justify-center tablet:px-6 tablet:pt-12 desktop:pt-16">
@@ -49,10 +81,11 @@ export default function Page({ params }: { params: { boardCategory: BoardCategor
       <div className="flex w-full flex-col gap-3  tablet:max-w-[536px] desktop:max-w-[1024px]">
         <div className="flex w-full flex-1 items-center gap-3">
           <Input
-            value={search}
+            value={keyword}
             label="search"
             placeholder={boardCategory === BoardCategory.QUESTION ? '질문 검색' : '고민 검색'}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setKeyword(e.target.value)}
+            onKeyDown={handleSearchKeyDown}
             icon={<MagnifierIcon />}
           />
           <Link href={PATH.COMMUNITY_WRITE(boardCategory)}>
