@@ -11,14 +11,55 @@ import Link from 'next/link';
 import { PATH } from '@/constants/path';
 import PencilIcon from '/public/assets/svg/PencilIcon.svg';
 import Button from '@/components/Button';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 type Props = { courseId: number; lectureId: number };
 
 export default function LectureQuestionList({ courseId, lectureId }: Props) {
-  const [search, setSearch] = useState('');
   const [questionList, setQuestionList] = useState<Board[]>([]);
   const [totalPage, setTotalPage] = useState(0);
   const [page, setPage] = useState(1);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [keyword, setKeyword] = useState(searchParams.get('keyword') || '');
+
+  // boardList 불러오기 (페이지, 카테고리 변경 시)
+  useEffect(() => {
+    async function fetchBoardList() {
+      const data = await getBoardListResponse(
+        BoardCategory.QUESTION,
+        page,
+        BoardCriteria.CREATE_AT,
+        undefined,
+        undefined,
+        undefined,
+        keyword,
+      );
+      setQuestionList(data.boardList);
+      setTotalPage(data.totalPage);
+    }
+    fetchBoardList();
+  }, [page]);
+
+  // 검색을 위한 함수 (엔터키를 누르면 호출)
+  const handleSearchKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      // 검색 시 첫 페이지로 이동
+      setPage(1);
+      router.replace(`?keyword=${encodeURIComponent(keyword)}`);
+      const data = await getBoardListResponse(
+        BoardCategory.QUESTION,
+        1,
+        BoardCriteria.CREATE_AT,
+        undefined,
+        undefined,
+        undefined,
+        keyword,
+      );
+      setQuestionList(data.boardList);
+      setTotalPage(data.totalPage);
+    }
+  };
 
   useEffect(() => {
     getBoardListResponse(
@@ -38,11 +79,12 @@ export default function LectureQuestionList({ courseId, lectureId }: Props) {
     <div className="flex w-full flex-col items-center gap-2">
       <div className="flex w-full items-center gap-2">
         <Input
-          value={search}
+          value={keyword}
+          label="search"
           placeholder="질문 검색"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setKeyword(e.target.value)}
+          onKeyDown={handleSearchKeyDown}
           icon={<MagnifierIcon />}
-          label={'search'}
         />
         <Button icon={<PencilIcon />} onClick={() => console.log('글쓰기 클릭')}>
           글쓰기
