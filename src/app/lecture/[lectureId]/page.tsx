@@ -11,6 +11,10 @@ import { PATH } from '@/constants/path';
 import Link from 'next/link';
 import { apiRequester } from '@/api/requester';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { validateSession } from '@/auth/api';
+import { login } from '@/store/auth';
+import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
 type GetCourseDetailResponse = {
   title: string;
   thumbnail: string;
@@ -65,6 +69,20 @@ export default function Page({
   const [lectureDetail, setLectureDetail] = useState<GetLectureDetailResponse>();
 
   const router = useRouter();
+
+  const dispatch = useDispatch();
+  //세션 유효한지 테스트 테스트
+  useEffect(() => {
+    validateSession(
+      () => {
+        dispatch(login());
+      },
+      () => {
+        router.replace(SERVER_BASE_URL + END_POINT.NAVER_LOGIN(PATH.LECTURE(lectureId, courseId)));
+      },
+    );
+  }, []);
+
   useEffect(() => {
     getCourseDetailResponse(courseId, (data) => setCourseDetail(data));
     getLectureDetailResponse(lectureId, (data) => setLectureDetail(data));

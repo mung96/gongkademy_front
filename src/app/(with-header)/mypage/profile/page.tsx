@@ -6,7 +6,12 @@ import Button from '@/components/Button';
 import { apiRequester } from '@/api/requester';
 import { useEffect } from 'react';
 import { isAxiosError } from 'axios';
-import { HTTP_STATUS } from '@/constants/api';
+import { END_POINT, HTTP_STATUS, SERVER_BASE_URL } from '@/constants/api';
+import { validateSession } from '@/auth/api';
+import { login } from '@/store/auth';
+import { PATH } from '@/constants/path';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 type FormValues = {
   nickname: string;
@@ -58,6 +63,20 @@ export default function Page() {
   useEffect(() => {
     getMemberInfo((nickname) => setValue('nickname', nickname));
   }, []);
+
+  //세션 유효한지 테스트 테스트
+  const dispatch = useDispatch();
+  const router = useRouter();
+  useEffect(() => {
+    validateSession(
+      () => {
+        dispatch(login());
+      },
+      () => {
+        router.replace(SERVER_BASE_URL + END_POINT.NAVER_LOGIN(PATH.MY_PROFILE));
+      },
+    );
+  }, [router]);
 
   return (
     <form
