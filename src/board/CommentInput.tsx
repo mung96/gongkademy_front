@@ -23,13 +23,9 @@ export default function CommentInput({ boardId }: Props) {
   const router = useRouter();
 
   async function writeComment(formValues: FormValues) {
-    try {
-      const response = await apiRequester.post(`/boards/${boardId}/comments`, { ...formValues });
-      router.refresh();
-      return response.data;
-    } catch (e) {
-      console.log(e);
-    }
+    const response = await apiRequester.post(`/boards/${boardId}/comments`, { ...formValues });
+    router.refresh();
+    return response.data;
   }
 
   return (

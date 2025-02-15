@@ -12,13 +12,9 @@ export default function LoginContent() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    try {
-      dispatch(login());
-      // 로그인 성공 후 callbackUrl로 이동합니다.
-      router.replace(redirectUri);
-    } catch (e) {
-      console.error('자동 로그인 에러:', e);
-    }
+    dispatch(login());
+    // 로그인 성공 후 callbackUrl로 이동합니다.
+    router.replace(redirectUri);
   }, []);
 
   return <div>로그인 중입니다.</div>;

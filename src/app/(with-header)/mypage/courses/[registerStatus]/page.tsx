@@ -9,13 +9,8 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 async function getCourseListResponse(status: RegisterStatus) {
-  try {
-    const response = await apiServerRequester.get<GetCourseListResponse>(`/members/courses?status=${status}`);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-  return { courseList: [] };
+  const response = await apiServerRequester.get<GetCourseListResponse>(`/members/courses?status=${status}`);
+  return response.data;
 }
 
 export default async function Page({ params }: { params: { registerStatus: RegisterStatus } }) {

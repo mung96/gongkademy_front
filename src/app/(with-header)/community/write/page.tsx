@@ -42,18 +42,13 @@ async function getRegisteredCourseListResponse(
   onSuccess?: (courseItemDtoList: CourseItem[]) => void,
   registerStatus?: RegisterStatus,
 ) {
-  try {
-    const response = await apiRequester.get<GetCourseListResponse>(
-      `/members/courses${registerStatus ? `?registerStatus=${registerStatus}` : ''}`,
-    );
-    if (onSuccess) {
-      onSuccess(response.data.courseList);
-    }
-    return response.data;
-  } catch (error) {
-    console.log(error);
+  const response = await apiRequester.get<GetCourseListResponse>(
+    `/members/courses${registerStatus ? `?registerStatus=${registerStatus}` : ''}`,
+  );
+  if (onSuccess) {
+    onSuccess(response.data.courseList);
   }
-  return { courseList: [] };
+  return response.data;
 }
 
 export default function Page({ searchParams }: { searchParams: { category: BoardCategory } }) {
@@ -103,20 +98,16 @@ export default function Page({ searchParams }: { searchParams: { category: Board
   }, [selectedCourse]);
 
   async function writeBoard(formValues: FormValues) {
-    try {
-      const response = await apiRequester.post(`/boards?category=${category}`, {
-        ...formValues,
-        courseId: selectedCourse?.value,
-        lectureId: selectedLecture?.value === 0 ? null : selectedLecture?.value,
-      });
+    const response = await apiRequester.post(`/boards?category=${category}`, {
+      ...formValues,
+      courseId: selectedCourse?.value,
+      lectureId: selectedLecture?.value === 0 ? null : selectedLecture?.value,
+    });
 
-      //성공시 리다이렉트를 한다
-      const boardId = response.headers.location.split('/').pop();
-      router.push(PATH.COMMUNITY_DETAIL(category, boardId));
-      return response.data;
-    } catch (e) {
-      console.log(e);
-    }
+    //성공시 리다이렉트를 한다
+    const boardId = response.headers.location.split('/').pop();
+    router.push(PATH.COMMUNITY_DETAIL(category, boardId));
+    return response.data;
   }
   return (
     <main className="flex flex-col items-center gap-4 px-4 pb-[72px] pt-9 tablet:flex-row tablet:items-start tablet:justify-center tablet:px-6 tablet:pt-12 desktop:pt-16">

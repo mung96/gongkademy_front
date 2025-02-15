@@ -17,19 +17,13 @@ export async function getMyBoardListResponse(
   criteria: BoardCriteria = BoardCriteria.CREATE_AT,
   onSuccess?: (response: GetBoardListResponse) => void,
 ) {
-  try {
-    const response = await apiRequester.get<GetBoardListResponse>(
-      `/members/boards/${boardCategory}?page=${page}&criteria=${criteria}`,
-    );
-    if (onSuccess) {
-      onSuccess(response.data);
-    }
-    return response.data;
-  } catch (error) {
-    console.log('error발생');
-    console.log(error);
+  const response = await apiRequester.get<GetBoardListResponse>(
+    `/members/boards/${boardCategory}?page=${page}&criteria=${criteria}`,
+  );
+  if (onSuccess) {
+    onSuccess(response.data);
   }
-  return { boardList: [], totalPage: 0 };
+  return response.data;
 }
 
 export default function MyBoardList({ boardCategory }: Props) {

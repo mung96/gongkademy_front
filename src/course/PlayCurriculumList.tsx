@@ -18,16 +18,11 @@ type GetCurriculumListResponse = {
 };
 
 export async function getCurriculumList(courseId: number, onSuccess?: (data: GetCurriculumListResponse) => void) {
-  try {
-    const response = await apiRequester.get<GetCurriculumListResponse>(`/courses/${courseId}/lectures`);
-    if (onSuccess) {
-      onSuccess(response.data);
-    }
-    return response.data;
-  } catch (error) {
-    console.log(error);
+  const response = await apiRequester.get<GetCurriculumListResponse>(`/courses/${courseId}/lectures`);
+  if (onSuccess) {
+    onSuccess(response.data);
   }
-  return { isRegister: false, lectureList: [] };
+  return response.data;
 }
 export default function PlayCurriculumList({ courseId, lectureId }: Props) {
   const [lectureList, setLectureList] = useState<LectureItem[]>([]);

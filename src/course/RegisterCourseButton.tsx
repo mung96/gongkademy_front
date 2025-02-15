@@ -12,14 +12,10 @@ export default function RegisterCourseButton({ courseId }: Props) {
   const router = useRouter();
 
   async function registerCourse(courseId: number) {
-    try {
-      const response = await apiRequester.post(`/courses/${courseId}/register`);
-      alert('수강 신청이 완료되었습니다.');
-      router.refresh();
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+    const response = await apiRequester.post(`/courses/${courseId}/register`);
+    alert('수강 신청이 완료되었습니다.');
+    router.refresh();
+    return response.data;
   }
 
   return (
