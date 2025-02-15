@@ -4,9 +4,18 @@ import ListItem from '@/components/ListItem';
 
 import { BoardCategory } from '@/board/type';
 import MyBoardList from '@/board/MyBoardList';
+import { validateServerSession } from '@/auth/serverApi';
+import { redirect } from 'next/navigation';
+import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
 
 export default function Page({ params }: { params: { boardCategory: BoardCategory } }) {
   const { boardCategory } = params;
+  validateServerSession(
+    () => {},
+    () => {
+      redirect(SERVER_BASE_URL + END_POINT.NAVER_LOGIN(PATH.MY_COMMUNITY(boardCategory)));
+    },
+  );
 
   return (
     <div className={'flex w-full flex-col items-center gap-4  tablet:gap-6 '}>
