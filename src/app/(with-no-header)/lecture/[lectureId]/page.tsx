@@ -4,7 +4,7 @@ import Button from '@/components/Button';
 import HomeIcon from '/public/assets/svg/HomeIcon.svg';
 import MenuIcon from '/public/assets/svg/MenuIcon.svg';
 import { useEffect, useState } from 'react';
-import YouTube from 'react-youtube';
+import YouTube, { YouTubeEvent, YouTubePlayer } from 'react-youtube';
 import PlayerSidebar from '@/course/PlayerSidebar';
 import LectureQuestionList from '@/course/LectureQuestionList';
 import { PATH } from '@/constants/path';
@@ -44,7 +44,22 @@ async function getLectureDetailResponse(lectureId: number, onSuccess?: (data: Ge
   }
   return response.data;
 }
+
+// api/courses/lectures/{lectureId}/play
+async function postSavePoint(lectureId: number, savePoint: number, onSuccess?: () => void) {
+  const response = await apiRequester.post(`/courses/lectures/${lectureId}/play`, {
+    lastPlayedTime: savePoint,
+  });
+  if (onSuccess) {
+    onSuccess();
+  }
+  return response.data;
+}
 //TODO: 수강 중이 아닐때 튕겨내야함.
+const PLAY_STATE = {
+  PAUSED: 2,
+  PLAYING: 1,
+};
 export default function Page({
   params,
   searchParams,
@@ -78,6 +93,36 @@ export default function Page({
     getLectureDetailResponse(lectureId, (data) => setLectureDetail(data));
   }, []);
 
+  // const [savePoint, setSavePoint] = useState(0);
+  const [player, setPlayer] = useState<YouTubePlayer>(undefined);
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+  const UPDATE_PERIOD = 5_000;
+  const startCourseLecturePlay = (event: YouTubeEvent) => {
+    setPlayer(event.target);
+    event.target.seekTo(lectureDetail?.lastPlayedTime, true);
+  };
+  //최근 수강 구간 업데이트
+  let isSaving = false; //timer가 처음에만 동작하도록
+  const updateCourseLectureSavePoint = useEffect(() => {
+    if (player && !isSaving) {
+      const timer = setInterval(() => {
+        console.log(player);
+        console.log(Math.floor(player.getCurrentTime()));
+        if (player.getPlayerState() === PLAY_STATE.PLAYING) {
+          postSavePoint(lectureId, Math.floor(player.getCurrentTime()));
+        }
+      }, UPDATE_PERIOD);
+      isSaving = true;
+      setTimer(timer);
+      return () => clearInterval(timer);
+    }
+  }, [player]);
+  const clearTimer = useEffect(() => {
+    if (player?.getPlayerState() === PLAY_STATE.PAUSED && timer) {
+      clearInterval(timer);
+      setTimer(null);
+    }
+  }, [player]);
   return (
     <main className="flex w-full flex-col items-center tablet:max-w-screen-tablet desktop:max-w-[1232px] ">
       <header className="flex h-14 w-full items-center justify-between px-6">
@@ -113,8 +158,9 @@ export default function Page({
                 controls: 1,
               },
             }}
-            onPlay={() => console.log('재생')}
-            onReady={() => console.log('준비')}
+            onPlay={updateCourseLectureSavePoint}
+            onReady={startCourseLecturePlay}
+            onPause={clearTimer}
           />
         )}
       </div>
