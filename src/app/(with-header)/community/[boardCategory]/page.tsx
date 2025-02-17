@@ -89,9 +89,7 @@ export default function Page({ params, searchParams }: Props) {
             icon={<MagnifierIcon />}
           />
           <Link href={PATH.COMMUNITY_WRITE(boardCategory)}>
-            <Button icon={<PencilIcon />} onClick={() => console.log('글쓰기 클릭')}>
-              글쓰기
-            </Button>
+            <Button icon={<PencilIcon />}>글쓰기</Button>
           </Link>
         </div>
         <div className="flex w-full flex-col items-center gap-4">

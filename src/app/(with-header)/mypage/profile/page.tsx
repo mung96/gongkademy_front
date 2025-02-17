@@ -24,8 +24,6 @@ async function getMemberInfo(onSuccess?: (nickname: string) => void) {
     onSuccess(response.data.nickname);
   }
   return response.data;
-
-  return '';
 }
 
 async function updateNickname(formValues: FormValues, onSuccess?: (nickname: string) => void) {

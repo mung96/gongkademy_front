@@ -2,14 +2,16 @@
 
 import { apiRequester } from '@/api/requester';
 import Button from '@/components/Button';
-import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
+import { END_POINT, HTTP_STATUS, SERVER_BASE_URL } from '@/constants/api';
 import { PATH } from '@/constants/path';
 import HomeCourseCard from '@/course/HomeCourseCard';
 import { RegisterStatus } from '@/course/type';
+import { logout } from '@/store/auth';
 import { RootState } from '@/store/rootReducer';
+import { isAxiosError } from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 export type CourseItem = {
   courseId: number;
   title: string;
@@ -21,14 +23,22 @@ export type RegisteredCourseListResponse = {
 
 export default function HomeCourseListOrLogin() {
   const isLogin = useSelector((state: RootState) => state.auth.isLogin);
-
+  const dispatch = useDispatch();
   const [courseList, setCourseList] = useState<CourseItem[]>([]);
 
   async function getRegisteredCourseList() {
-    const response = await apiRequester.get<RegisteredCourseListResponse>(
-      '/members/courses?status=' + RegisterStatus.IN_PROGRESS,
-    );
-    setCourseList(response.data.courseList);
+    try {
+      const response = await apiRequester.get<RegisteredCourseListResponse>(
+        '/members/courses?status=' + RegisterStatus.IN_PROGRESS,
+      );
+      setCourseList(response.data.courseList);
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response && error.response.status === HTTP_STATUS.UNAUTHORIZED) {
+          dispatch(logout());
+        }
+      }
+    }
   }
 
   useEffect(() => {
