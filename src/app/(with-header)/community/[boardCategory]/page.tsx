@@ -13,6 +13,8 @@ import Pagination from '@/components/Pagination';
 import { Board, BoardCategory, BoardCriteria } from '@/board/type';
 import { notFound, useRouter } from 'next/navigation';
 import { getBoardListResponse } from '@/board/api';
+import { RootState } from '@/store/rootReducer';
+import { useSelector } from 'react-redux';
 
 type Props = {
   params: { boardCategory: BoardCategory };
@@ -21,6 +23,8 @@ type Props = {
 
 export default function Page({ params, searchParams }: Props) {
   const { boardCategory } = params;
+  const isLogin = useSelector((stat: RootState) => stat.auth.isLogin);
+
   const router = useRouter();
   if (!Object.values(BoardCategory).includes(boardCategory)) {
     notFound();
@@ -68,6 +72,14 @@ export default function Page({ params, searchParams }: Props) {
     }
   };
 
+  const handleWriteButtonClick = () => {
+    if (isLogin) {
+      router.push(PATH.COMMUNITY_WRITE(boardCategory));
+    } else {
+      alert('로그인이 필요한 서비스입니다.');
+    }
+  };
+
   return (
     <main className="flex flex-col items-center gap-4 px-4 pb-[72px] pt-9 tablet:flex-row tablet:items-start tablet:justify-center tablet:px-6 tablet:pt-12 desktop:pt-16">
       <nav className="flex tablet:w-[168px] tablet:flex-col tablet:gap-3 desktop:w-[192px]">
@@ -88,9 +100,9 @@ export default function Page({ params, searchParams }: Props) {
             onKeyDown={handleSearchKeyDown}
             icon={<MagnifierIcon />}
           />
-          <Link href={PATH.COMMUNITY_WRITE(boardCategory)}>
-            <Button icon={<PencilIcon />}>글쓰기</Button>
-          </Link>
+          <Button icon={<PencilIcon />} onClick={handleWriteButtonClick}>
+            글쓰기
+          </Button>
         </div>
         <div className="flex w-full flex-col items-center gap-4">
           <ul className="w-full">

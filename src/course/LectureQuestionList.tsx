@@ -12,6 +12,8 @@ import { PATH } from '@/constants/path';
 import PencilIcon from '/public/assets/svg/PencilIcon.svg';
 import Button from '@/components/Button';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/rootReducer';
 
 type Props = { courseId: number; lectureId: number };
 
@@ -75,6 +77,15 @@ export default function LectureQuestionList({ courseId, lectureId }: Props) {
     );
   }, [page]);
 
+  const isLogin = useSelector((state: RootState) => state.auth.isLogin);
+  const handleWriteButtonClick = () => {
+    if (isLogin) {
+      router.push(PATH.COMMUNITY_WRITE(BoardCategory.QUESTION));
+    } else {
+      alert('로그인이 필요한 서비스입니다.');
+    }
+  };
+
   return (
     <div className="flex w-full flex-col items-center gap-2">
       <div className="flex w-full items-center gap-2">
@@ -86,14 +97,11 @@ export default function LectureQuestionList({ courseId, lectureId }: Props) {
           onKeyDown={handleSearchKeyDown}
           icon={<MagnifierIcon />}
         />
-        <Button icon={<PencilIcon />} onClick={() => console.log('글쓰기 클릭')}>
+        <Button icon={<PencilIcon />} onClick={handleWriteButtonClick}>
           글쓰기
         </Button>
       </div>
 
-      {/*
-      
-       */}
       <div className="flex w-full flex-col items-center gap-4">
         {questionList?.length ? (
           <>
