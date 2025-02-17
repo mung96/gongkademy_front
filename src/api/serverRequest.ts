@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 
 export const apiServerRequester: AxiosInstance = axios.create({
   baseURL: SERVER_BASE_URL + '/api',
-  timeout: 5000,
+  timeout: 10_000,
   withCredentials: true,
 });
 
