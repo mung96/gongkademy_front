@@ -1,4 +1,4 @@
-import { requesterErrorHandling, setRequestDefaultHeader } from '@/api/requester';
+import { setRequestDefaultHeader } from '@/api/requester';
 import { SERVER_BASE_URL } from '@/constants/api';
 import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import { cookies } from 'next/headers';
@@ -28,13 +28,13 @@ apiServerRequester.interceptors.request.use((request) => {
   return request;
 });
 
-apiServerRequester.interceptors.response.use(
-  (response) => {
-    // 응답 데이터를 그대로 반환
-    return response;
-  },
-  (error) => {
-    requesterErrorHandling(error);
-    return Promise.reject(error);
-  },
-);
+// apiServerRequester.interceptors.response.use(
+//   (response) => {
+//     // 응답 데이터를 그대로 반환
+//     return response;
+//   },
+//   (error) => {
+//     requesterErrorHandling(error);
+//     return Promise.reject(error);
+//   },
+// );

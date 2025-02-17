@@ -91,7 +91,7 @@ export default function Page({ searchParams }: { searchParams: { category: Board
   }, [reset]);
 
   useEffect(() => {
-    if (selectedCourse !== undefined) {
+    if (selectedCourse !== null) {
       getLectureListResponse(Number(selectedCourse?.value), (data) => setLectureList(getLectureLabelValue(data)));
       setReset(true);
     }

@@ -35,6 +35,9 @@ export default function DownloadCourseNoteButton({ courseId }: Props) {
               alert('수강 신청 후 다운받을 수 있습니다.');
             }
           }
+          if (error.status === HTTP_STATUS.UNAUTHORIZED) {
+            alert('로그인이 필요합니다.');
+          }
         }
       }
     }

@@ -39,13 +39,13 @@ export const requesterErrorHandling = (error: Error) => {
   }
 };
 
-apiRequester.interceptors.response.use(
-  (response) => {
-    // 응답 데이터를 그대로 반환
-    return response;
-  },
-  (error) => {
-    requesterErrorHandling(error);
-    return Promise.reject(error);
-  },
-);
+// apiRequester.interceptors.response.use(
+//   (response) => {
+//     // 응답 데이터를 그대로 반환
+//     return response;
+//   },
+//   (error) => {
+//     // requesterErrorHandling(error);
+//     // return Promise.reject(error);
+//   },
+// );
