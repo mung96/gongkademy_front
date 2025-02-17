@@ -27,6 +27,7 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
   async function getBoardDetail() {
     try {
       const response = await apiServerRequester.get<GetBoardDetailResponse>(`/boards/${boardId}`);
+      console.log('게시글 응답', response.data);
 
       return response.data;
     } catch (error) {
@@ -86,10 +87,10 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
           )}
         </div>
         <CommentInput boardId={boardId} />
-        <ul className={'flex w-full flex-col gap-4'}>
+        <ul className={'flex w-full flex-col gap-2 tablet:w-[720px]  desktop:w-[816px]'}>
           {boardDetail.commentList.map((comment) => (
             <li
-              className={'flex flex-col gap-3 rounded-lg bg-neutral-gray-50 px-6 pb-4 pt-[22px]'}
+              className={'flex flex-col gap-3 rounded-lg bg-neutral-gray-50 px-6 pb-4 pt-[22px] '}
               key={comment.commentId}
             >
               <div className={'flex justify-between'}>
