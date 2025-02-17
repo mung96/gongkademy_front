@@ -61,7 +61,7 @@ export default function Page({ searchParams }: { searchParams: { category: Board
 
   const [courseList, setCourseList] = useState<{ label: string; value: number | string }[]>([]);
   const [lectureList, setLectureList] = useState<{ label: string; value: number | string }[]>([]);
-  const [selectedCourse, setSelectedCourse] = useState<{ label: string; value: number | string } | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<{ label: string; value: number | string }>();
   const [selectedLecture, setSelectedLecture] = useState<{ label: string; value: number | string } | null>(null);
   const [reset, setReset] = useState(false);
   const router = useRouter();
