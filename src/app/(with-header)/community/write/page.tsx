@@ -61,7 +61,7 @@ export default function Page({ searchParams }: { searchParams: { category: Board
 
   const [courseList, setCourseList] = useState<{ label: string; value: number | string }[]>([]);
   const [lectureList, setLectureList] = useState<{ label: string; value: number | string }[]>([]);
-  const [selectedCourse, setSelectedCourse] = useState<{ label: string; value: number | string }>();
+  const [selectedCourse, setSelectedCourse] = useState<{ label: string; value: number | string } | null>(null);
   const [selectedLecture, setSelectedLecture] = useState<{ label: string; value: number | string } | null>(null);
   const [reset, setReset] = useState(false);
   const router = useRouter();
@@ -91,7 +91,7 @@ export default function Page({ searchParams }: { searchParams: { category: Board
   }, [reset]);
 
   useEffect(() => {
-    if (selectedCourse !== undefined) {
+    if (selectedCourse !== null) {
       getLectureListResponse(Number(selectedCourse?.value), (data) => setLectureList(getLectureLabelValue(data)));
       setReset(true);
     }
