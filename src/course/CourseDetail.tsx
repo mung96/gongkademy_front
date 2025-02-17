@@ -25,12 +25,12 @@ export default async function CourseDetail({ courseId }: Props) {
   const courseDetail = await getCourseDetailResponse(courseId);
   return (
     <div className="flex flex-col gap-6 tablet:flex-row tablet:justify-start tablet:gap-4 ">
-      <div className="flex w-full min-w-[163px] flex-col justify-end rounded-lg  tablet:h-[247px] tablet:w-[352px] desktop:w-[400px]">
+      <div className="flex w-full min-w-[163px] flex-col justify-end rounded-lg  tablet:max-h-[247px] tablet:w-[352px] desktop:w-[400px]">
         <Image
           src={getCourseThumbnailPath(courseDetail.thumbnail)}
           alt={`${courseDetail.title} 썸네일`}
           width={400}
-          height={500}
+          height={247}
           layout="responsive"
           objectFit="cover"
           className="rounded-lg"
