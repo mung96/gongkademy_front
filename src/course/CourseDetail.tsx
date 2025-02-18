@@ -1,8 +1,12 @@
-import { apiServerRequester } from '@/api/serverRequest';
+'use client';
+
+import { apiRequester } from '@/api/requester';
+import LoadingComponent from '@/components/LoadingComponent';
 import DownloadCourseNoteButton from '@/course/DownloadCourseNoteButton';
 import RegisterCourseButton from '@/course/RegisterCourseButton';
 import { getCourseThumbnailPath } from '@/utils';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 type Props = {
   courseId: number;
@@ -15,14 +19,23 @@ type GetCourseDetailResponse = {
   isRegister: boolean;
 };
 
-async function getCourseDetailResponse(courseId: number) {
-  const response = await apiServerRequester.get<GetCourseDetailResponse>(`/courses/${courseId}`);
-  console.log(response.data);
+async function getCourseDetailResponse(courseId: number, onSuccess: (data: GetCourseDetailResponse) => void) {
+  const response = await apiRequester.get<GetCourseDetailResponse>(`/courses/${courseId}`);
+  onSuccess(response.data);
   return response.data;
 }
 
-export default async function CourseDetail({ courseId }: Props) {
-  const courseDetail = await getCourseDetailResponse(courseId);
+export default function CourseDetail({ courseId }: Props) {
+  const [courseDetail, setCourseDetail] = useState<GetCourseDetailResponse | null>(null);
+
+  useEffect(() => {
+    getCourseDetailResponse(courseId, (courseDetail) => setCourseDetail(courseDetail));
+  }, []);
+
+  if (courseDetail === null) {
+    return <LoadingComponent />;
+  }
+
   return (
     <div className="flex flex-col gap-6 tablet:flex-row tablet:justify-start tablet:gap-4 ">
       <div className="flex w-full min-w-[163px] flex-col justify-end rounded-lg  tablet:max-h-[247px] tablet:w-[352px] desktop:w-[400px]">
