@@ -40,7 +40,7 @@ export default function Page({ params, searchParams }: Props) {
       const data = await getBoardListResponse(
         boardCategory,
         page,
-        BoardCriteria.CREATE_AT,
+        BoardCriteria.COMMENT_CNT,
         undefined,
         undefined,
         undefined,
