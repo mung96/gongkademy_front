@@ -22,7 +22,7 @@ type Props = {
   searchParams: { keyword?: string };
 };
 
-export async function getSubBoardList(
+async function getSubBoardList(
   boardCategory: BoardCategory,
   page: number = 1,
   criteria: BoardCriteria = BoardCriteria.COMMENT_CNT,
