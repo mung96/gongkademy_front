@@ -12,33 +12,32 @@ import PencilIcon from '/public/assets/svg/PencilIcon.svg';
 import Pagination from '@/components/Pagination';
 import { Board, BoardCategory, BoardCriteria } from '@/board/type';
 import { notFound, useRouter } from 'next/navigation';
-import { GetBoardListResponse, getBoardListResponse } from '@/board/api';
+import { getBoardListResponse } from '@/board/api';
 import { RootState } from '@/store/rootReducer';
 import { useSelector } from 'react-redux';
-import { apiRequester } from '@/api/requester';
 
 type Props = {
   params: { boardCategory: BoardCategory };
   searchParams: { keyword?: string };
 };
 
-async function getSubBoardList(
-  boardCategory: BoardCategory,
-  page: number = 1,
-  criteria: BoardCriteria = BoardCriteria.COMMENT_CNT,
-  onSuccess?: (response: GetBoardListResponse) => void,
-  courseId?: number,
-  lectureId?: number,
-  keyword?: string,
-) {
-  const response = await apiRequester.get<GetBoardListResponse>(
-    `/boards/subquery?category=${boardCategory}&page=${page}&criteria=${criteria}${courseId !== undefined ? '&course=' + courseId : ''}${lectureId !== undefined ? '&lecture=' + lectureId : ''}${keyword?.length ? '&keyword=' + keyword : ''}`,
-  );
-  if (onSuccess) {
-    onSuccess(response.data);
-  }
-  return response.data;
-}
+// async function getSubBoardList(
+//   boardCategory: BoardCategory,
+//   page: number = 1,
+//   criteria: BoardCriteria = BoardCriteria.COMMENT_CNT,
+//   onSuccess?: (response: GetBoardListResponse) => void,
+//   courseId?: number,
+//   lectureId?: number,
+//   keyword?: string,
+// ) {
+//   const response = await apiRequester.get<GetBoardListResponse>(
+//     `/boards/subquery?category=${boardCategory}&page=${page}&criteria=${criteria}${courseId !== undefined ? '&course=' + courseId : ''}${lectureId !== undefined ? '&lecture=' + lectureId : ''}${keyword?.length ? '&keyword=' + keyword : ''}`,
+//   );
+//   if (onSuccess) {
+//     onSuccess(response.data);
+//   }
+//   return response.data;
+// }
 
 export default function Page({ params, searchParams }: Props) {
   const { boardCategory } = params;
@@ -54,40 +53,40 @@ export default function Page({ params, searchParams }: Props) {
   const [keyword, setKeyword] = useState(searchParams.keyword || '');
 
   //0=원래쿼리, 1=서브쿼리
-  const [type, setType] = useState(0);
-  useEffect(() => {
-    if (type == 0) {
-      const fetchBoardList = async () => {
-        const data = await getBoardListResponse(
-          boardCategory,
-          page,
-          BoardCriteria.COMMENT_CNT,
-          undefined,
-          undefined,
-          undefined,
-          keyword,
-        );
-        setBoardList(data.boardList);
-        setTotalPage(data.totalPage);
-      };
-      fetchBoardList();
-    } else {
-      const fetchBoardList = async () => {
-        const data = await getSubBoardList(
-          boardCategory,
-          page,
-          BoardCriteria.COMMENT_CNT,
-          undefined,
-          undefined,
-          undefined,
-          keyword,
-        );
-        setBoardList(data.boardList);
-        setTotalPage(data.totalPage);
-      };
-      fetchBoardList();
-    }
-  }, [type]);
+  // const [type, setType] = useState(0);
+  // useEffect(() => {
+  //   if (type == 0) {
+  //     const fetchBoardList = async () => {
+  //       const data = await getBoardListResponse(
+  //         boardCategory,
+  //         page,
+  //         BoardCriteria.COMMENT_CNT,
+  //         undefined,
+  //         undefined,
+  //         undefined,
+  //         keyword,
+  //       );
+  //       setBoardList(data.boardList);
+  //       setTotalPage(data.totalPage);
+  //     };
+  //     fetchBoardList();
+  //   } else {
+  //     const fetchBoardList = async () => {
+  //       const data = await getSubBoardList(
+  //         boardCategory,
+  //         page,
+  //         BoardCriteria.COMMENT_CNT,
+  //         undefined,
+  //         undefined,
+  //         undefined,
+  //         keyword,
+  //       );
+  //       setBoardList(data.boardList);
+  //       setTotalPage(data.totalPage);
+  //     };
+  //     fetchBoardList();
+  //   }
+  // }, [type]);
 
   // boardList 불러오기 (페이지, 카테고리 변경 시)
   useEffect(() => {
@@ -155,12 +154,12 @@ export default function Page({ params, searchParams }: Props) {
             onKeyDown={handleSearchKeyDown}
             icon={<MagnifierIcon />}
           />
-          <Button icon={<PencilIcon />} onClick={() => setType(0)}>
+          {/* <Button icon={<PencilIcon />} onClick={() => setType(0)}>
             일반쿼리
           </Button>
           <Button icon={<PencilIcon />} onClick={() => setType(1)}>
             서브쿼리
-          </Button>
+          </Button> */}
           <Button icon={<PencilIcon />} onClick={handleWriteButtonClick}>
             글쓰기
           </Button>
