@@ -21,7 +21,7 @@ export default async function Page({ params }: { params: { registerStatus: Regis
   validateServerSession(
     () => {},
     () => {
-      redirect(SERVER_BASE_URL + END_POINT.NAVER_LOGIN(PATH.MY_COURSES(registerStatus)));
+      redirect(SERVER_BASE_URL + END_POINT.KAKAO_LOGIN(PATH.MY_COURSES(registerStatus)));
     },
   );
 

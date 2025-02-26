@@ -67,7 +67,7 @@ export default function Page() {
         dispatch(login());
       },
       () => {
-        router.replace(SERVER_BASE_URL + END_POINT.NAVER_LOGIN(PATH.MY_PROFILE));
+        router.replace(SERVER_BASE_URL + END_POINT.KAKAO_LOGIN(PATH.MY_PROFILE));
       },
     );
   }, [router]);

@@ -1,7 +1,8 @@
 export const SERVER_BASE_URL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 export const END_POINT = {
-  NAVER_LOGIN: (redirectUrl: string) => `/oauth2/authorization/naver?redirect_uri=${redirectUrl}`,
+  // NAVER_LOGIN: (redirectUrl: string) => `/oauth2/authorization/naver?redirect_uri=${redirectUrl}`,
+  KAKAO_LOGIN: (redirectUrl: string) => `/oauth2/authorization/kakao?redirect_uri=${redirectUrl}`,
   LOGOUT: '/logout',
   SESSION_CHECK: '/auth/session/check',
 } as const;

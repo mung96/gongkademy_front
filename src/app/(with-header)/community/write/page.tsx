@@ -75,7 +75,7 @@ export default function Page({ searchParams }: { searchParams: { category: Board
         dispatch(login());
       },
       () => {
-        router.replace(SERVER_BASE_URL + END_POINT.NAVER_LOGIN(PATH.COMMUNITY_WRITE(category)));
+        router.replace(SERVER_BASE_URL + END_POINT.KAKAO_LOGIN(PATH.COMMUNITY_WRITE(category)));
       },
     );
   }, []);

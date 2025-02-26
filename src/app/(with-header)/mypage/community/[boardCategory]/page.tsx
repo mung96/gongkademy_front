@@ -13,7 +13,7 @@ export default function Page({ params }: { params: { boardCategory: BoardCategor
   validateServerSession(
     () => {},
     () => {
-      redirect(SERVER_BASE_URL + END_POINT.NAVER_LOGIN(PATH.MY_COMMUNITY(boardCategory)));
+      redirect(SERVER_BASE_URL + END_POINT.KAKAO_LOGIN(PATH.MY_COMMUNITY(boardCategory)));
     },
   );
 

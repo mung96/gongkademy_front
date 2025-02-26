@@ -83,7 +83,7 @@ export default function Page({
         dispatch(login());
       },
       () => {
-        router.replace(SERVER_BASE_URL + END_POINT.NAVER_LOGIN(PATH.LECTURE(lectureId, courseId)));
+        router.replace(SERVER_BASE_URL + END_POINT.KAKAO_LOGIN(PATH.LECTURE(lectureId, courseId)));
       },
     );
   }, []);

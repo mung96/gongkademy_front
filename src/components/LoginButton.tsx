@@ -41,7 +41,7 @@ export default function LoginButton() {
         </Link>
       ) : (
         <Link
-          href={SERVER_BASE_URL + END_POINT.NAVER_LOGIN(redirectUrl)}
+          href={SERVER_BASE_URL + END_POINT.KAKAO_LOGIN(redirectUrl)}
           className={twMerge(textStyle, 'hidden tablet:block text-primary-500 ')}
         >
           로그인
