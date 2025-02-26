@@ -1,24 +1,20 @@
 'use client';
 
 import { apiRequester } from '@/api/requester';
-import { validateSession } from '@/auth/api';
 import { BoardCategory } from '@/board/type';
 import Button from '@/components/Button';
 import Combobox from '@/components/Combobox';
 import Input from '@/components/Input';
 import ListItem from '@/components/ListItem';
 import TextArea from '@/components/TextArea';
-import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
 import { PATH } from '@/constants/path';
 import { getLectureListResponse } from '@/course/api';
 import { CourseItem, GetCourseListResponse, RegisterStatus } from '@/course/type';
-import { login } from '@/store/auth';
 import { exhaustiveCheck, getCourseLabelValue, getLectureLabelValue } from '@/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 
 const getBodyPlaceholder = (category: BoardCategory) => {
   if (category == BoardCategory.WORRY) {
@@ -65,20 +61,6 @@ export default function Page({ searchParams }: { searchParams: { category: Board
   const [selectedLecture, setSelectedLecture] = useState<{ label: string; value: number | string } | null>(null);
   const [reset, setReset] = useState(false);
   const router = useRouter();
-
-  const dispatch = useDispatch();
-
-  //세션 유효한지 테스트 테스트
-  useEffect(() => {
-    validateSession(
-      () => {
-        dispatch(login());
-      },
-      () => {
-        router.replace(SERVER_BASE_URL + END_POINT.KAKAO_LOGIN(PATH.COMMUNITY_WRITE(category)));
-      },
-    );
-  }, []);
 
   useEffect(() => {
     getRegisteredCourseListResponse((data) => setCourseList(getCourseLabelValue(data)));

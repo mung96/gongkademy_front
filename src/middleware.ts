@@ -9,7 +9,6 @@ import { CheckSessionResponse } from '@/auth/type';
 export async function middleware(req: NextRequest) {
   async function validateServerSession() {
     try {
-      console.log('쿠키가 뭐냐', req.cookies);
       const cookieHeader = req.headers.get('cookie') || '';
 
       const response = await apiServerRequester.get<CheckSessionResponse>(END_POINT.SESSION_CHECK, {
@@ -17,13 +16,11 @@ export async function middleware(req: NextRequest) {
           Cookie: cookieHeader, // 백엔드에 쿠키 전달
         },
       });
-      console.log('응답이다.', response);
       return response?.data.isLogin;
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.status === HTTP_STATUS.UNAUTHORIZED) {
           console.log('에러 응답이다.', error.response);
-          console.log('세션이 없음');
           return false;
         }
       }

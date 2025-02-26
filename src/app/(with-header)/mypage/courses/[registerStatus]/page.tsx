@@ -1,12 +1,9 @@
 import { apiServerRequester } from '@/api/serverRequest';
-import { validateServerSession } from '@/auth/serverApi';
 import ListItem from '@/components/ListItem';
-import { END_POINT, SERVER_BASE_URL } from '@/constants/api';
 import { PATH } from '@/constants/path';
 import CourseCard from '@/course/CourseCard';
 import { GetCourseListResponse, RegisterStatus } from '@/course/type';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
 async function getCourseListResponse(status: RegisterStatus) {
   const response = await apiServerRequester.get<GetCourseListResponse>(`/members/courses?status=${status}`);
@@ -16,14 +13,6 @@ async function getCourseListResponse(status: RegisterStatus) {
 export default async function Page({ params }: { params: { registerStatus: RegisterStatus } }) {
   const { registerStatus } = params;
   const { courseList } = await getCourseListResponse(registerStatus);
-
-  //세션 유효한지 테스트 테스트
-  validateServerSession(
-    () => {},
-    () => {
-      redirect(SERVER_BASE_URL + END_POINT.KAKAO_LOGIN(PATH.MY_COURSES(registerStatus)));
-    },
-  );
 
   return (
     <div className={'flex w-full flex-col items-center gap-4  tablet:gap-6 '}>
