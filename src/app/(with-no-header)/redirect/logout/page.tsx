@@ -1,5 +1,6 @@
 'use client';
 
+import LoadingComponent from '@/components/LoadingComponent';
 import { PATH } from '@/constants/path';
 import { logout } from '@/store/auth';
 import { useRouter } from 'next/navigation';
@@ -15,5 +16,5 @@ export default function Page() {
     router.replace(PATH.HOME);
   }, []);
 
-  return <div>로그아웃 중입니다.</div>;
+  return <LoadingComponent />;
 }

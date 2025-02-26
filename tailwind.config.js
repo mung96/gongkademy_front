@@ -6,6 +6,18 @@ module.exports = {
       fontFamily: {
         pretendard: ['var(--font-pretendard)'],
       },
+      animation: {
+        'loading-spin': 'loading-spin 2.0333s linear infinite',
+      },
+      keyframes: {
+        'loading-spin': {
+          '0%': { transform: 'rotate(0deg)' },
+          '34.4%': { transform: 'rotate(180deg)' },
+          '49.2%': { transform: 'rotate(180deg)' },
+          '83.6%': { transform: 'rotate(360deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+      },
     },
     screens: {
       tablet: '768px',

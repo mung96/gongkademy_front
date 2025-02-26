@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { login } from '@/store/auth';
+import LoadingComponent from '@/components/LoadingComponent';
 
 export default function LoginContent() {
   const router = useRouter();
@@ -17,5 +18,5 @@ export default function LoginContent() {
     router.replace(redirectUri);
   }, []);
 
-  return <div>로그인 중입니다.</div>;
+  return <LoadingComponent />;
 }
