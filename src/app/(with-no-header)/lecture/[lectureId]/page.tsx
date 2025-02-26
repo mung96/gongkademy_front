@@ -89,7 +89,6 @@ export default function Page({
   const updateCourseLectureSavePoint = useEffect(() => {
     if (player && !isSaving) {
       const timer = setInterval(() => {
-        console.log(Math.floor(player.getCurrentTime()));
         if (player.getPlayerState() === PLAY_STATE.PLAYING) {
           postSavePoint(lectureId, Math.floor(player.getCurrentTime()));
         }

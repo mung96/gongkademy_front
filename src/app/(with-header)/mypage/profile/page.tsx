@@ -34,7 +34,6 @@ async function updateNickname(formValues: FormValues, onSuccess?: (nickname: str
         alert('이미 사용중인 닉네임입니다');
         return;
       } else {
-        console.log('error발생');
         console.log(error);
       }
     }

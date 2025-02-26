@@ -27,8 +27,6 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
   async function getBoardDetail() {
     try {
       const response = await apiServerRequester.get<GetBoardDetailResponse>(`/boards/${boardId}`);
-      console.log('게시글 응답', response.data);
-
       return response.data;
     } catch (error) {
       if (isAxiosError(error)) {

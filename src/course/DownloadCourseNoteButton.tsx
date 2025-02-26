@@ -24,7 +24,6 @@ export default function DownloadCourseNoteButton({ courseId }: Props) {
         const response = await apiRequester.get<DownloadCourseNoteResponse>(`/courses/${courseId}/note`);
 
         if (buttonRef.current !== null) {
-          console.log(response.data);
           buttonRef.current.href = response.data.courseNoteUrl;
           buttonRef.current.click();
         }

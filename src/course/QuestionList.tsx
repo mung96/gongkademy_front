@@ -82,7 +82,6 @@ export default function QuestionList({ courseId }: Props) {
       courseId,
       lecture?.value === 0 ? undefined : lecture?.value,
     );
-    console.log('변경');
   }, [lecture, page]);
 
   return (
