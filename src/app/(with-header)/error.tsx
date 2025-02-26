@@ -8,12 +8,11 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
   const router = useRouter();
   useEffect(() => {
     console.error(error.message);
-    console.log('error발생 global');
   }, []);
 
   return (
-    <div className="flex size-full flex-col items-center justify-center">
-      <h1>오류발생</h1>
+    <div className="flex flex-col items-center justify-center gap-4">
+      <p className="title1 text-neutral-gray-950">잠시 문제가 있는 것 같아요</p>
       <Button
         onClick={() => {
           startTransition(() => {
@@ -22,7 +21,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
           });
         }}
       >
-        다시시도
+        다시 시도 하기
       </Button>
     </div>
   );
