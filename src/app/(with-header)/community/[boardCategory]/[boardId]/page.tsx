@@ -71,7 +71,7 @@ export default async function Page({ params }: { params: { boardCategory: BoardC
             <p className={'body2 text-neutral-gray-500'}>{getFormatDate(boardDetail.date)}</p>
           </div>
 
-          <p className={'body1 break-words text-neutral-gray-950'}>{boardDetail.body}</p>
+          <p className={'body1 whitespace-pre-wrap break-words text-neutral-gray-950'}>{boardDetail.body}</p>
 
           {boardDetail.boardCategory === BoardCategory.QUESTION && (
             <div className="flex gap-2">
