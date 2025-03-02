@@ -23,7 +23,10 @@ export default function DownloadCourseNoteButton({ courseId }: Props) {
       try {
         const response = await apiRequester.get<DownloadCourseNoteResponse>(`/courses/${courseId}/note`);
 
-        if (buttonRef.current !== null) {
+        console.log(response);
+        if (response.data.courseNoteUrl === null) {
+          alert('강의 자료가 제공되지 않는 강의입니다.');
+        } else if (buttonRef.current !== null) {
           buttonRef.current.href = response.data.courseNoteUrl;
           buttonRef.current.click();
         }
