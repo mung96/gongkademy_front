@@ -68,7 +68,7 @@ export default function CourseDetail({ courseId }: Props) {
 
         <div className="flex flex-col gap-2 tablet:flex-row tablet:gap-4">
           {!courseDetail.isRegister && <RegisterCourseButton courseId={courseId} />}
-          <DownloadCourseNoteButton courseId={courseId} />
+          {courseDetail.courseNote && <DownloadCourseNoteButton courseId={courseId} />}
         </div>
       </section>
     </div>
