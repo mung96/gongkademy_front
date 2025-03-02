@@ -37,7 +37,9 @@ export default function CurriculumList({ courseId }: Props) {
             <CurriculumItem lecture={lecture} />
           </Link>
         ) : (
-          <CurriculumItem lecture={lecture} key={lecture.lectureId} />
+          <div key={lecture.lectureId} onClick={() => alert('수강신청 후 이용 가능합니다.')}>
+            <CurriculumItem lecture={lecture} />
+          </div>
         ),
       )}
     </ul>

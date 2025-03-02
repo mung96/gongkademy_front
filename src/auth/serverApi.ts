@@ -6,7 +6,6 @@ import { isAxiosError } from 'axios';
 export async function validateServerSession(onSuccess?: () => void, onFail?: () => void) {
   try {
     const response = await apiServerRequester.get<CheckSessionResponse>(END_POINT.SESSION_CHECK);
-    console.log('응답이다.', response);
     if (onSuccess) {
       onSuccess();
     }

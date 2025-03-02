@@ -20,7 +20,6 @@ export async function middleware(req: NextRequest) {
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.response?.status === HTTP_STATUS.UNAUTHORIZED) {
-          console.log('에러 응답이다.', error.response);
           return false;
         }
       }

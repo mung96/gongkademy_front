@@ -15,7 +15,6 @@ export async function validateSession(onSuccess?: () => void, onFail?: () => voi
   } catch (error) {
     if (isAxiosError(error)) {
       if (error.response?.status === HTTP_STATUS.UNAUTHORIZED) {
-        // console.log('실패');
         if (onFail) {
           onFail();
         }
