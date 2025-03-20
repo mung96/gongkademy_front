@@ -2,6 +2,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import ClientLayout from '@/components/ClientLayout';
 import { Metadata } from 'next';
+import GoogleAnalytics from '@/lib/GoogleAnalytics';
 
 export const metadata: Metadata = {
   title: '공카데미',
@@ -25,6 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable} font-pretendard`}>
+      {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+      ) : null}
       <body>
         <ClientLayout>
           <div className="flex h-fit min-h-dvh flex-col items-center">{children}</div>
