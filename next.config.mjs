@@ -1,14 +1,18 @@
-/** @type {import('next').NextConfig} */
+import bundleAnalyzer from '@next/bundle-analyzer';
 
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.NODE_ENV === 'production',
+});
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config) => {
+  webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
-      // issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack']
+      use: ['@svgr/webpack'],
     });
     return config;
-  }
+  },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

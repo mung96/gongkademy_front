@@ -38,8 +38,8 @@ export default function CourseDetail({ courseId }: Props) {
 
   return (
     <div className="flex flex-col gap-6 tablet:flex-row tablet:justify-start tablet:gap-4 ">
-      <div className="flex w-full min-w-[163px] flex-col justify-end rounded-lg  tablet:max-h-[247px] tablet:w-[352px] desktop:w-[400px]">
-        <Image
+      {/* <div className="flex  w-full min-w-[163px] flex-col justify-end rounded-lg  tablet:max-h-[247px] tablet:w-[352px] desktop:w-[400px]">
+        {/* <Image
           src={getCourseThumbnailPath(courseDetail.thumbnail)}
           alt={`${courseDetail.title} 썸네일`}
           width={400}
@@ -48,6 +48,16 @@ export default function CourseDetail({ courseId }: Props) {
           objectFit="cover"
           className="rounded-lg"
           sizes="(min-width: 768px) 352px, (min-width: 1024px) 330px, 325px"
+          priority
+        />
+      </div>  */}
+      <div className="relative aspect-[400/247] h-[247px] w-[400px] overflow-hidden rounded-lg">
+        <Image
+          src={getCourseThumbnailPath(courseDetail.thumbnail)}
+          alt={`${courseDetail.title} 썸네일`}
+          fill
+          priority
+          sizes="(min-width: 1024px) 330px, (min-width: 768px) 352px, 100vw"
         />
       </div>
 
