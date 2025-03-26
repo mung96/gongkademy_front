@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const pretendard = localFont({
+const pretendard = localFont({
   src: [
     { path: './fonts/Pretendard-Regular.subset.woff2', weight: '400', style: 'normal' },
     { path: './fonts/Pretendard-Medium.subset.woff2', weight: '500', style: 'normal' },
