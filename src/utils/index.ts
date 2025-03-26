@@ -5,7 +5,7 @@ export function getFormatDate(dateString: string): string {
 }
 
 export function getCourseThumbnailPath(courseThumbnail: string) {
-  return `/assets/jpg/${courseThumbnail}.webp`;
+  return `/assets/thumbnail/${courseThumbnail}.webp`;
 }
 
 export const exhaustiveCheck = (status: never): never => {
