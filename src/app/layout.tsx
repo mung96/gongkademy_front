@@ -12,10 +12,15 @@ export const metadata: Metadata = {
   },
 };
 
-const pretendard = localFont({
-  src: './fonts/PretendardVariable.woff2',
+export const pretendard = localFont({
+  src: [
+    { path: './fonts/Pretendard-Regular.subset.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/Pretendard-Medium.subset.woff2', weight: '500', style: 'normal' },
+    { path: './fonts/Pretendard-SemiBold.subset.woff2', weight: '600', style: 'normal' },
+    { path: './fonts/Pretendard-Bold.subset.woff2', weight: '700', style: 'normal' },
+    { path: './fonts/Pretendard-Black.subset.woff2', weight: '900', style: 'normal' },
+  ],
   display: 'swap',
-  weight: '45 920',
   variable: '--font-pretendard',
 });
 
